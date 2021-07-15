@@ -45,6 +45,7 @@ public class CPUBoost {
     private static final String CPU_BOOST = "/sys/module/cpu_boost/parameters";
     private static final String CPU_BOOST_EXYNOS = "/sys/kernel/cpu_input_boost";
 	private static final String CPU_BOOST_EXYNOS8890 = "/sys/module/cpu_input_boost_8890/parameters";
+    private static final String CPU_THROTTLE = "/sys/power/throttle_limit";
 
     private static final List<String> sEnable = new ArrayList<>();
 
@@ -257,6 +258,18 @@ public class CPUBoost {
 
     public static boolean hasCpuBoostMaxPerf() {
         return Utils.existFile(CPU_BOOST_EXYNOS8890_FREQ_PERF);
+    }
+
+    public void setThrottle(String value, Context context) {
+        run(Control.write(String.valueOf(value), CPU_THROTTLE), CPU_THROTTLE, context);
+    }
+
+    public String getThrottle() {
+        return Utils.readFile(CPU_THROTTLE);
+    }
+
+    public boolean hasThrottle() {
+        return Utils.existFile(CPU_THROTTLE);
     }
 
     public void setCpuBoostSyncThreshold(int value, Context context) {

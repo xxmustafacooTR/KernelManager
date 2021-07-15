@@ -37,6 +37,7 @@ import com.thunder.thundertweaks.utils.kernel.cpu.Misc;
 import com.thunder.thundertweaks.views.dialog.Dialog;
 import com.thunder.thundertweaks.views.recyclerview.CardView;
 import com.thunder.thundertweaks.views.recyclerview.DescriptionView;
+import com.thunder.thundertweaks.views.recyclerview.GenericSelectView;
 import com.thunder.thundertweaks.views.recyclerview.GenericSelectView2;
 import com.thunder.thundertweaks.views.recyclerview.RecyclerViewItem;
 import com.thunder.thundertweaks.views.recyclerview.SeekBarView;
@@ -149,6 +150,9 @@ public class CPUFragment extends RecyclerViewFragment {
         }
         if (Misc.hasPowerSavingWq()) {
             powerSavingWqInit(items);
+        }
+        if (mCPUBoost.hasThrottle()) {
+            throttleInit(items);
         }
         kernelTunablesInit(items);
     }
@@ -1031,6 +1035,21 @@ public class CPUFragment extends RecyclerViewFragment {
             card.addItem(kernel);
             mKERNEL.add(kernel);
         }
+    }
+
+    private void throttleInit(List<RecyclerViewItem> items) {
+        CardView throttleCard = new CardView(getActivity());
+        throttleCard.setTitle("CPU Throttle Freqs");
+
+        GenericSelectView cpuThrottle = new GenericSelectView();
+        cpuThrottle.setSummary("Throttle Freqs (big_freq:little_freq:gpu_freq)");
+        cpuThrottle.setValue(mCPUBoost.getThrottle());
+        cpuThrottle.setValueRaw(cpuThrottle.getValue());
+        cpuThrottle.setOnGenericValueListener((genericSelectView, value)
+                -> mCPUBoost.setThrottle(value, getActivity()));
+
+        throttleCard.addItem(cpuThrottle);
+        items.add(throttleCard);
     }
 
     private float[] mCPUUsages;
