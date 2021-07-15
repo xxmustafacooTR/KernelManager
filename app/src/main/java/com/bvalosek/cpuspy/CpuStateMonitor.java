@@ -32,13 +32,13 @@ import java.util.List;
 public class CpuStateMonitor {
 
     private final int mCore;
-    private final String mGpu;
+    private final String mOne;
 
     private final List<CpuState> mStates = new ArrayList<>();
     private final SparseArray<Long> mOffsets = new SparseArray<>();
 
-    CpuStateMonitor(int core, String gpu) {
-        mGpu = gpu;
+    CpuStateMonitor(int core, String one) {
+        mOne = one;
         mCore = core;
     }
 
@@ -96,7 +96,7 @@ public class CpuStateMonitor {
          */
         for (CpuState state : mStates) {
             long duration = state.getDuration();
-            if(mGpu != null || mCore == -1)
+            if(mOne != null || mCore == -1)
                 duration = duration/4;
             if (mOffsets.indexOfKey(state.getFreq()) >= 0) {
                 long offset = mOffsets.get(state.getFreq());
@@ -129,7 +129,7 @@ public class CpuStateMonitor {
             sum += state.getDuration();
         }
 
-        if(mGpu != null || mCore == -1)
+        if(mOne != null || mCore == -1)
             sum = sum/4;
 
         return sum;
@@ -182,8 +182,8 @@ public class CpuStateMonitor {
         mStates.clear();
         try {
             String file;
-            if(mGpu != null || mCore == -1){
-                String states = Utils.readFile(mGpu);
+            if(mOne != null || mCore == -1){
+                String states = Utils.readFile(mOne);
                 if (states.isEmpty()) {
                     throw new CpuStateMonitorException("Problem opening time-in-states file");
                 }

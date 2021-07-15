@@ -20,7 +20,7 @@ import com.thunder.thundertweaks.utils.Utils;
 public class CpuSpyApp {
 
     private final int mCore;
-    private final String mGpu;
+    private final String mOne;
     private final Context mContext;
 
     /**
@@ -28,12 +28,12 @@ public class CpuSpyApp {
      */
     private final CpuStateMonitor mMonitor;
 
-    public CpuSpyApp(int core, Context context, String gpu) {
+    public CpuSpyApp(int core, Context context, String one) {
         mContext = context;
         mCore = core;
-        mGpu = gpu;
-        if(mGpu != null || mCore == -1){
-            mMonitor = new CpuStateMonitor(-1, mGpu);
+        mOne = one;
+        if(mOne != null || mCore == -1){
+            mMonitor = new CpuStateMonitor(-1, mOne);
         } else {
             mMonitor = new CpuStateMonitor(core, null);
         }
@@ -52,7 +52,7 @@ public class CpuSpyApp {
      * state monitor
      */
     private void loadOffsets() {
-        if(mGpu != null || mCore == -1){
+        if(mOne != null || mCore == -1){
             String prefs = AppSettings.getCpuSpyOffsets(-1, mContext);
             if (prefs.isEmpty()) return;
             // split the string by peroids and then the info by commas and load
@@ -92,7 +92,7 @@ public class CpuSpyApp {
             str.append(offsets.keyAt(i)).append(" ").append(offsets.valueAt(i)).append(",");
         }
 
-        if(mGpu != null || mCore == -1){
+        if(mOne != null || mCore == -1){
             AppSettings.saveCpuSpyOffsets(str.toString(), -1, mContext);
         }
         else {
