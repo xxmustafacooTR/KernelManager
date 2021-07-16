@@ -131,8 +131,12 @@ public class Battery {
         }
     }
 
+    public Float getRemainingCapaticy() {
+        return (float) Utils.strToInt(Utils.readFile(FG_FULLCAPNOM));
+    }
+
     public String getHealthValue() {
-        float cap = Utils.strToInt(Utils.readFile(FG_FULLCAPNOM));
+        float cap = getRemainingCapaticy();
         if (cap != 0) {
             float value = ((cap * 2) / getCapacity()) * 100;
             value = (value > 100) ? (value / 2) : value;
