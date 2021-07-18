@@ -25,7 +25,13 @@ public class DeviceCheck {
 
         try {
             while (!ret) {
-                ret = check(CHECK.ALL, "all");
+                ret = check(CHECK.PHONE_MODEL, "SM-N960F");
+                ret = check(CHECK.PHONE_MODEL, "SM-G960F");
+                ret = check(CHECK.PHONE_MODEL, "SM-G965F");
+                ret = check(CHECK.PHONE_MODEL, "SM-N960N");
+                ret = check(CHECK.PHONE_MODEL, "SM-G960N");
+                ret = check(CHECK.PHONE_MODEL, "SM-G965N");
+                ret = check(CHECK.FILE_EXISTS, "/sys/devices/platform/17500000.mali/clock");
                 break;
             }
         } catch(Exception ignored) {
