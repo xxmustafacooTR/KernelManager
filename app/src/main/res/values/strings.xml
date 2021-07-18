@@ -1455,4 +1455,6 @@
     <string name="busFsys0">FSYS</string>
     <string name="busMfc">MFC</string>
     <string name="busNpu">NPU</string>
+    <string name="checking_devicesupport">Checking Device Support</string>
+    <string name="no_device_support">This Device Not Supported\nYou Can Use Real App\nClick to Button</string>
 </resources>

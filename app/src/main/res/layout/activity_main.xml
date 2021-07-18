@@ -47,6 +47,13 @@
                 android:text="@string/searching_busybox" />
 
             <TextView
+                android:id="@+id/device_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:text="@string/checking_devicesupport" />
+
+            <TextView
                 android:id="@+id/info_collect_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

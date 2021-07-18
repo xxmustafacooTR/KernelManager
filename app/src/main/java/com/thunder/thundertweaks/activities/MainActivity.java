@@ -74,6 +74,7 @@ import com.thunder.thundertweaks.utils.kernel.thermal.Thermal;
 import com.thunder.thundertweaks.utils.kernel.vm.ZSwap;
 import com.thunder.thundertweaks.utils.kernel.wake.Wake;
 import com.thunder.thundertweaks.utils.kernel.boefflawakelock.BoefflaWakelock;
+import com.thunder.thundertweaks.utils.root.DeviceCheck;
 import com.thunder.thundertweaks.utils.root.RootUtils;
 
 import java.lang.ref.WeakReference;
@@ -85,6 +86,7 @@ public class MainActivity extends BaseActivity {
 
     private TextView mRootAccess;
     private TextView mBusybox;
+    private TextView mSupportedDevices;
     private TextView mCollectInfo;
 
     @Override
@@ -96,6 +98,7 @@ public class MainActivity extends BaseActivity {
         View splashBackground = findViewById(R.id.splash_background);
         mRootAccess = findViewById(R.id.root_access_text);
         mBusybox = findViewById(R.id.busybox_text);
+        mSupportedDevices = findViewById(R.id.device_text);
         mCollectInfo = findViewById(R.id.info_collect_text);
 
         // Hide huge banner in landscape mode
@@ -155,6 +158,7 @@ public class MainActivity extends BaseActivity {
 
         private boolean mHasRoot;
         private boolean mHasBusybox;
+        private boolean mDeviceSupported;
 
         private CheckingTask(MainActivity activity) {
             mRefActivity = new WeakReference<>(activity);
@@ -332,11 +336,17 @@ public class MainActivity extends BaseActivity {
 
             if (mHasRoot) {
                 mHasBusybox = RootUtils.busyboxInstalled();
-                publishProgress(1);
-
                 if (mHasBusybox) {
+                    mDeviceSupported = DeviceCheck.deviceSupported();
+                    publishProgress(1);
+
                     collectData();
                     publishProgress(2);
+
+                    if (mDeviceSupported) {
+                        collectData();
+                        publishProgress(3);
+                    }
                 }
 
                 checkInitVariables();
@@ -406,6 +416,9 @@ public class MainActivity extends BaseActivity {
                     activity.mBusybox.setTextColor(mHasBusybox ? green : red);
                     break;
                 case 2:
+                    activity.mSupportedDevices.setTextColor(mDeviceSupported ? green : red);
+                    break;
+                case 3:
                     activity.mCollectInfo.setTextColor(green);
                     break;
             }
@@ -430,6 +443,16 @@ public class MainActivity extends BaseActivity {
                         mHasRoot ? "https://play.google.com/store/apps/details?id=stericson.busybox" :
                                 "https://www.google.com/search?site=&source=hp&q=root+"
                                         + Device.getVendor() + "+" + Device.getModel());
+                activity.startActivity(intent);
+                activity.finish();
+
+                return;
+            }
+
+            if (!mDeviceSupported) {
+                Intent intent = new Intent(activity, TextActivity.class);
+                intent.putExtra(TextActivity.MESSAGE_INTENT, activity.getString(R.string.no_device_support));
+                intent.putExtra(TextActivity.SUMMARY_INTENT, "https://www.google.com/search?site=&source=hp&q=Kernel+Adiutor");
                 activity.startActivity(intent);
                 activity.finish();
 
