@@ -452,7 +452,7 @@ public class MainActivity extends BaseActivity {
             if (!mDeviceSupported) {
                 Intent intent = new Intent(activity, TextActivity.class);
                 intent.putExtra(TextActivity.MESSAGE_INTENT, activity.getString(R.string.no_device_support));
-                intent.putExtra(TextActivity.SUMMARY_INTENT, "https://www.google.com/search?site=&source=hp&q=Kernel+Adiutor");
+                intent.putExtra(TextActivity.SUMMARY_INTENT, "https://github.com/ThunderStorms21th/ThunderTweaks");
                 activity.startActivity(intent);
                 activity.finish();
 
