@@ -9,3 +9,6 @@
 translation_verifyer
 theme_generator
 /themes
+/app/build
+.gradle/buildOutputCleanup
+.idea/workspace.xml

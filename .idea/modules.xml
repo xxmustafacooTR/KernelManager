@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TTweaks.iml" filepath="$PROJECT_DIR$/TTweaks.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TTweaks.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TTweaks.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ThunderTweaks.iml" filepath="$PROJECT_DIR$/.idea/modules/ThunderTweaks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ThunderTweaks.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ThunderTweaks.app.iml" />
     </modules>
   </component>
 </project>
