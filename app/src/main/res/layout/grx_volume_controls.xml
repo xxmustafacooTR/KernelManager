@@ -180,7 +180,232 @@
 
         </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/speakeranalogdigitalcontainer"
+        android:orientation="horizontal"
+        android:paddingTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/speaker_analog_container"
+            android:orientation="vertical"
+            android:layout_weight="1.0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="?colorAccent"
+                android:text="@string/speaker_analog_gain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.grx.soundcontrol.GrxVolumeItemController
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/speaker_analog"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label=""
+                app:refVal="0"
+                app:valStep="1"
+                app:refValposition="3"
+                app:wheelsize="@dimen/volume_control_size"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/speaker_digital_container"
+            android:orientation="vertical"
+            android:layout_weight="1.0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="?colorAccent"
+                android:text="@string/speaker_digital_gain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.grx.soundcontrol.GrxVolumeItemController
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/speaker_digital"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label=""
+                app:refVal="112"
+                app:valStep="7"
+                app:refValposition="19"
+                app:wheelsize="@dimen/volume_control_size"
+                />
+
+        </LinearLayout>
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/earpieceanalogdigitalcontainer"
+        android:orientation="horizontal"
+        android:paddingTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/earpiece_analog_container"
+            android:orientation="vertical"
+            android:layout_weight="1.0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="?colorAccent"
+                android:text="@string/earpiece_analog_gain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.grx.soundcontrol.GrxVolumeItemController
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/earpiece_analog"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label=""
+                app:refVal="0"
+                app:valStep="1"
+                app:refValposition="3"
+                app:wheelsize="@dimen/volume_control_size"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/earpiece_digital_container"
+            android:orientation="vertical"
+            android:layout_weight="1.0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="?colorAccent"
+                android:text="@string/earpiece_digital_gain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.grx.soundcontrol.GrxVolumeItemController
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/earpiece_digital"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label=""
+                app:refVal="112"
+                app:valStep="7"
+                app:refValposition="19"
+                app:wheelsize="@dimen/volume_control_size"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bothanalogdigitalcontainer"
+        android:orientation="horizontal"
+        android:paddingTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/both_analog_container"
+            android:orientation="vertical"
+            android:layout_weight="1.0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="?colorAccent"
+                android:text="@string/both_analog_gain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.grx.soundcontrol.GrxVolumeItemController
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/both_analog"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label=""
+                app:refVal="0"
+                app:valStep="1"
+                app:refValposition="3"
+                app:wheelsize="@dimen/volume_control_size"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/both_digital_container"
+            android:orientation="vertical"
+            android:layout_weight="1.0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="?colorAccent"
+                android:text="@string/both_digital_gain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.grx.soundcontrol.GrxVolumeItemController
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/both_digital"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:label=""
+                app:refVal="112"
+                app:valStep="7"
+                app:refValposition="19"
+                app:wheelsize="@dimen/volume_control_size"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
 
 
 

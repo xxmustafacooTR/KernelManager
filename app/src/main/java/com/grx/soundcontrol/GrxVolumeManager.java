@@ -50,10 +50,11 @@ public class GrxVolumeManager extends RecyclerViewItem {
 
     /* earpiece and speaker */
 
-    private LinearLayout mEarpieceSpeakerContainer;
-    GrxVolumeItemController mEarPieceController, mSpeakerController;
-    private int mEarPieceRefVal, mEarPieceStep, mEarPieceRefPosition, mEarPieceMin;
-    private int mSpeakerRefVal, mSpeakerStep, mSpeakerRefPosition, mSpeakerMin;
+    private LinearLayout mEarpieceSpeakerContainer, mEarpieceContainer, mSpeakerContainer, mBothContainer;
+    GrxVolumeItemController mEarPieceController, mSpeakerController, mEarPieceAnalogController, mEarPieceDigitalController, mSpeakerAnalogController, mSpeakerDigitalController, mBothAnalogController, mBothDigitalController;
+    private int mEarPieceRefVal, mEarPieceStep, mEarPieceRefPosition, mEarPieceMin, mEarPieceAnalogRefVal, mEarPieceAnalogStep, mEarPieceAnalogRefPosition, mEarPieceAnalogMin, mEarPieceDigitalRefVal, mEarPieceDigitalStep, mEarPieceDigitalRefPosition, mEarPieceDigitalMin;
+    private int mSpeakerRefVal, mSpeakerStep, mSpeakerRefPosition, mSpeakerMin, mSpeakerAnalogRefVal, mSpeakerAnalogStep, mSpeakerAnalogRefPosition, mSpeakerAnalogMin, mSpeakerDigitalRefVal, mSpeakerDigitalStep, mSpeakerDigitalRefPosition, mSpeakerDigitalMin;
+    private int mBothRefVal, mBothStep, mBothRefPosition, mBothMin, mBothAnalogRefVal, mBothAnalogStep, mBothAnalogRefPosition, mBothAnalogMin, mBothDigitalRefVal, mBothDigitalStep, mBothDigitalRefPosition, mBothDigitalMin;
 
     private void testSettings() {
         boolean enabled = false;
@@ -159,7 +160,7 @@ public class GrxVolumeManager extends RecyclerViewItem {
         mHeadPhonesContainer = view.findViewById(R.id.headphonecontainer);
 
 
-        /* Earpiece and Speaker */
+        /* Earpiece and Speaker*/
 
         mEarpieceSpeakerContainer = view.findViewById(R.id.earpiecespeakercontainer);
 
@@ -188,6 +189,99 @@ public class GrxVolumeManager extends RecyclerViewItem {
             mSpeakerMin = mSpeakerRefVal - (mSpeakerRefPosition * mSpeakerStep);
 
             setUpHeadSpeakerVolume();
+        }
+
+        /* Earpiece Analog and Digital */
+
+        mEarpieceContainer = view.findViewById(R.id.earpieceanalogdigitalcontainer);
+
+        mEarPieceAnalogController = view.findViewById(R.id.earpiece_analog);
+        mEarPieceDigitalController = view.findViewById(R.id.earpiece_digital);
+
+        if (!MoroSound.hasEarpieceAnalog()) {
+            LinearLayout container = view.findViewById(R.id.earpiece_analog_container);
+            container.setVisibility(GONE);
+        } else {
+            mEarPieceAnalogRefVal = mEarPieceAnalogController.getReferenceValue();
+            mEarPieceAnalogStep = mEarPieceAnalogController.getStepValue();
+            mEarPieceAnalogRefPosition = mEarPieceAnalogController.getRefValPosition();
+            mEarPieceAnalogMin = mEarPieceAnalogRefVal - (mEarPieceAnalogRefPosition * mEarPieceAnalogStep);
+
+            setUpHeadEarpieceAnalogVolume();
+        }
+
+        if (!MoroSound.hasEarpieceDigital()) {
+            LinearLayout container = view.findViewById(R.id.earpiece_digital_container);
+            container.setVisibility(GONE);
+        } else {
+            mEarPieceDigitalRefVal = mEarPieceDigitalController.getReferenceValue();
+            mEarPieceDigitalStep = mEarPieceDigitalController.getStepValue();
+            mEarPieceDigitalRefPosition = mEarPieceDigitalController.getRefValPosition();
+            mEarPieceDigitalMin = mEarPieceDigitalRefVal - (mEarPieceDigitalRefPosition * mEarPieceDigitalStep);
+
+            setUpHeadEarpieceDigitalVolume();
+        }
+
+        /* Speaker Analog and Digital */
+
+        mSpeakerContainer = view.findViewById(R.id.speakeranalogdigitalcontainer);
+
+        mSpeakerAnalogController = view.findViewById(R.id.speaker_analog);
+        mSpeakerDigitalController = view.findViewById(R.id.speaker_digital);
+
+        if (!MoroSound.hasSpeakerAnalog()) {
+            LinearLayout container = view.findViewById(R.id.speaker_analog_container);
+            container.setVisibility(GONE);
+        } else {
+            mSpeakerAnalogRefVal = mSpeakerAnalogController.getReferenceValue();
+            mSpeakerAnalogStep = mSpeakerAnalogController.getStepValue();
+            mSpeakerAnalogRefPosition = mSpeakerAnalogController.getRefValPosition();
+            mSpeakerAnalogMin = mSpeakerAnalogRefVal - (mSpeakerAnalogRefPosition * mSpeakerAnalogStep);
+
+            setUpHeadSpeakerAnalogVolume();
+        }
+
+        if (!MoroSound.hasSpeakerDigital()) {
+            LinearLayout container = view.findViewById(R.id.speaker_digital_container);
+            container.setVisibility(GONE);
+        } else {
+            mSpeakerDigitalRefVal = mSpeakerDigitalController.getReferenceValue();
+            mSpeakerDigitalStep = mSpeakerDigitalController.getStepValue();
+            mSpeakerDigitalRefPosition = mSpeakerDigitalController.getRefValPosition();
+            mSpeakerDigitalMin = mSpeakerDigitalRefVal - (mSpeakerDigitalRefPosition * mSpeakerDigitalStep);
+
+            setUpHeadSpeakerDigitalVolume();
+        }
+
+        /* Both Analog and Digital */
+
+        mBothContainer = view.findViewById(R.id.bothanalogdigitalcontainer);
+
+        mBothAnalogController = view.findViewById(R.id.both_analog);
+        mBothDigitalController = view.findViewById(R.id.both_digital);
+
+        if (!MoroSound.hasBothAnalog()) {
+            LinearLayout container = view.findViewById(R.id.both_analog_container);
+            container.setVisibility(GONE);
+        } else {
+            mBothAnalogRefVal = mBothAnalogController.getReferenceValue();
+            mBothAnalogStep = mBothAnalogController.getStepValue();
+            mBothAnalogRefPosition = mBothAnalogController.getRefValPosition();
+            mBothAnalogMin = mBothAnalogRefVal - (mBothAnalogRefPosition * mBothAnalogStep);
+
+            setUpHeadBothAnalogVolume();
+        }
+
+        if (!MoroSound.hasBothDigital()) {
+            LinearLayout container = view.findViewById(R.id.both_digital_container);
+            container.setVisibility(GONE);
+        } else {
+            mBothDigitalRefVal = mBothDigitalController.getReferenceValue();
+            mBothDigitalStep = mBothDigitalController.getStepValue();
+            mBothDigitalRefPosition = mBothDigitalController.getRefValPosition();
+            mBothDigitalMin = mBothDigitalRefVal - (mBothDigitalRefPosition * mBothDigitalStep);
+
+            setUpHeadBothDigitalVolume();
         }
 
         setMainSwitchEnabled(MoroSound.isSoundSwEnabled());
@@ -244,6 +338,222 @@ public class GrxVolumeManager extends RecyclerViewItem {
             int dbs = mSpeakerMin + progress*mSpeakerStep;
             MoroSound.setSpeaker(String.valueOf(dbs),mContext);
             mSpeakerController.setText(String.valueOf(dbs) + " dB");
+        });
+    }
+
+    private void setUpHeadSpeakerAnalogVolume() {
+        /* set up wheel and db text */
+
+        String kernelSpeakerAnalogvalue = MoroSound.getSpeakerAnalog();
+        int kernelvalue;
+        if (kernelSpeakerAnalogvalue == null || kernelSpeakerAnalogvalue.isEmpty()) kernelvalue = 20; // default value
+        else kernelvalue = Integer.valueOf(kernelSpeakerAnalogvalue);
+
+        mSpeakerAnalogController.getVolumeControlView().setProgress( (kernelvalue*3 - mSpeakerAnalogMin) / mSpeakerAnalogStep );
+        if(kernelvalue == 0)
+            mSpeakerAnalogController.setText("Default");
+        else
+            mSpeakerAnalogController.setText(kernelSpeakerAnalogvalue + " dB");
+
+        mSpeakerAnalogController.setListener((progress, refval, refvalposition, step, dif) -> {
+            int dbs = mSpeakerAnalogMin + progress*mSpeakerAnalogStep;
+            MoroSound.setSpeakerAnalog(String.valueOf(dbs/3),mContext);
+            if(dbs == 0)
+                mSpeakerAnalogController.setText("Default");
+            else
+                mSpeakerAnalogController.setText(String.valueOf(dbs/3) + " dB");
+        });
+
+        mSpeakerAnalogController.getVolumeControlView().setOnChangingProgressListener((progress, dif) -> {
+            int dbs = mSpeakerAnalogMin + progress*mSpeakerAnalogStep;
+            MoroSound.setSpeakerAnalog(String.valueOf(dbs/3),mContext);
+            if(dbs == 0)
+                mSpeakerAnalogController.setText("Default");
+            else
+                mSpeakerAnalogController.setText(String.valueOf(dbs/3) + " dB");
+        });
+    }
+
+    private void setUpHeadSpeakerDigitalVolume() {
+        /* set up wheel and db text */
+
+        String kernelSpeakerDigitalvalue = MoroSound.getSpeakerDigital();
+        int kernelvalue;
+        if (kernelSpeakerDigitalvalue == null || kernelSpeakerDigitalvalue.isEmpty()) kernelvalue = 20; // default value
+        else kernelvalue = Integer.valueOf(kernelSpeakerDigitalvalue);
+
+        int wheelprogress = (kernelvalue - mSpeakerDigitalMin) / mSpeakerDigitalStep;
+
+        mSpeakerDigitalController.getVolumeControlView().setProgress(wheelprogress);
+        int reg_val = mSpeakerDigitalController.getValue(wheelprogress);
+        if(reg_val == 0)
+            mSpeakerDigitalController.setText("Default");
+        else
+            mSpeakerDigitalController.setText(getHeadPhoneDbs(reg_val+2) + " dB");
+
+        mSpeakerDigitalController.setListener((progress, refval, refvalposition, step, dif) -> {
+            int dbs = mSpeakerDigitalMin + progress*mSpeakerDigitalStep;
+            MoroSound.setSpeakerDigital(String.valueOf(dbs),mContext);
+            int reg_val1 = mSpeakerDigitalController.getValue(progress);
+            if(dbs == 0)
+                mSpeakerDigitalController.setText("Default");
+            else
+                mSpeakerDigitalController.setText(getHeadPhoneDbs(reg_val1+2) + " dB");
+        });
+
+        mSpeakerDigitalController.getVolumeControlView().setOnChangingProgressListener((progress, dif) -> {
+            int dbs = mSpeakerDigitalMin + progress*mSpeakerDigitalStep;
+            MoroSound.setSpeakerDigital(String.valueOf(dbs),mContext);
+
+            int reg_val12 = mSpeakerDigitalController.getValue(progress);
+            if(dbs == 0)
+                mSpeakerDigitalController.setText("Default");
+            else
+                mSpeakerDigitalController.setText(getHeadPhoneDbs(reg_val12+2) + " dB");
+        });
+    }
+
+    private void setUpHeadEarpieceAnalogVolume() {
+        /* set up wheel and db text */
+
+        String kernelEarPieceAnalogvalue = MoroSound.getEarpieceAnalog();
+        int kernelvalue;
+        if (kernelEarPieceAnalogvalue == null || kernelEarPieceAnalogvalue.isEmpty()) kernelvalue = 20; // default value
+        else kernelvalue = Integer.valueOf(kernelEarPieceAnalogvalue);
+
+        mEarPieceAnalogController.getVolumeControlView().setProgress( (kernelvalue*3 - mEarPieceAnalogMin) / mEarPieceAnalogStep );
+        if(kernelvalue == 0)
+            mEarPieceAnalogController.setText("Default");
+        else
+            mEarPieceAnalogController.setText(kernelEarPieceAnalogvalue + " dB");
+
+        mEarPieceAnalogController.setListener((progress, refval, refvalposition, step, dif) -> {
+            int dbs = mEarPieceAnalogMin + progress*mEarPieceAnalogStep;
+            MoroSound.setEarpieceAnalog(String.valueOf(dbs/3),mContext);
+            if(dbs == 0)
+                mEarPieceAnalogController.setText("Default");
+            else
+                mEarPieceAnalogController.setText(String.valueOf(dbs/3) + " dB");
+        });
+
+        mEarPieceAnalogController.getVolumeControlView().setOnChangingProgressListener((progress, dif) -> {
+            int dbs = mEarPieceAnalogMin + progress*mEarPieceAnalogStep;
+            MoroSound.setEarpieceAnalog(String.valueOf(dbs/3),mContext);
+            if(dbs == 0)
+                mEarPieceAnalogController.setText("Default");
+            else
+                mEarPieceAnalogController.setText(String.valueOf(dbs/3) + " dB");
+        });
+    }
+
+    private void setUpHeadEarpieceDigitalVolume() {
+        /* set up wheel and db text */
+
+        String kernelEarPieceDigitalvalue = MoroSound.getEarpieceDigital();
+        int kernelvalue;
+        if (kernelEarPieceDigitalvalue == null || kernelEarPieceDigitalvalue.isEmpty()) kernelvalue = 20; // default value
+        else kernelvalue = Integer.valueOf(kernelEarPieceDigitalvalue);
+
+        int wheelprogress = (kernelvalue - mEarPieceDigitalMin) / mEarPieceDigitalStep;
+
+        mEarPieceDigitalController.getVolumeControlView().setProgress(wheelprogress);
+        int reg_val = mEarPieceDigitalController.getValue(wheelprogress);
+        if(reg_val == 0)
+            mEarPieceDigitalController.setText("Default");
+        else
+            mEarPieceDigitalController.setText(getHeadPhoneDbs(reg_val+2) + " dB");
+
+        mEarPieceDigitalController.setListener((progress, refval, refvalposition, step, dif) -> {
+            int dbs = mEarPieceDigitalMin + progress*mEarPieceDigitalStep;
+            MoroSound.setEarpieceDigital(String.valueOf(dbs),mContext);
+            int reg_val1 = mEarPieceDigitalController.getValue(progress);
+            if(dbs == 0)
+                mEarPieceDigitalController.setText("Default");
+            else
+                mEarPieceDigitalController.setText(getHeadPhoneDbs(reg_val1+2) + " dB");
+        });
+
+        mEarPieceDigitalController.getVolumeControlView().setOnChangingProgressListener((progress, dif) -> {
+            int dbs = mEarPieceDigitalMin + progress*mEarPieceDigitalStep;
+            MoroSound.setEarpieceDigital(String.valueOf(dbs),mContext);
+
+            int reg_val12 = mEarPieceDigitalController.getValue(progress);
+            if(dbs == 0)
+                mEarPieceDigitalController.setText("Default");
+            else
+                mEarPieceDigitalController.setText(getHeadPhoneDbs(reg_val12+2) + " dB");
+        });
+    }
+
+    private void setUpHeadBothAnalogVolume() {
+        /* set up wheel and db text */
+
+        String kernelBothAnalogvalue = MoroSound.getBothAnalog();
+        int kernelvalue;
+        if (kernelBothAnalogvalue == null || kernelBothAnalogvalue.isEmpty()) kernelvalue = 20; // default value
+        else kernelvalue = Integer.valueOf(kernelBothAnalogvalue);
+
+        mBothAnalogController.getVolumeControlView().setProgress( (kernelvalue*3 - mBothAnalogMin) / mBothAnalogStep );
+        if(kernelvalue == 0)
+            mBothAnalogController.setText("Default");
+        else
+            mBothAnalogController.setText(kernelBothAnalogvalue + " dB");
+
+        mBothAnalogController.setListener((progress, refval, refvalposition, step, dif) -> {
+            int dbs = mBothAnalogMin + progress*mBothAnalogStep;
+            MoroSound.setBothAnalog(String.valueOf(dbs/3),mContext);
+            if(dbs == 0)
+                mBothAnalogController.setText("Default");
+            else
+                mBothAnalogController.setText(String.valueOf(dbs/3) + " dB");
+        });
+
+        mBothAnalogController.getVolumeControlView().setOnChangingProgressListener((progress, dif) -> {
+            int dbs = mBothAnalogMin + progress*mBothAnalogStep;
+            MoroSound.setBothAnalog(String.valueOf(dbs/3),mContext);
+            if(dbs == 0)
+                mBothAnalogController.setText("Default");
+            else
+                mBothAnalogController.setText(String.valueOf(dbs/3) + " dB");
+        });
+    }
+
+    private void setUpHeadBothDigitalVolume() {
+        /* set up wheel and db text */
+
+        String kernelBothDigitalvalue = MoroSound.getBothDigital();
+        int kernelvalue;
+        if (kernelBothDigitalvalue == null || kernelBothDigitalvalue.isEmpty()) kernelvalue = 20; // default value
+        else kernelvalue = Integer.valueOf(kernelBothDigitalvalue);
+
+        int wheelprogress = (kernelvalue - mBothDigitalMin) / mBothDigitalStep;
+
+        mBothDigitalController.getVolumeControlView().setProgress(wheelprogress);
+        int reg_val = mBothDigitalController.getValue(wheelprogress);
+        if(reg_val == 0)
+            mBothDigitalController.setText("Default");
+        else
+            mBothDigitalController.setText(getHeadPhoneDbs(reg_val+2) + " dB");
+
+        mBothDigitalController.setListener((progress, refval, refvalposition, step, dif) -> {
+            int dbs = mBothDigitalMin + progress*mBothDigitalStep;
+            MoroSound.setBothDigital(String.valueOf(dbs),mContext);
+            int reg_val1 = mBothDigitalController.getValue(progress);
+            if(dbs == 0)
+                mBothDigitalController.setText("Default");
+            else
+                mBothDigitalController.setText(getHeadPhoneDbs(reg_val1+2) + " dB");
+        });
+
+        mBothDigitalController.getVolumeControlView().setOnChangingProgressListener((progress, dif) -> {
+            int dbs = mBothDigitalMin + progress*mBothDigitalStep;
+            MoroSound.setBothDigital(String.valueOf(dbs),mContext);
+
+            int reg_val12 = mBothDigitalController.getValue(progress);
+            if(dbs == 0)
+                mBothDigitalController.setText("Default");
+            else
+                mBothDigitalController.setText(getHeadPhoneDbs(reg_val12+2) + " dB");
         });
     }
 

@@ -18,7 +18,14 @@ public class MoroSound {
 
     private static final String HEADPHONE_GAIN = MORO_SOUND + "headphone_gain";
     private static final String EARPIECE_GAIN = MORO_SOUND + "earpiece_gain";
+    private static final String EARPIECE_ANALOG_GAIN = MORO_SOUND + "earpiece_analog_gain";
+    private static final String EARPIECE_DIGITAL_GAIN = MORO_SOUND + "earpiece_digital_gain";
     private static final String SPEAKER_GAIN = MORO_SOUND + "speaker_gain";
+    private static final String SPEAKER_ANALOG_GAIN = MORO_SOUND + "speaker_analog_gain";
+    private static final String SPEAKER_DIGITAL_GAIN = MORO_SOUND + "speaker_digital_gain";
+    private static final String BOTH_GAIN = MORO_SOUND + "both_gain";
+    private static final String BOTH_ANALOG_GAIN = MORO_SOUND + "both_analog_gain";
+    private static final String BOTH_DIGITAL_GAIN = MORO_SOUND + "both_digital_gain";
     private static final String MIC_DOWN_GAIN = MORO_SOUND + "mic_down_gain";
     private static final String MIC_UP_GAIN = MORO_SOUND + "mic_up_gain";
     private static final String MIC_HP_GAIN = MORO_SOUND + "mic_hp_gain";
@@ -51,6 +58,7 @@ public class MoroSound {
         sEqGains.add(EQ_5_GAIN);
 
         sEqProfiles.put("Flat", "0,0,0,0,0");
+        sEqProfiles.put("Little", "2,1,0,1,2");
         sEqProfiles.put("Extreme Bass", "12,8,3,-1,1");
         sEqProfiles.put("Bass-Treble Balance", "10,7,0,2,5");
         sEqProfiles.put("Treble Gain", "-5,1,0,4,3");
@@ -138,6 +146,30 @@ public class MoroSound {
         run(Control.write(value, SPEAKER_GAIN), SPEAKER_GAIN, context);
     }
 
+    public static boolean hasSpeakerAnalog(){
+        return Utils.existFile(SPEAKER_ANALOG_GAIN);
+    }
+
+    public static String getSpeakerAnalog(){
+        return Utils.readFile(SPEAKER_ANALOG_GAIN);
+    }
+
+    public static void setSpeakerAnalog(String value, Context context){
+        run(Control.write(value, SPEAKER_ANALOG_GAIN), SPEAKER_ANALOG_GAIN, context);
+    }
+
+    public static boolean hasSpeakerDigital(){
+        return Utils.existFile(SPEAKER_DIGITAL_GAIN);
+    }
+
+    public static String getSpeakerDigital(){
+        return Utils.readFile(SPEAKER_DIGITAL_GAIN);
+    }
+
+    public static void setSpeakerDigital(String value, Context context){
+        run(Control.write(value, SPEAKER_DIGITAL_GAIN), SPEAKER_DIGITAL_GAIN, context);
+    }
+
 
     // EARPIECE
     public static boolean hasEarpiece(){
@@ -150,6 +182,67 @@ public class MoroSound {
 
     public static void setEarpiece(String value, Context context){
         run(Control.write(value, EARPIECE_GAIN), EARPIECE_GAIN, context);
+    }
+
+    public static boolean hasEarpieceAnalog(){
+        return Utils.existFile(EARPIECE_ANALOG_GAIN);
+    }
+
+    public static String getEarpieceAnalog(){
+        return Utils.readFile(EARPIECE_ANALOG_GAIN);
+    }
+
+    public static void setEarpieceAnalog(String value, Context context){
+        run(Control.write(value, EARPIECE_ANALOG_GAIN), EARPIECE_ANALOG_GAIN, context);
+    }
+
+    public static boolean hasEarpieceDigital(){
+        return Utils.existFile(EARPIECE_DIGITAL_GAIN);
+    }
+
+    public static String getEarpieceDigital(){
+        return Utils.readFile(EARPIECE_DIGITAL_GAIN);
+    }
+
+    public static void setEarpieceDigital(String value, Context context){
+        run(Control.write(value, EARPIECE_DIGITAL_GAIN), EARPIECE_DIGITAL_GAIN, context);
+    }
+
+    // BOTH
+    public static boolean hasBoth(){
+        return Utils.existFile(BOTH_GAIN);
+    }
+
+    public static String getBoth(){
+        return Utils.readFile(BOTH_GAIN);
+    }
+
+    public static void setBoth(String value, Context context){
+        run(Control.write(value, BOTH_GAIN), BOTH_GAIN, context);
+    }
+
+    public static boolean hasBothAnalog(){
+        return Utils.existFile(BOTH_ANALOG_GAIN);
+    }
+
+    public static String getBothAnalog(){
+        return Utils.readFile(BOTH_ANALOG_GAIN);
+    }
+
+    public static void setBothAnalog(String value, Context context){
+        run(Control.write(value, BOTH_ANALOG_GAIN), BOTH_ANALOG_GAIN, context);
+    }
+
+    public static boolean hasBothDigital(){
+        return Utils.existFile(BOTH_DIGITAL_GAIN);
+    }
+
+    public static String getBothDigital(){
+        return Utils.readFile(BOTH_DIGITAL_GAIN);
+    }
+
+    public static void setBothDigital(String value, Context context){
+        run(Control.write(value, BOTH_DIGITAL_GAIN), BOTH_DIGITAL_GAIN, context);
     }
 
 
@@ -305,7 +398,7 @@ public class MoroSound {
 
 
     public static boolean supported() {
-        return hasEarpiece() || hasHeadphone() || hasSpeaker() || hasEqSw();
+        return hasEarpiece() || hasEarpieceAnalog() || hasEarpieceDigital() || hasHeadphone() || hasSpeaker() || hasSpeakerAnalog() || hasSpeakerDigital() || hasBoth() || hasBothAnalog() || hasBothDigital() || hasEqSw();
     }
 
     private static void run(String command, String id, Context context) {

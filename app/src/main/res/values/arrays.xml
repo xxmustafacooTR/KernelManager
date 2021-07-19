@@ -208,6 +208,7 @@
 
     <string-array name="moro_eq_profiles_names">
         <item>Flat</item>
+		<item>Light</item>
         <item>Extreme Bass</item>
         <item>Bass-Treble Balance</item>
         <item>Treble Gain</item>
@@ -223,6 +224,7 @@
     </string-array>
     <string-array name="moro_eq_profiles_values">
         <item>0,0,0,0,0</item>
+		<item>2,1,0,1,2</item>
         <item>12,8,3,-1,1</item>
         <item>10,7,0,2,5</item>
         <item>-5,1,0,4,3</item>
