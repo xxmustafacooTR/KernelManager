@@ -1463,4 +1463,23 @@
     <string name="earpiece_digital_gain">Earpiece Digital</string>
     <string name="both_analog_gain">Both Analog</string>
     <string name="both_digital_gain">Both Digital</string>
+    <string name="samsungPlugGov">SamsungPlug Governor</string>
+    <string name="samsungPlugGov_summary">Governor of Samsung Stock Hotplugging</string>
+    <string name="samsungPlug_user_mode">HotPlug Mode</string>
+    <string name="samsungPlug_SingleChangeMs">Single Change in Ms</string>
+    <string name="samsungPlug_TripleChangeMs">Triple Change in Ms</string>
+    <string name="samsungPlug_QuadChangeMs">Quad Change in Ms</string>
+    <string name="samsungPlug_ClBusyRatio">Cl Busy Ratio</string>
+    <string name="samsungPlugSkipLit">Skip Little Thread</string>
+    <string name="samsungPlugLdsum">Ldsum</string>
+    <string name="samsungPlug_LdsumHeavyThread">Ldsum Heavy Thread</string>
+    <string name="samsungPlug_BigHeavyThread">Big Heavy Thread</string>
+    <string name="samsungPlug_LittleHeavyThread">Little Heavy Thread</string>
+    <string name="samsungPlug_BigIdleThread">Big Idle Thread</string>
+    <string name="samsungPlug_LittleIdleThread">Little Idle Thread</string>
+    <string name="samsungPlug_user_mode_summary">Disabled, Single, Dual, Triple, Quad</string>
+    <string name="samsungPlug_SingleFreq">Single Hp Freq</string>
+    <string name="samsungPlug_DualFreq">Dual Hp Freq</string>
+    <string name="samsungPlug_TripleFreq">Triple Hp Freq</string>
+    <string name="samsungPlug_QuadFreq">Quad Hp Freq</string>
 </resources>

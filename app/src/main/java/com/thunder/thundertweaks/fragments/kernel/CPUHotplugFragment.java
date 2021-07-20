@@ -63,6 +63,11 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
     private MBHotplug mMBHotplug;
     private CoreCtl mCoreCtl;
 
+    private SelectView mSamsungPlugSingle;
+    private SelectView mSamsungPlugDual;
+    private SelectView mSamsungPlugTriple;
+    private SelectView mSamsungPlugQuad;
+
     private List<SwitchView> mEnableViews = new ArrayList<>();
 
     @Override
@@ -148,161 +153,460 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
         final CardView samsungPlug = new CardView(getActivity());
         samsungPlug.setTitle(getString(R.string.samsungPlug));
 
-        SwitchView enable = new SwitchView();
-        enable.setTitle(getString(R.string.samsungPlug));
-        enable.setSummary(getString(R.string.samsungPlug_summary));
-        enable.setChecked(SamsungPlug.isSamsungPlugEnabled());
-        enable.addOnSwitchListener((switchView, isChecked)
-                -> SamsungPlug.enableSamsungPlug(isChecked, getActivity()));
+        if (SamsungPlug.hasSamsungPlug()) {
+            SwitchView enable = new SwitchView();
+            enable.setTitle(getString(R.string.samsungPlug));
+            enable.setSummary(getString(R.string.samsungPlug_summary));
+            enable.setChecked(SamsungPlug.isSamsungPlugEnabled());
+            enable.addOnSwitchListener((switchView, isChecked)
+                    -> SamsungPlug.enableSamsungPlug(isChecked, getActivity()));
 
-        samsungPlug.addItem(enable);
-        mEnableViews.add(enable);
-/* older */
+            samsungPlug.addItem(enable);
+            mEnableViews.add(enable);
+        }
 
-		SeekBarView max = new SeekBarView();
-        max.setTitle(getString(R.string.samsungPlug_max_cpu));
-        max.setMax(8);
-        max.setMin(1);
-        max.setProgress(Utils.strToInt(SamsungPlug.getMaxOnlineCpu()) - 1);
-        max.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
-            @Override
-            public void onStop(SeekBarView seekBarView, int position, String value) {
-                SamsungPlug.setMaxOnlineCpu((position + 1), getActivity());
-            }
+        if (SamsungPlug.hasSamsungPlugGovernor()) {
+            SwitchView enable_gov = new SwitchView();
+            enable_gov.setTitle(getString(R.string.samsungPlugGov));
+            enable_gov.setSummary(getString(R.string.samsungPlugGov_summary));
+            enable_gov.setChecked(SamsungPlug.isSamsungPlugGovernorEnabled());
+            enable_gov.addOnSwitchListener((switchView, isChecked)
+                    -> SamsungPlug.enableSamsungPlugGovernor(isChecked, getActivity()));
 
-            @Override
-            public void onMove(SeekBarView seekBarView, int position, String value) {
-            }
-        });
+            samsungPlug.addItem(enable_gov);
+            mEnableViews.add(enable_gov);
+        }
 
-        samsungPlug.addItem(max);
+        if (SamsungPlug.hasUserMode()) {
+            SeekBarView usermode = new SeekBarView();
+            usermode.setTitle(getString(R.string.samsungPlug_user_mode));
+            usermode.setSummary(getString(R.string.samsungPlug_user_mode_summary));
+            usermode.setMax(4);
+            usermode.setMin(0);
+            usermode.setProgress(Utils.strToInt(SamsungPlug.getUserMode()));
+            usermode.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setUserMode((position), getActivity());
+                }
 
-        SeekBarView min = new SeekBarView();
-        min.setTitle(getString(R.string.samsungPlug_min_cpu));
-        min.setMax(8);
-        min.setMin(1);
-        min.setProgress(Utils.strToInt(SamsungPlug.getMinOnlineCpu()) - 1);
-        min.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
-            @Override
-            public void onStop(SeekBarView seekBarView, int position, String value) {
-                SamsungPlug.setMinOnlineCpu((position + 1), getActivity());
-            }
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
 
-            @Override
-            public void onMove(SeekBarView seekBarView, int position, String value) {
-            }
-        });
+            samsungPlug.addItem(usermode);
+        }
 
-        samsungPlug.addItem(min);
-/* older */
+        if (SamsungPlug.hasMaxOnlineCpu()) {
+            SeekBarView max = new SeekBarView();
+            max.setTitle(getString(R.string.samsungPlug_max_cpu));
+            max.setMax(7);
+            max.setMin(0);
+            max.setProgress(Utils.strToInt(SamsungPlug.getMaxOnlineCpu()));
+            max.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setMaxOnlineCpu((position), getActivity());
+                }
 
-        SeekBarView DualChangeMs = new SeekBarView();
-        DualChangeMs.setTitle(getString(R.string.samsungPlug_DualChangeMs));
-        DualChangeMs.setMax(500);
-        DualChangeMs.setMin(1);
-        DualChangeMs.setProgress(Utils.strToInt(SamsungPlug.getDualChangeMs()) - 1);
-        DualChangeMs.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
-            @Override
-            public void onStop(SeekBarView seekBarView, int position, String value) {
-                SamsungPlug.setDualChangeMs((position + 1), getActivity());
-            }
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
 
-            @Override
-            public void onMove(SeekBarView seekBarView, int position, String value) {
-            }
-        });
+            samsungPlug.addItem(max);
+        }
 
-        samsungPlug.addItem(DualChangeMs);
+        if (SamsungPlug.hasMinOnlineCpu()) {
+            SeekBarView min = new SeekBarView();
+            min.setTitle(getString(R.string.samsungPlug_min_cpu));
+            min.setMax(7);
+            min.setMin(0);
+            min.setProgress(Utils.strToInt(SamsungPlug.getMinOnlineCpu()));
+            min.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setMinOnlineCpu((position), getActivity());
+                }
 
-        SeekBarView LitMultRatio = new SeekBarView();
-        LitMultRatio.setTitle(getString(R.string.samsungPlug_LitMultRatio));
-        LitMultRatio.setMax(200);
-        LitMultRatio.setMin(1);
-        LitMultRatio.setProgress(Utils.strToInt(SamsungPlug.getLitMultRatio()) - 1);
-        LitMultRatio.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
-            @Override
-            public void onStop(SeekBarView seekBarView, int position, String value) {
-                SamsungPlug.setLitMultRatio((position + 1), getActivity());
-            }
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
 
-            @Override
-            public void onMove(SeekBarView seekBarView, int position, String value) {
-            }
-        });
+            samsungPlug.addItem(min);
+        }
 
-        samsungPlug.addItem(LitMultRatio);
+        if (SamsungPlug.hasClBusyRatio()) {
+            SeekBarView ClBusyRatio = new SeekBarView();
+            ClBusyRatio.setTitle(getString(R.string.samsungPlug_ClBusyRatio));
+            ClBusyRatio.setMax(100);
+            ClBusyRatio.setMin(0);
+            ClBusyRatio.setProgress(Utils.strToInt(SamsungPlug.getClBusyRatio()));
+            ClBusyRatio.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setClBusyRatio((position), getActivity());
+                }
 
-        SeekBarView ToDualRatio = new SeekBarView();
-        ToDualRatio.setTitle(getString(R.string.samsungPlug_ToDualRatio));
-        ToDualRatio.setMax(100);
-        ToDualRatio.setMin(1);
-        ToDualRatio.setProgress(Utils.strToInt(SamsungPlug.getToDualRatio()) - 1);
-        ToDualRatio.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
-            @Override
-            public void onStop(SeekBarView seekBarView, int position, String value) {
-                SamsungPlug.setToDualRatio((position + 1), getActivity());
-            }
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
 
-            @Override
-            public void onMove(SeekBarView seekBarView, int position, String value) {
-            }
-        });
+            samsungPlug.addItem(ClBusyRatio);
+        }
 
-        samsungPlug.addItem(ToDualRatio);
+        if (SamsungPlug.hasSingleChangeMs()) {
+            SeekBarView SingleChangeMs = new SeekBarView();
+            SingleChangeMs.setTitle(getString(R.string.samsungPlug_SingleChangeMs));
+            SingleChangeMs.setMax(500);
+            SingleChangeMs.setMin(1);
+            SingleChangeMs.setProgress(Utils.strToInt(SamsungPlug.getSingleChangeMs()) - 1);
+            SingleChangeMs.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setSingleChangeMs((position + 1), getActivity());
+                }
 
-        SeekBarView ToQuadRatio = new SeekBarView();
-        ToQuadRatio.setTitle(getString(R.string.samsungPlug_ToQuadRatio));
-        ToQuadRatio.setMax(100);
-        ToQuadRatio.setMin(1);
-        ToQuadRatio.setProgress(Utils.strToInt(SamsungPlug.getToQuadRatio()) - 1);
-        ToQuadRatio.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
-            @Override
-            public void onStop(SeekBarView seekBarView, int position, String value) {
-                SamsungPlug.setToQuadRatio((position + 1), getActivity());
-            }
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
 
-            @Override
-            public void onMove(SeekBarView seekBarView, int position, String value) {
-            }
-        });
+            samsungPlug.addItem(SingleChangeMs);
+        }
 
-        samsungPlug.addItem(ToQuadRatio);
+        if (SamsungPlug.hasDualChangeMs()) {
+            SeekBarView DualChangeMs = new SeekBarView();
+            DualChangeMs.setTitle(getString(R.string.samsungPlug_DualChangeMs));
+            DualChangeMs.setMax(500);
+            DualChangeMs.setMin(1);
+            DualChangeMs.setProgress(Utils.strToInt(SamsungPlug.getDualChangeMs()) - 1);
+            DualChangeMs.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setDualChangeMs((position + 1), getActivity());
+                }
 
-        SeekBarView BigModeDual = new SeekBarView();
-        BigModeDual.setTitle(getString(R.string.samsungPlug_BigModeDual));
-        // BigModeDual.setMax(7);
-        // BigModeDual.setMin(6);
-        BigModeDual.setProgress(Utils.strToInt(SamsungPlug.getBigModeDual()));
-        BigModeDual.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
-			@Override
-            public void onStop(SeekBarView seekBarView, int position, String value) {
-                SamsungPlug.setBigModeDual(position, getActivity());
-            }
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
 
-            @Override
-            public void onMove(SeekBarView seekBarView, int position, String value) {
-            } 
-        });
+            samsungPlug.addItem(DualChangeMs);
+        }
 
-        samsungPlug.addItem(BigModeDual);
+        if (SamsungPlug.hasTripleChangeMs()) {
+            SeekBarView TripleChangeMs = new SeekBarView();
+            TripleChangeMs.setTitle(getString(R.string.samsungPlug_TripleChangeMs));
+            TripleChangeMs.setMax(500);
+            TripleChangeMs.setMin(1);
+            TripleChangeMs.setProgress(Utils.strToInt(SamsungPlug.getTripleChangeMs()) - 1);
+            TripleChangeMs.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setTripleChangeMs((position + 1), getActivity());
+                }
 
-        SeekBarView BigModeNormal = new SeekBarView();
-        BigModeNormal.setTitle(getString(R.string.samsungPlug_BigModeNormal));
-        // BigModeNormal.setMax(6);
-        // BigModeNormal.setMin(5);
-        BigModeNormal.setProgress(Utils.strToInt(SamsungPlug.getBigModeNormal()));
-        BigModeNormal.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
-            @Override
-            public void onStop(SeekBarView seekBarView, int position, String value) {
-                SamsungPlug.setBigModeNormal(position, getActivity());
-            }
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
 
-            @Override
-            public void onMove(SeekBarView seekBarView, int position, String value) {
-            }
-        });
+            samsungPlug.addItem(TripleChangeMs);
+        }
 
-        samsungPlug.addItem(BigModeNormal);
+        if (SamsungPlug.hasQuadChangeMs()) {
+            SeekBarView QuadChangeMs = new SeekBarView();
+            QuadChangeMs.setTitle(getString(R.string.samsungPlug_QuadChangeMs));
+            QuadChangeMs.setMax(500);
+            QuadChangeMs.setMin(1);
+            QuadChangeMs.setProgress(Utils.strToInt(SamsungPlug.getQuadChangeMs()) - 1);
+            QuadChangeMs.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setQuadChangeMs((position + 1), getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            samsungPlug.addItem(QuadChangeMs);
+        }
+
+        if (SamsungPlug.hasSkipLit()) {
+            SwitchView enable_skip_lit = new SwitchView();
+            enable_skip_lit.setTitle(getString(R.string.samsungPlugSkipLit));
+            enable_skip_lit.setChecked(SamsungPlug.isSkipLitEnabled());
+            enable_skip_lit.addOnSwitchListener((switchView, isChecked)
+                    -> SamsungPlug.enableSkipLit(isChecked, getActivity()));
+
+            samsungPlug.addItem(enable_skip_lit);
+            mEnableViews.add(enable_skip_lit);
+        }
+
+        if (SamsungPlug.hasLdsum()) {
+            SwitchView enable_ldsum = new SwitchView();
+            enable_ldsum.setTitle(getString(R.string.samsungPlugLdsum));
+            enable_ldsum.setChecked(SamsungPlug.isLdsumEnabled());
+            enable_ldsum.addOnSwitchListener((switchView, isChecked)
+                    -> SamsungPlug.enableLdsum(isChecked, getActivity()));
+
+            samsungPlug.addItem(enable_ldsum);
+            mEnableViews.add(enable_ldsum);
+        }
+
+        if (SamsungPlug.hasLdsumHeavyThread()) {
+            SeekBarView LdsumHeavyThread = new SeekBarView();
+            LdsumHeavyThread.setTitle(getString(R.string.samsungPlug_LdsumHeavyThread));
+            LdsumHeavyThread.setMax(1000);
+            LdsumHeavyThread.setMin(1);
+            LdsumHeavyThread.setProgress(Utils.strToInt(SamsungPlug.getLdsumHeavyThread()) - 1);
+            LdsumHeavyThread.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setLdsumHeavyThread((position + 1), getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            samsungPlug.addItem(LdsumHeavyThread);
+        }
+
+        if (SamsungPlug.hasBigHeavyThread()) {
+            SeekBarView BigHeavyThread = new SeekBarView();
+            BigHeavyThread.setTitle(getString(R.string.samsungPlug_BigHeavyThread));
+            BigHeavyThread.setMax(1000);
+            BigHeavyThread.setMin(1);
+            BigHeavyThread.setProgress(Utils.strToInt(SamsungPlug.getBigHeavyThread()) - 1);
+            BigHeavyThread.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setBigHeavyThread((position + 1), getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            samsungPlug.addItem(BigHeavyThread);
+        }
+
+        if (SamsungPlug.hasBigIdleThread()) {
+            SeekBarView BigIdleThread = new SeekBarView();
+            BigIdleThread.setTitle(getString(R.string.samsungPlug_BigIdleThread));
+            BigIdleThread.setMax(1000);
+            BigIdleThread.setMin(1);
+            BigIdleThread.setProgress(Utils.strToInt(SamsungPlug.getBigIdleThread()) - 1);
+            BigIdleThread.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setBigIdleThread((position + 1), getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            samsungPlug.addItem(BigIdleThread);
+        }
+
+        if (SamsungPlug.hasLittleHeavyThread()) {
+            SeekBarView LittleHeavyThread = new SeekBarView();
+            LittleHeavyThread.setTitle(getString(R.string.samsungPlug_LittleHeavyThread));
+            LittleHeavyThread.setMax(1000);
+            LittleHeavyThread.setMin(1);
+            LittleHeavyThread.setProgress(Utils.strToInt(SamsungPlug.getLittleHeavyThread()) - 1);
+            LittleHeavyThread.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setLittleHeavyThread((position + 1), getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            samsungPlug.addItem(LittleHeavyThread);
+        }
+
+        if (SamsungPlug.hasLittleIdleThread()) {
+            SeekBarView LittleIdleThread = new SeekBarView();
+            LittleIdleThread.setTitle(getString(R.string.samsungPlug_LittleIdleThread));
+            LittleIdleThread.setMax(1000);
+            LittleIdleThread.setMin(1);
+            LittleIdleThread.setProgress(Utils.strToInt(SamsungPlug.getLittleIdleThread()) - 1);
+            LittleIdleThread.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setLittleIdleThread((position + 1), getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            samsungPlug.addItem(LittleIdleThread);
+        }
+
+        if (SamsungPlug.hasLitMultRatio()) {
+            SeekBarView LitMultRatio = new SeekBarView();
+            LitMultRatio.setTitle(getString(R.string.samsungPlug_LitMultRatio));
+            LitMultRatio.setMax(200);
+            LitMultRatio.setMin(1);
+            LitMultRatio.setProgress(Utils.strToInt(SamsungPlug.getLitMultRatio()) - 1);
+            LitMultRatio.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setLitMultRatio((position + 1), getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            samsungPlug.addItem(LitMultRatio);
+        }
+
+        if (SamsungPlug.hasToDualRatio()) {
+            SeekBarView ToDualRatio = new SeekBarView();
+            ToDualRatio.setTitle(getString(R.string.samsungPlug_ToDualRatio));
+            ToDualRatio.setMax(100);
+            ToDualRatio.setMin(1);
+            ToDualRatio.setProgress(Utils.strToInt(SamsungPlug.getToDualRatio()) - 1);
+            ToDualRatio.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setToDualRatio((position + 1), getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            samsungPlug.addItem(ToDualRatio);
+        }
+
+        if (SamsungPlug.hasToQuadRatio()) {
+            SeekBarView ToQuadRatio = new SeekBarView();
+            ToQuadRatio.setTitle(getString(R.string.samsungPlug_ToQuadRatio));
+            ToQuadRatio.setMax(100);
+            ToQuadRatio.setMin(1);
+            ToQuadRatio.setProgress(Utils.strToInt(SamsungPlug.getToQuadRatio()) - 1);
+            ToQuadRatio.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setToQuadRatio((position + 1), getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            samsungPlug.addItem(ToQuadRatio);
+        }
+
+        if (SamsungPlug.hasBigModeDual()) {
+            SeekBarView BigModeDual = new SeekBarView();
+            BigModeDual.setTitle(getString(R.string.samsungPlug_BigModeDual));
+            // BigModeDual.setMax(7);
+            // BigModeDual.setMin(6);
+            BigModeDual.setProgress(Utils.strToInt(SamsungPlug.getBigModeDual()));
+            BigModeDual.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setBigModeDual(position, getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            samsungPlug.addItem(BigModeDual);
+        }
+
+        if (SamsungPlug.hasBigModeNormal()) {
+            SeekBarView BigModeNormal = new SeekBarView();
+            BigModeNormal.setTitle(getString(R.string.samsungPlug_BigModeNormal));
+            // BigModeNormal.setMax(6);
+            // BigModeNormal.setMin(5);
+            BigModeNormal.setProgress(Utils.strToInt(SamsungPlug.getBigModeNormal()));
+            BigModeNormal.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    SamsungPlug.setBigModeNormal(position, getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            samsungPlug.addItem(BigModeNormal);
+        }
+
+        if (SamsungPlug.hasSingleFreq()) {
+            mSamsungPlugSingle = new SelectView();
+            mSamsungPlugSingle.setTitle(getString(R.string.samsungPlug_SingleFreq));
+            mSamsungPlugSingle.setItems(mCPUFreq.getAdjustedFreq(getActivity()));
+            mSamsungPlugSingle.setOnItemSelected((selectView, position, item)
+                    -> SamsungPlug.setSingleFreq(mCPUFreq.getFreqs().get(position), getActivity()));
+
+            samsungPlug.addItem(mSamsungPlugSingle);
+
+            mSamsungPlugSingle.setItem((SamsungPlug.getSingleFreq() / 1000) + getString(R.string.mhz));
+        }
+
+        if (SamsungPlug.hasDualFreq()) {
+            mSamsungPlugDual = new SelectView();
+            mSamsungPlugDual.setTitle(getString(R.string.samsungPlug_DualFreq));
+            mSamsungPlugDual.setItems(mCPUFreq.getAdjustedFreq(getActivity()));
+            mSamsungPlugDual.setOnItemSelected((selectView, position, item)
+                    -> SamsungPlug.setDualFreq(mCPUFreq.getFreqs().get(position), getActivity()));
+
+            samsungPlug.addItem(mSamsungPlugDual);
+
+            mSamsungPlugDual.setItem((SamsungPlug.getDualFreq() / 1000) + getString(R.string.mhz));
+        }
+
+        if (SamsungPlug.hasTripleFreq()) {
+            mSamsungPlugTriple = new SelectView();
+            mSamsungPlugTriple.setTitle(getString(R.string.samsungPlug_TripleFreq));
+            mSamsungPlugTriple.setItems(mCPUFreq.getAdjustedFreq(getActivity()));
+            mSamsungPlugTriple.setOnItemSelected((selectView, position, item)
+                    -> SamsungPlug.setTripleFreq(mCPUFreq.getFreqs().get(position), getActivity()));
+
+            samsungPlug.addItem(mSamsungPlugTriple);
+
+            mSamsungPlugTriple.setItem((SamsungPlug.getTripleFreq() / 1000) + getString(R.string.mhz));
+        }
+
+        if (SamsungPlug.hasQuadFreq()) {
+            mSamsungPlugQuad = new SelectView();
+            mSamsungPlugQuad.setTitle(getString(R.string.samsungPlug_QuadFreq));
+            mSamsungPlugQuad.setItems(mCPUFreq.getAdjustedFreq(getActivity()));
+            mSamsungPlugQuad.setOnItemSelected((selectView, position, item)
+                    -> SamsungPlug.setQuadFreq(mCPUFreq.getFreqs().get(position), getActivity()));
+
+            samsungPlug.addItem(mSamsungPlugQuad);
+
+            mSamsungPlugQuad.setItem((SamsungPlug.getQuadFreq() / 1000) + getString(R.string.mhz));
+        }
 		
         if (samsungPlug.size() > 0) {
             items.add(samsungPlug);
