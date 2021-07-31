@@ -6,12 +6,14 @@ import com.thunder.thundertweaks.fragments.DescriptionFragment;
 import com.thunder.thundertweaks.fragments.recyclerview.RecyclerViewFragment;
 import com.thunder.thundertweaks.utils.Log;
 import com.thunder.thundertweaks.utils.Utils;
+import com.thunder.thundertweaks.utils.kernel.power.Regulator;
 import com.thunder.thundertweaks.utils.kernel.power.marginVoltage;
 import com.thunder.thundertweaks.views.recyclerview.CardView;
 import com.thunder.thundertweaks.views.recyclerview.DescriptionView;
 import com.thunder.thundertweaks.views.recyclerview.RecyclerViewItem;
 import com.thunder.thundertweaks.views.recyclerview.SeekBarView;
 import com.thunder.thundertweaks.views.recyclerview.SwitchView;
+import com.thunder.thundertweaks.views.recyclerview.XYGraphView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +21,13 @@ import java.util.List;
 
 public class PowerFragment extends RecyclerViewFragment {
     private marginVoltage mVoltagemargin;
+    private Regulator mRegulator;
+
+    private XYGraphView mCurLittleVolt;
+    private XYGraphView mCurBigVolt;
+    private XYGraphView mCurGpuVolt;
+    private XYGraphView mCurMifVolt;
+
     private List<SwitchView> mEnableViews = new ArrayList<>();
 
     @Override
@@ -26,6 +35,7 @@ public class PowerFragment extends RecyclerViewFragment {
         super.init();
 
         mVoltagemargin = marginVoltage.getInstance();
+        mRegulator = Regulator.getInstance();
 
         addViewPagerFragment(ApplyOnBootFragment.newInstance(this));
         if (mVoltagemargin.supported()) {
@@ -37,9 +47,44 @@ public class PowerFragment extends RecyclerViewFragment {
     protected void addItems(List<RecyclerViewItem> items) {
         mEnableViews.clear();
 
+        if(mRegulator.supported()) {
+            currentVoltageInit(items);
+        }
+
         if (mVoltagemargin.supported()) {
             marginVoltageInit(items);
         }
+    }
+
+    private void currentVoltageInit(List<RecyclerViewItem> items) {
+        final CardView currentVoltage = new CardView(getActivity());
+        currentVoltage.setTitle(getString(R.string.voltages));
+
+        if(mRegulator.hasBIGbuck()) {
+            mCurBigVolt = new XYGraphView();
+            mCurBigVolt.setTitle(getString(R.string.cpucl1_voltage));
+            currentVoltage.addItem(mCurBigVolt);
+        }
+
+        if(mRegulator.hasLITTLEbuck()) {
+            mCurLittleVolt = new XYGraphView();
+            mCurLittleVolt.setTitle(getString(R.string.cpucl0_voltage));
+            currentVoltage.addItem(mCurLittleVolt);
+        }
+
+        if(mRegulator.hasGPUbuck()) {
+            mCurGpuVolt = new XYGraphView();
+            mCurGpuVolt.setTitle(getString(R.string.gpu_volt));
+            currentVoltage.addItem(mCurGpuVolt);
+        }
+
+        if(mRegulator.hasMIFbuck()) {
+            mCurMifVolt = new XYGraphView();
+            mCurMifVolt.setTitle(getString(R.string.mif_voltage));
+            currentVoltage.addItem(mCurMifVolt);
+        }
+
+        items.add(currentVoltage);
     }
 
     private void marginVoltageInit(List<RecyclerViewItem> items) {
@@ -367,5 +412,42 @@ public class PowerFragment extends RecyclerViewFragment {
         }
 
         items.add(marginVoltage);
+    }
+
+    @Override
+    protected void refresh() {
+        super.refresh();
+
+        if (mCurBigVolt != null) {
+            int volt = mRegulator.getBIGCur();
+            float maxVolt = mRegulator.getBIGMax();
+            mCurBigVolt.setText(volt / 1000 + getString(R.string.mv));
+            float per = (float) volt / maxVolt * 100f;
+            mCurBigVolt.addPercentage(Math.round(per > 100 ? 100 : per < 0 ? 0 : per));
+        }
+
+        if (mCurLittleVolt != null) {
+            int volt = mRegulator.getLITTLECur();
+            float maxVolt = mRegulator.getLITTLEMax();
+            mCurLittleVolt.setText(volt / 1000 + getString(R.string.mv));
+            float per = (float) volt / maxVolt * 100f;
+            mCurLittleVolt.addPercentage(Math.round(per > 100 ? 100 : per < 0 ? 0 : per));
+        }
+
+        if (mCurGpuVolt != null) {
+            int volt = mRegulator.getGPUCur();
+            float maxVolt = mRegulator.getGPUMax();
+            mCurGpuVolt.setText(volt / 1000 + getString(R.string.mv));
+            float per = (float) volt / maxVolt * 100f;
+            mCurGpuVolt.addPercentage(Math.round(per > 100 ? 100 : per < 0 ? 0 : per));
+        }
+
+        if (mCurMifVolt != null) {
+            int volt = mRegulator.getMIFCur();
+            float maxVolt = mRegulator.getMIFMax();
+            mCurMifVolt.setText(volt / 1000 + getString(R.string.mv));
+            float per = (float) volt / maxVolt * 100f;
+            mCurMifVolt.addPercentage(Math.round(per > 100 ? 100 : per < 0 ? 0 : per));
+        }
     }
 }

@@ -101,8 +101,8 @@
     <string name="screen">Screen</string>
     <string name="wake">Wake</string>
     <string name="sound">Sound</string>
-	<string name="battery">Battery</string>
-	<string name="battery2">Battery 2</string>
+    <string name="battery">Battery</string>
+    <string name="battery2">Battery 2</string>
     <string name="battery3">Battery 3</string>
     <string name="battery_saver">Kernel Side Battery Saver</string>
     <string name="battery_saver_summary">This disables all soc boosts and chooses low cpu freqs</string>
@@ -148,7 +148,7 @@
     <string name="error_frequencies">Failed to load frequencies</string>
     <string name="unused_frequencies">Unused Frequencies</string>
     <string name="gpu_usage">GPU Usage</string>
-	<string name="gpu_utilization">GPU Utilization</string>
+    <string name="gpu_utilization">GPU Utilization</string>
 
     <!-- Device -->
     <string name="sar">System as root</string>
@@ -168,8 +168,8 @@
     <string name="hardware">Hardware</string>
     <string name="architecture">Architecture</string>
     <string name="asv">ASV</string>
-	<string name="gpu_driver_info">GPU Kernel Driver Info</string>
-	<string name="gpu_driver_info_summary">RP15 - Nougat, RP22 - Oreo, RP28 - PIE, RP29 - Q.</string>
+    <string name="gpu_driver_info">GPU Kernel Driver Info</string>
+    <string name="gpu_driver_info_summary">RP15 - Nougat, RP22 - Oreo, RP28 - PIE, RP29 - Q.</string>
 
     <!-- Inputs -->
     <string name="bus">Bus</string>
@@ -239,7 +239,7 @@
     <string name="hotplug_boost_summary">Hotplug Boost is similar to input boost but it occurs when CPUs go online.</string>
     <string name="touch_boost">Touch Boost</string>
     <string name="touch_boost_summary">This will boost your minimum CPU speed if you touch the screen or press a button.</string>
-	<string name="fingerprint_boost">Fingerprint Boost</string>
+    <string name="fingerprint_boost">Fingerprint Boost</string>
     <string name="fingerprint_boost_summary">This will boost your minimum CPU speed if you touch the fingerprint (HOME) button.</string>
     <string name="big_cores_max_title">Allow 4 Cores to máx freq.</string>
     <string name="big_cores_max_summary">Allows the 4 BIG Cores to go to the maximum frequency, increases the performance, but will consume more battery.</string>
@@ -384,7 +384,7 @@
     <string name="cl_vote_threshold_down_summary">Vote for threshold to offline CPUs.</string>
     <string name="cl_vote_threshold_up">Vote Threshold Up</string>
     <string name="cl_vote_threshold_up_summary">Vote for threshold to online CPUs.</string>
-    <string name="cl_sampling_time">Sampling Time</string>	
+    <string name="cl_sampling_time">Sampling Time</string>
     <string name="msm_mpdecision_hotplug">MSM MPDecision Hotplug</string>
     <string name="bricked_hotplug">Bricked Hotplug</string>
     <string name="mb_hotplug_summary">An in-kernel replacement for Qualcomm\'s MPDecision. Developed by show-p1984.</string>
@@ -406,40 +406,40 @@
     <string name="sampling_rate">Sampling Rate</string>
     <string name="cpu_down_rate">CPU Down Rate</string>
     <string name="cpu_up_rate">CPU Up Rate</string>
-    <string name="freq_1_1"> The frequency at which the other (instead of x the # of the core) core is hotplugged in - turned on (probably based on the frequency of the previous core or core 0)</string>	
+    <string name="freq_1_1"> The frequency at which the other (instead of x the # of the core) core is hotplugged in - turned on (probably based on the frequency of the previous core or core 0)</string>
     <string name="freq_2_0"> The frequency at which the other (instead of x the #-1 of the core) core is hotplugged out - turned off (probably based on the frequency of the previous core or core 0)</string>
-	<string name="freq_2_1"> The frequency at which the other (instead of x the # of the core) core is hotplugged in - turned on (probably based on the frequency of the previous core or core 0)</string>	
-    <string name="freq_3_0"> The frequency at which the other (instead of x the #-1 of the core) core is hotplugged out - turned off (probably based on the frequency of the previous core or core 0)</string>	
-	<string name="freq_3_1"> The frequency at which the other (instead of x the # of the core) core is hotplugged in - turned on (probably based on the frequency of the previous core or core 0)</string>	
-    <string name="freq_4_0"> The frequency at which the other (instead of x the #-1 of the core) core is hotplugged out - turned off (probably based on the frequency of the previous core or core 0)</string>	
-	<string name="load_1_1"> The % of load of the core (instead of x the # of the core) the frequency for the core is scaled up.</string>
-	<string name="load_2_0"> The % of load of the core (instead of y the #-1 of the core) the frequency for the core is scaled down.</string>
-	<string name="load_2_1"> The % of load of the core (instead of x the # of the core) the frequency for the core is scaled up.</string>
-	<string name="load_3_0"> The % of load of the core (instead of y the #-1 of the core) the frequency for the core is scaled down.</string>
-	<string name="load_3_1"> The % of load of the core (instead of x the # of the core) the frequency for the core is scaled up.</string>
-	<string name="load_4_0"> The % of load of the core (instead of y the #-1 of the core) the frequency for the core is scaled down.</string>
-	<string name="rate_1_1"> The rate of load of the core (instead of x the # of the core) the frequency for the core is scaled up.</string>
-	<string name="rate_2_0"> The rate of load of the core (instead of y the #-1 of the core) the frequency for the core is scaled down.</string>
-	<string name="rate_2_1"> The rate of load of the core (instead of x the # of the core) the frequency for the core is scaled up.</string>
-	<string name="rate_3_0"> The rate of load of the core (instead of y the #-1 of the core) the frequency for the core is scaled down.</string>
-	<string name="rate_3_1"> The rate of load of the core (instead of x the # of the core) the frequency for the core is scaled up.</string>
-	<string name="rate_4_0"> The rate of load of the core (instead of y the #-1 of the core) the frequency for the core is scaled down.</string>
-	<string name="rq_1_1"> The time reserved for each process in the queue for scale up.</string>
-	<string name="rq_2_0"> The time reserved for each process in the queue for scale down.</string>
-	<string name="rq_2_1"> The time reserved for each process in the queue for scale up.</string>
-	<string name="rq_3_0"> The time reserved for each process in the queue for scale down.</string>	
-	<string name="rq_3_1"> The time reserved for each process in the queue for scale up.</string>
-	<string name="rq_4_0"> The time reserved for each process in the queue for scale down.</string>	
+    <string name="freq_2_1"> The frequency at which the other (instead of x the # of the core) core is hotplugged in - turned on (probably based on the frequency of the previous core or core 0)</string>
+    <string name="freq_3_0"> The frequency at which the other (instead of x the #-1 of the core) core is hotplugged out - turned off (probably based on the frequency of the previous core or core 0)</string>
+    <string name="freq_3_1"> The frequency at which the other (instead of x the # of the core) core is hotplugged in - turned on (probably based on the frequency of the previous core or core 0)</string>
+    <string name="freq_4_0"> The frequency at which the other (instead of x the #-1 of the core) core is hotplugged out - turned off (probably based on the frequency of the previous core or core 0)</string>
+    <string name="load_1_1"> The % of load of the core (instead of x the # of the core) the frequency for the core is scaled up.</string>
+    <string name="load_2_0"> The % of load of the core (instead of y the #-1 of the core) the frequency for the core is scaled down.</string>
+    <string name="load_2_1"> The % of load of the core (instead of x the # of the core) the frequency for the core is scaled up.</string>
+    <string name="load_3_0"> The % of load of the core (instead of y the #-1 of the core) the frequency for the core is scaled down.</string>
+    <string name="load_3_1"> The % of load of the core (instead of x the # of the core) the frequency for the core is scaled up.</string>
+    <string name="load_4_0"> The % of load of the core (instead of y the #-1 of the core) the frequency for the core is scaled down.</string>
+    <string name="rate_1_1"> The rate of load of the core (instead of x the # of the core) the frequency for the core is scaled up.</string>
+    <string name="rate_2_0"> The rate of load of the core (instead of y the #-1 of the core) the frequency for the core is scaled down.</string>
+    <string name="rate_2_1"> The rate of load of the core (instead of x the # of the core) the frequency for the core is scaled up.</string>
+    <string name="rate_3_0"> The rate of load of the core (instead of y the #-1 of the core) the frequency for the core is scaled down.</string>
+    <string name="rate_3_1"> The rate of load of the core (instead of x the # of the core) the frequency for the core is scaled up.</string>
+    <string name="rate_4_0"> The rate of load of the core (instead of y the #-1 of the core) the frequency for the core is scaled down.</string>
+    <string name="rq_1_1"> The time reserved for each process in the queue for scale up.</string>
+    <string name="rq_2_0"> The time reserved for each process in the queue for scale down.</string>
+    <string name="rq_2_1"> The time reserved for each process in the queue for scale up.</string>
+    <string name="rq_3_0"> The time reserved for each process in the queue for scale down.</string>
+    <string name="rq_3_1"> The time reserved for each process in the queue for scale up.</string>
+    <string name="rq_4_0"> The time reserved for each process in the queue for scale down.</string>
     <string name="samsungPlug">SamsungPlug</string>
     <string name="samsungPlug_summary">An in-kernel Samsung Stock Hotplugging</string>
     <string name="samsungPlug_max_cpu">Maximum turned On cores</string>
-	<string name="samsungPlug_min_cpu">Minimum turned On cores</string>
-	<string name="samsungPlug_DualChangeMs">Dual Change in Ms</string>
-	<string name="samsungPlug_LitMultRatio">Lit Multi Ratio</string>
-	<string name="samsungPlug_ToDualRatio">To Dual Ratio</string>
-	<string name="samsungPlug_ToQuadRatio">To Quad Ratio</string>
-	<string name="samsungPlug_BigModeDual">Big Mode DUAL - CPU works in DUAL big cluster mode. Values 6 to 7.</string>
-	<string name="samsungPlug_BigModeNormal">Big Mode Normal - CPU works in Normal big cluster mode. Values 5 to 6.</string>
+    <string name="samsungPlug_min_cpu">Minimum turned On cores</string>
+    <string name="samsungPlug_DualChangeMs">Dual Change in Ms</string>
+    <string name="samsungPlug_LitMultRatio">Lit Multi Ratio</string>
+    <string name="samsungPlug_ToDualRatio">To Dual Ratio</string>
+    <string name="samsungPlug_ToQuadRatio">To Quad Ratio</string>
+    <string name="samsungPlug_BigModeDual">Big Mode DUAL - CPU works in DUAL big cluster mode. Values 6 to 7.</string>
+    <string name="samsungPlug_BigModeNormal">Big Mode Normal - CPU works in Normal big cluster mode. Values 5 to 6.</string>
     <string name="thunderplug">ThunderPlug</string>
     <string name="thunderplug_summary">An in-kernel replacement for Qualcomm\'s hotplugging. Developed by varunchitre15.</string>
     <string name="min_cpu_online_screen_off">Minimum CPU Screen Off</string>
@@ -512,15 +512,15 @@
     <string name="hmp_down_threshold">Down Threshold</string>
     <string name="hmp_down_threshold_summary">Max load allowed for tasks migrating to the slower little cores.</string>
     <string name="hmp_profile_summary">Select your profile for HMP thresholds.</string>
-	<string name="hmp_sb_up_threshold">Sb Up Threshold</string>
-	<string name="hmp_sb_down_threshold">Sb Down Threshold</string>
-	<string name="hmp_down_comp_threshold">Down Compensation Threshold</string>
-	<string name="hmp_down_comp_timeout">Down Compensation Timeout</string>
-	<string name="hmp_down_comp_hight_freq">Down Compensation High Frequency</string>
-	<string name="hmp_down_comp_mid_freq">Down Compensation Mid Frequency</string>
-	<string name="hmp_down_comp_low_freq">Down Compensation Low Frequency</string>
-	<string name="hmp_boost">Boost HMP - turn off/on 2 Big cores</string>
-	<string name="hmp_comp_enable">Enable/Disable Compensation for LITTLE cores</string>
+    <string name="hmp_sb_up_threshold">Sb Up Threshold</string>
+    <string name="hmp_sb_down_threshold">Sb Down Threshold</string>
+    <string name="hmp_down_comp_threshold">Down Compensation Threshold</string>
+    <string name="hmp_down_comp_timeout">Down Compensation Timeout</string>
+    <string name="hmp_down_comp_hight_freq">Down Compensation High Frequency</string>
+    <string name="hmp_down_comp_mid_freq">Down Compensation Mid Frequency</string>
+    <string name="hmp_down_comp_low_freq">Down Compensation Low Frequency</string>
+    <string name="hmp_boost">Boost HMP - turn off/on 2 Big cores</string>
+    <string name="hmp_comp_enable">Enable/Disable Compensation for LITTLE cores</string>
 
     <!--Thermal-->
     <string name="thermal_info">Use only one thermal driver from the following options, using more at the same time may cause unexpected behavior.</string>
@@ -614,7 +614,7 @@
     <string name="gpu_throttling3_summary">Exynos TMU control decrease GPU freq from max DVFS step to this freq for GPU temp - 3rd step</string>
     <string name="gpu_throttling4">GPU LEVEL 4 Throttling Freq</string>
     <string name="gpu_throttling4_summary">Exynos TMU control decrease GPU freq from max DVFS step to this freq for GPU temp - 4th step</string>
-	<string name="gpu_throttling5">GPU LEVEL 5 Throttling Freq</string>
+    <string name="gpu_throttling5">GPU LEVEL 5 Throttling Freq</string>
     <string name="gpu_throttling5_summary">Exynos TMU control decrease GPU freq from max DVFS step to this freq for GPU temp - 5th step</string>
     <string name="gpu_tripping">GPU Tripping Freq</string>
     <string name="gpu_tripping_summary">Exynos TMU control trip GPU freq to this freq for GPU temp - 6th step</string>
@@ -631,7 +631,7 @@
     <string name="gpu_lib_version">System Libs</string>
     <string name="gpu_driver_title">GPU Driver Info</string>
     <string name="gpu_dvfs">GPU DVFS</string>
-	<string name="gpu_dvfs_summary">GPU DVFS support ON or OFF. This makes lower usage GPU for working UI and can give little less battery drain.</string>
+    <string name="gpu_dvfs_summary">GPU DVFS support ON or OFF. This makes lower usage GPU for working UI and can give little less battery drain.</string>
 
     <!-- Screen -->
     <string name="screen_color">Screen Color</string>
@@ -855,12 +855,12 @@
     <string name="health">Health</string>
     <string name="capacity">Capacity</string>
     <string name="usb_fast_charge">USB Fast Charge</string>
-	<string name="adaptive_fast_charge">Adaptive Fast Charge</string>
+    <string name="adaptive_fast_charge">Adaptive Fast Charge</string>
     <string name="unstable_charge_card">Unstable Charge</string>
     <string name="enable_unstable_charge">Enable Unstable Power Detection</string>
     <string name="enable_unstable_charge_summary">If disabled, the charger chip will ignore unstable currents. Use at risk of your charger or charging ports. Unstable power detection will reduce the input current until a stable voltage from the power source is achieved.</string>
     <string name="usb_fast_charge_summary">Device will charge faster when connected with USB. Replug your charger when changing this option.</string>
-	<string name="adaptive_fast_charge_summary">Device will charge faster when this option is enabled. Replug your charger when changing this option.</string>
+    <string name="adaptive_fast_charge_summary">Device will charge faster when this option is enabled. Replug your charger when changing this option.</string>
     <string name="blx">Battery Life eXtender</string>
     <string name="blx_summary">Set a limit for the capacity to which the battery will be charged by passing a value between 0 and 100.</string>
     <string name="charge_rate">Charge Rate</string>
@@ -1114,9 +1114,9 @@
     <string name="zram_lz4">lz4</string>
     <string name="zram_deflate">deflate</string>
     <string name="zram_none">Unknown compression algorithm or zram not supported!</string>
-	<string name="zram_dialog">If the swap is very full it will take several minutes to empty and disable and it will block the app, for this reason the application will be closed.\n\nDo you want to disable the Swap and close the app?</string>
+    <string name="zram_dialog">If the swap is very full it will take several minutes to empty and disable and it will block the app, for this reason the application will be closed.\n\nDo you want to disable the Swap and close the app?</string>
     <string name="vnswap">VNSWAP</string>
-	<string name="vnswapd">VNSWAP - Samsung\'s replacement for ZRAM. It compresses 50% of your RAM in order to provide a smoother multitasking experience at a cost of slightly reduced power efficiency. It comes enabled by default in recent Samsung devices and it is not recommended to be disabled. </string>
+    <string name="vnswapd">VNSWAP - Samsung\'s replacement for ZRAM. It compresses 50% of your RAM in order to provide a smoother multitasking experience at a cost of slightly reduced power efficiency. It comes enabled by default in recent Samsung devices and it is not recommended to be disabled. </string>
     <string name="vnswap_summary">Enable or disable VNSWAP</string>
 
     <!-- Entropy -->
@@ -1362,8 +1362,8 @@
     <string name="fifty_sec">50 seconds</string>
     <string name="sixty_sec">60 seconds</string>
     <string name="ninty_sec">90 seconds</string>
-	<string name="onetwenty_sec">120 seconds</string>
-	<string name="onefifty_sec">150 seconds</string>
+    <string name="onetwenty_sec">120 seconds</string>
+    <string name="onefifty_sec">150 seconds</string>
     <string name="apply_on_boot_test_summary">Test apply on boot. This includes all kind of things which are getting applied during booting, such as custom controls, profiles, init.d, etc.</string>
     <string name="apply_on_boot_running">Apply on boot service is already running. Please wait until it finishes.</string>
     <string name="nothing_apply">Nothing found to apply!</string>
@@ -1501,4 +1501,5 @@
     <string name="marginVoltage_SCORE_percent">Score Voltage Margin Percent</string>
     <string name="power_nav">Power</string>
     <string name="marginVoltage_Summary">Change Voltage with Percent of Stock Voltage</string>
+    <string name="mif_voltage">MIF Voltage</string>
 </resources>
