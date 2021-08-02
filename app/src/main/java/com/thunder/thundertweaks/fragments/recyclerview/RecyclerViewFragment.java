@@ -73,7 +73,6 @@ import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
 
 /**
@@ -301,19 +300,27 @@ public abstract class RecyclerViewFragment extends BaseFragment {
 
                             int cx = fragment.mViewPager.getWidth();
 
-                            SupportAnimator animator = ViewAnimationUtils.createCircularReveal(
+                            Animator animator = ViewAnimationUtils.createCircularReveal(
                                     fragment.mViewPager, cx / 2, 0, 0, cx);
-                            animator.addListener(new SupportAnimator.SimpleAnimatorListener() {
+                            animator.addListener(new Animator.AnimatorListener() {
                                 @Override
-                                public void onAnimationStart() {
-                                    super.onAnimationStart();
+                                public void onAnimationStart(Animator animator) {
                                     fragment.mViewPager.setVisibility(View.VISIBLE);
                                 }
 
                                 @Override
-                                public void onAnimationEnd() {
-                                    super.onAnimationEnd();
+                                public void onAnimationEnd(Animator animator) {
                                     fragment.mViewPagerShadow.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animator) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animator) {
+
                                 }
                             });
                             animator.setDuration(400);

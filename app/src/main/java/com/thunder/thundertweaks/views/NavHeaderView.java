@@ -19,6 +19,7 @@
  */
 package com.thunder.thundertweaks.views;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -42,7 +43,6 @@ import com.thunder.thundertweaks.views.dialog.Dialog;
 import java.io.IOException;
 import java.io.InputStream;
 
-import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
 
 /**
@@ -159,12 +159,26 @@ public class NavHeaderView extends LinearLayout {
         int cx = mImage.getWidth();
         int cy = mImage.getHeight();
 
-        SupportAnimator animator = ViewAnimationUtils.createCircularReveal(mImage, cx, cy, 0, Math.max(cx, cy));
-        animator.addListener(new SupportAnimator.SimpleAnimatorListener() {
+        Animator animator = ViewAnimationUtils.createCircularReveal(mImage, cx, cy, 0, Math.max(cx, cy));
+        animator.addListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart() {
-                super.onAnimationStart();
+            public void onAnimationStart(Animator animator) {
                 mImage.setVisibility(VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
             }
         });
         animator.setStartDelay(500);
