@@ -9,6 +9,7 @@ import com.thunder.thundertweaks.utils.root.Control;
 import com.thunder.thundertweaks.utils.root.RootFile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.thunder.thundertweaks.utils.Utils.strToInt;
@@ -23,6 +24,7 @@ public class Regulator {
         return sIOInstance;
     }
 
+    private static HashMap<String, String> REGULATORS_LIST;
     private static final String REGULATOR_MAX_DIR = "/max_microvolts";
     private static final String REGULATOR_MIN_DIR = "/min_microvolts";
     private static final String REGULATOR_CUR_DIR = "/microvolts";
@@ -69,29 +71,42 @@ public class Regulator {
         }
 
         if(hasDriverVersion()){
-            List<String> REGULATORS_LIST;
-
             if(getDriverVersion().contains(S9_REGULATOR_NAME)){
-                REGULATORS_LIST = new RootFile(S9_REGULATOR).list();
+                REGULATORS_LIST = indexRegulator(S9_REGULATOR);
 
-                LITTLE = searchBuck(S9_REGULATOR, REGULATORS_LIST, S9_LITTLE_NAME);
-                BIG = searchBuck(S9_REGULATOR, REGULATORS_LIST, S9_BIG_NAME);
-                GPU = searchBuck(S9_REGULATOR, REGULATORS_LIST, S9_GPU_NAME);
-                MIF = searchBuck(S9_REGULATOR, REGULATORS_LIST, S9_MIF_NAME);
+                LITTLE = searchBuck(S9_LITTLE_NAME);
+                BIG = searchBuck(S9_BIG_NAME);
+                GPU = searchBuck(S9_GPU_NAME);
+                MIF = searchBuck(S9_MIF_NAME);
             }
         }
     }
 
-    //TODO index all files to an object then search in it
-    private static String searchBuck(String dir, List<String> fileList, String name){
-        if(dir != null && fileList != null && name != null) {
+    private static HashMap<String, String> indexRegulator(String dir){
+        HashMap<String, String> allList = new HashMap<String, String>();
+        List<String> fileList = new RootFile(dir).list();
+
+        if(dir != null && fileList != null) {
             for (String file : fileList) {
                 file = dir + "/" + file;
                 if (Utils.existFile(file + "/name")) {
-                    if(Utils.readFile(file + "/name").equals(name)){
-                        return file;
-                    }
+
+                    allList.put(Utils.readFile(file + "/name"), file);
+
                 }
+            }
+
+            return allList;
+        }
+
+        return null;
+    }
+
+    private static String searchBuck(String name){
+        if(REGULATORS_LIST != null && name != null) {
+            for (String i : REGULATORS_LIST.keySet()) {
+                if(i.equals(name))
+                    return REGULATORS_LIST.get(i);
             }
         }
 
