@@ -44,6 +44,7 @@ import com.thunder.thundertweaks.fragments.kernel.EntropyFragment;
 import com.thunder.thundertweaks.fragments.kernel.GPUFragment;
 // import com.thunder.thundertweaks.fragments.kernel.SpectrumFragment;
 import com.thunder.thundertweaks.fragments.kernel.DvfsFragment;
+import com.thunder.thundertweaks.fragments.kernel.GameFragment;
 import com.thunder.thundertweaks.fragments.kernel.HmpFragment;
 import com.thunder.thundertweaks.fragments.kernel.IOFragment;
 import com.thunder.thundertweaks.fragments.kernel.KSMFragment;
@@ -97,6 +98,7 @@ public class ApplyOnBootFragment extends BaseFragment {
     public static final String ENTROPY = "entropy_onboot";
     public static final String MISC = "misc_onboot";
     public static final String POWER = "power_onboot";
+    public static final String GAME = "game_onboot";
 
     private static final HashMap<Class, String> sAssignments = new HashMap<>();
 
@@ -128,6 +130,7 @@ public class ApplyOnBootFragment extends BaseFragment {
         sAssignments.put(EntropyFragment.class, ENTROPY);
         sAssignments.put(MiscFragment.class, MISC);
         sAssignments.put(PowerFragment.class, POWER);
+        sAssignments.put(GameFragment.class, GAME);
     }
 
     public static String getAssignment(Class fragment) {

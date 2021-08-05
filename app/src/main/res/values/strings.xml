@@ -1502,4 +1502,19 @@
     <string name="power_nav">Power</string>
     <string name="marginVoltage_Summary">Change Voltage with Percent of Stock Voltage</string>
     <string name="mif_voltage">MIF Voltage</string>
+    <string name="gameControl">Game Control</string>
+    <string name="gameControl_Summary">Change freqs while playing selected games</string>
+    <string name="game_nav">Game</string>
+    <string name="gameControl_always_on">Always Enabled</string>
+    <string name="gameControl_always_on_desc">Game Control will be enabled all the time without checking apps</string>
+    <string name="gameControl_MIF_min">Minimum MIF freq while playing game</string>
+    <string name="gameControl_BIG_max">Maximum BIG Cpu freq while playing game</string>
+    <string name="gameControl_BIG_min">Minimum BIG Cpu while playing game</string>
+    <string name="gameControl_MIDDLE_max">Maximum MIDDLE Cpu freq while playing game</string>
+    <string name="gameControl_MIDDLE_min">Minimum MIDDLE Cpu while playing game</string>
+    <string name="gameControl_LITTLE_max">Maximum LITTLE Cpu freq while playing game</string>
+    <string name="gameControl_LITTLE_min">Minimum LITTLE Cpu while playing game</string>
+    <string name="gameControl_GPU_max">Maximum GPU freq while playing game</string>
+    <string name="gameControl_GPU_min">Minimum GPU while playing game</string>
+    <string name="gameControl_packages">Game Control will work on these apps (Currently put space between apps)</string>
 </resources>

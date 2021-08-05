@@ -59,6 +59,7 @@ import com.thunder.thundertweaks.fragments.kernel.CPUVoltageCl0Fragment;
 import com.thunder.thundertweaks.fragments.kernel.EntropyFragment;
 import com.thunder.thundertweaks.fragments.kernel.GPUFragment;
 import com.thunder.thundertweaks.fragments.kernel.DvfsFragment;
+import com.thunder.thundertweaks.fragments.kernel.GameFragment;
 import com.thunder.thundertweaks.fragments.kernel.HmpFragment;
 import com.thunder.thundertweaks.fragments.kernel.IOFragment;
 import com.thunder.thundertweaks.fragments.kernel.KSMFragment;
@@ -101,6 +102,7 @@ import com.thunder.thundertweaks.utils.kernel.cpuhotplug.Hotplug;
 import com.thunder.thundertweaks.utils.kernel.cpuvoltage.VoltageCl0;
 import com.thunder.thundertweaks.utils.kernel.cpuvoltage.VoltageCl1;
 import com.thunder.thundertweaks.utils.kernel.entropy.Entropy;
+import com.thunder.thundertweaks.utils.kernel.game.GameControl;
 import com.thunder.thundertweaks.utils.kernel.gpu.GPU;
 import com.thunder.thundertweaks.utils.kernel.hmp.Hmp;
 import com.thunder.thundertweaks.utils.kernel.dvfs.Dvfs;
@@ -208,6 +210,9 @@ public class NavigationActivity extends BaseActivity
         }
         if (GPU.supported()) {
             mFragments.add(new NavigationActivity.NavigationFragment(R.string.gpu, GPUFragment.class, R.drawable.ic_gpu));
+        }
+        if (GameControl.supported()) {
+            mFragments.add(new NavigationActivity.NavigationFragment(R.string.game_nav, GameFragment.class, R.drawable.ic_spectrum_game));
         }
         if (Dvfs.supported()) {
             mFragments.add(new NavigationActivity.NavigationFragment(R.string.dvfs_nav, DvfsFragment.class, R.drawable.ic_dvfs));
