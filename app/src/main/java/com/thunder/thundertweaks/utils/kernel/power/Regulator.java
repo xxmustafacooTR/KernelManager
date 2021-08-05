@@ -1,9 +1,9 @@
 package com.thunder.thundertweaks.utils.kernel.power;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.thunder.thundertweaks.fragments.ApplyOnBootFragment;
-import com.thunder.thundertweaks.utils.Log;
 import com.thunder.thundertweaks.utils.Utils;
 import com.thunder.thundertweaks.utils.root.Control;
 import com.thunder.thundertweaks.utils.root.RootFile;
@@ -25,28 +25,33 @@ public class Regulator {
     }
 
     private static HashMap<String, String> REGULATORS_LIST;
+    private static final String REGULATOR_NAME_DIR = "/name";
     private static final String REGULATOR_MAX_DIR = "/max_microvolts";
     private static final String REGULATOR_MIN_DIR = "/min_microvolts";
     private static final String REGULATOR_CUR_DIR = "/microvolts";
 
-    private static final String S9_SPEEDY = "/sys/devices/platform/141c0000.speedy/i2c-17/17-0000";
-    private static final String S9_REGULATOR_NAME_LOCATION = S9_SPEEDY + "/name";
-    private static final String S9_REGULATOR = S9_SPEEDY + "/s2mps18-regulator/regulator";
+    private static final String S9_SPEEDY = "/sys/devices/platform/141c0000.speedy/i2c-15/15-0000";
+    private static final String S9PLUS_SPEEDY = "/sys/devices/platform/141c0000.speedy/i2c-17/17-0000";
+    private static final String N9_SPEEDY = "/sys/devices/platform/141c0000.speedy/i2c-18/18-0000";
+    private static final String S9_REGULATOR = "/s2mps18-regulator/regulator";
     private static final String S9_REGULATOR_NAME = "s2mps18";
     private static final String S9_LITTLE_NAME = "vdd_cpucl0";
     private static final String S9_BIG_NAME = "vdd_cpucl1";
     private static final String S9_GPU_NAME = "vdd_g3d";
     private static final String S9_MIF_NAME = "vdd_mif";
 
+    private final List<String> mSpeedies = new ArrayList<>();
     private final List<String> mRegulators = new ArrayList<>();
-    private final List<String> mRegulatorNames = new ArrayList<>();
 
     {
-        mRegulators.add(S9_REGULATOR);
+        mSpeedies.add(S9_SPEEDY);
+        mSpeedies.add(S9PLUS_SPEEDY);
+        mSpeedies.add(N9_SPEEDY);
 
-        mRegulatorNames.add(S9_REGULATOR_NAME_LOCATION);
+        mRegulators.add(S9_REGULATOR);
     }
 
+    private String SPEEDY;
     private String REGULATOR;
     private String REGULATOR_NAME;
 
@@ -56,23 +61,23 @@ public class Regulator {
     private String MIF;
 
     private Regulator() {
-        for (String file : mRegulators) {
+        for (String file : mSpeedies) {
             if (Utils.existFile(file)) {
-                REGULATOR = file;
-                break;
-            }
-        }
-
-        for (String file : mRegulatorNames) {
-            if (Utils.existFile(file)) {
-                REGULATOR_NAME = file;
+                SPEEDY = file;
+                REGULATOR_NAME = file + REGULATOR_NAME_DIR;
+                for (String reg : mRegulators) {
+                    if (Utils.existFile(SPEEDY+reg)) {
+                        REGULATOR = SPEEDY+reg;
+                        break;
+                    }
+                }
                 break;
             }
         }
 
         if(hasDriverVersion()){
             if(getDriverVersion().contains(S9_REGULATOR_NAME)){
-                REGULATORS_LIST = indexRegulator(S9_REGULATOR);
+                REGULATORS_LIST = indexRegulator(REGULATOR);
 
                 LITTLE = searchBuck(S9_LITTLE_NAME);
                 BIG = searchBuck(S9_BIG_NAME);
