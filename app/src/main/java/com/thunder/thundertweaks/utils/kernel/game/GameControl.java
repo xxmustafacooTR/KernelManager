@@ -177,11 +177,38 @@ public class GameControl {
     }
 
     public void setGamePackages(String value, Context context) {
-        run(Control.write(value, GAME_PACKAGES), GAME_PACKAGES, context);
+        run(Control.write(value.trim(), GAME_PACKAGES), GAME_PACKAGES, context);
     }
 
     public static String getGamePackages() {
         return Utils.readFile(GAME_PACKAGES);
+    }
+
+    public static Boolean checkGamePackage(String gamePackage) {
+        return Utils.readFile(GAME_PACKAGES).contains(gamePackage);
+    }
+
+    public void addGamePackage(String value, Context context) {
+        String readed = Utils.readFile(GAME_PACKAGES);
+
+        if (!readed.contains(value))
+            setGamePackages(readed + "\n" + value, context);
+    }
+
+    public void removeGamePackage(String value, Context context) {
+        String readed = Utils.readFile(GAME_PACKAGES);
+
+        readed = readed.replace(value, "");
+
+        if (readed.contains(value))
+            setGamePackages(readed.replaceAll("\\s+","\n"), context);
+    }
+
+    public void editGamePackage(Boolean add, String value, Context context) {
+        if (add)
+            addGamePackage(value, context);
+        else
+            removeGamePackage(value, context);
     }
 
     public static boolean supported() {

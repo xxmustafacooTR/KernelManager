@@ -1516,5 +1516,9 @@
     <string name="gameControl_LITTLE_min">Minimum LITTLE Cpu while playing game</string>
     <string name="gameControl_GPU_max">Maximum GPU freq while playing game</string>
     <string name="gameControl_GPU_min">Minimum GPU while playing game</string>
-    <string name="gameControl_packages">Game Control will work on these apps (Currently put space between apps)</string>
+    <string name="gameControl_packages">Game Control will work on these apps</string>
+    <string name="gameControl_packages_mode">App Show Filter for Categories</string>
+    <string name="gameControl_reset_message">Do you want to reset selected packages?</string>
+    <string name="reset_message">Do you want to reset all controls to default value?</string>
+    <string name="reset_summary">Reset to default values</string>
 </resources>

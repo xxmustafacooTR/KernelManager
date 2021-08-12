@@ -1,16 +1,21 @@
 package com.thunder.thundertweaks.fragments.kernel;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.thunder.thundertweaks.R;
 import com.thunder.thundertweaks.fragments.ApplyOnBootFragment;
 import com.thunder.thundertweaks.fragments.DescriptionFragment;
 import com.thunder.thundertweaks.fragments.recyclerview.RecyclerViewFragment;
+import com.thunder.thundertweaks.utils.AppSettings;
 import com.thunder.thundertweaks.utils.Log;
+import com.thunder.thundertweaks.utils.PackageInfo;
 import com.thunder.thundertweaks.utils.Utils;
 import com.thunder.thundertweaks.utils.kernel.cpu.CPUFreq;
+import com.thunder.thundertweaks.utils.kernel.cpu.Misc;
 import com.thunder.thundertweaks.utils.kernel.game.GameControl;
 import com.thunder.thundertweaks.utils.kernel.gpu.GPUFreqExynos;
+import com.thunder.thundertweaks.views.recyclerview.ButtonView2;
 import com.thunder.thundertweaks.views.recyclerview.CardView;
-import com.thunder.thundertweaks.views.recyclerview.DescriptionView;
 import com.thunder.thundertweaks.views.recyclerview.GenericSelectView;
 import com.thunder.thundertweaks.views.recyclerview.RecyclerViewItem;
 import com.thunder.thundertweaks.views.recyclerview.SeekBarView;
@@ -25,6 +30,10 @@ public class GameFragment extends RecyclerViewFragment {
     private GameControl mGameControl;
     private GPUFreqExynos mGPUFreqExynos;
     private CPUFreq mCPUFreq;
+    private PackageInfo mPackageInfo;
+
+    private List<SwitchView> mPACKAGES = new ArrayList<>();
+    private int mPackageInfoMode = 1;
 
     @Override
     protected void init() {
@@ -33,6 +42,7 @@ public class GameFragment extends RecyclerViewFragment {
         mGameControl = GameControl.getInstance();
         mGPUFreqExynos = GPUFreqExynos.getInstance();
         mCPUFreq = CPUFreq.getInstance(getActivity());
+        mPackageInfo = PackageInfo.getInstance(getActivity());
 
         addViewPagerFragment(ApplyOnBootFragment.newInstance(this));
         if (GameControl.supported()) {
@@ -44,15 +54,18 @@ public class GameFragment extends RecyclerViewFragment {
     protected void addItems(List<RecyclerViewItem> items) {
         if (GameControl.supported()) {
             gameControlInit(items);
+            if(mGameControl.hasGamePackages()) {
+                gamePackagesInit(items);
+            }
         }
     }
 
     private void gameControlInit(List<RecyclerViewItem> items) {
-        CardView gameCotrolCard = new CardView(getActivity());
+        CardView gameControlCard = new CardView(getActivity());
         if(mGameControl.hasVersion())
-            gameCotrolCard.setTitle(getString(R.string.gameControl) + " v" + mGameControl.getVersion());
+            gameControlCard.setTitle(getString(R.string.gameControl) + " v" + mGameControl.getVersion());
         else
-            gameCotrolCard.setTitle(getString(R.string.gameControl));
+            gameControlCard.setTitle(getString(R.string.gameControl));
 
         if(mGameControl.hasAlwaysOn()){
             SwitchView alwaysOn = new SwitchView();
@@ -62,7 +75,7 @@ public class GameFragment extends RecyclerViewFragment {
             alwaysOn.addOnSwitchListener((switchView, isChecked) ->
                     mGameControl.enableAlwaysOn(isChecked, getActivity())
             );
-            gameCotrolCard.addItem(alwaysOn);
+            gameControlCard.addItem(alwaysOn);
         }
 
         if(mCPUFreq.getFreqs() != null) {
@@ -74,7 +87,7 @@ public class GameFragment extends RecyclerViewFragment {
                 BIGMax.setOnItemSelected((selectView, position, item)
                         -> mGameControl.setBIGMax(mCPUFreq.getFreqs().get(position), getActivity()));
 
-                gameCotrolCard.addItem(BIGMax);
+                gameControlCard.addItem(BIGMax);
 
                 BIGMax.setItem((mGameControl.getBIGMax() / 1000) + getString(R.string.mhz));
             }
@@ -86,7 +99,7 @@ public class GameFragment extends RecyclerViewFragment {
                 BIGMin.setOnItemSelected((selectView, position, item)
                         -> mGameControl.setBIGMin(mCPUFreq.getFreqs().get(position), getActivity()));
 
-                gameCotrolCard.addItem(BIGMin);
+                gameControlCard.addItem(BIGMin);
 
                 BIGMin.setItem((mGameControl.getBIGMin() / 1000) + getString(R.string.mhz));
             }
@@ -101,7 +114,7 @@ public class GameFragment extends RecyclerViewFragment {
                         MIDDLEMax.setOnItemSelected((selectView, position, item)
                                 -> mGameControl.setMIDDLEMax(mCPUFreq.getFreqs(mCPUFreq.getMidCpu()).get(position), getActivity()));
 
-                        gameCotrolCard.addItem(MIDDLEMax);
+                        gameControlCard.addItem(MIDDLEMax);
 
                         MIDDLEMax.setItem((mGameControl.getMIDDLEMax() / 1000) + getString(R.string.mhz));
                     }
@@ -113,7 +126,7 @@ public class GameFragment extends RecyclerViewFragment {
                         MIDDLEMin.setOnItemSelected((selectView, position, item)
                                 -> mGameControl.setMIDDLEMin(mCPUFreq.getFreqs(mCPUFreq.getMidCpu()).get(position), getActivity()));
 
-                        gameCotrolCard.addItem(MIDDLEMin);
+                        gameControlCard.addItem(MIDDLEMin);
 
                         MIDDLEMin.setItem((mGameControl.getMIDDLEMin() / 1000) + getString(R.string.mhz));
                     }
@@ -126,7 +139,7 @@ public class GameFragment extends RecyclerViewFragment {
                     LITTLEMax.setOnItemSelected((selectView, position, item)
                             -> mGameControl.setLITTLEMax(mCPUFreq.getFreqs(mCPUFreq.getLITTLECpu()).get(position), getActivity()));
 
-                    gameCotrolCard.addItem(LITTLEMax);
+                    gameControlCard.addItem(LITTLEMax);
 
                     LITTLEMax.setItem((mGameControl.getLITTLEMax() / 1000) + getString(R.string.mhz));
                 }
@@ -138,7 +151,7 @@ public class GameFragment extends RecyclerViewFragment {
                     LITTLEMin.setOnItemSelected((selectView, position, item)
                             -> mGameControl.setLITTLEMin(mCPUFreq.getFreqs(mCPUFreq.getLITTLECpu()).get(position), getActivity()));
 
-                    gameCotrolCard.addItem(LITTLEMin);
+                    gameControlCard.addItem(LITTLEMin);
 
                     LITTLEMin.setItem((mGameControl.getLITTLEMin() / 1000) + getString(R.string.mhz));
                 }
@@ -153,7 +166,7 @@ public class GameFragment extends RecyclerViewFragment {
                 GPUMax.setOnItemSelected((selectView, position, item)
                         -> mGameControl.setGPUMax(mGPUFreqExynos.getAvailableFreqs().get(position), getActivity()));
 
-                gameCotrolCard.addItem(GPUMax);
+                gameControlCard.addItem(GPUMax);
 
                 GPUMax.setItem((mGameControl.getGPUMax() / 1000) + getString(R.string.mhz));
             }
@@ -165,7 +178,7 @@ public class GameFragment extends RecyclerViewFragment {
                 GPUMin.setOnItemSelected((selectView, position, item)
                         -> mGameControl.setGPUMin(mGPUFreqExynos.getAvailableFreqs().get(position), getActivity()));
 
-                gameCotrolCard.addItem(GPUMin);
+                gameControlCard.addItem(GPUMin);
 
                 GPUMin.setItem((mGameControl.getGPUMin() / 1000) + getString(R.string.mhz));
             }
@@ -179,21 +192,81 @@ public class GameFragment extends RecyclerViewFragment {
             minMIFfreq.setOnGenericValueListener((genericSelectView, value)
                     -> mGameControl.setMIFMin(Integer.parseInt(value), getActivity()));
 
-            gameCotrolCard.addItem(minMIFfreq);
+            gameControlCard.addItem(minMIFfreq);
         }
 
-        //TODO Use UI for this feature with smart game detecting
-        if(mGameControl.hasGamePackages()) {
-            GenericSelectView gamePackages = new GenericSelectView();
-            gamePackages.setSummary(getString(R.string.gameControl_packages));
-            gamePackages.setValue(String.valueOf(mGameControl.getGamePackages()));
-            gamePackages.setValueRaw(gamePackages.getValue());
-            gamePackages.setOnGenericValueListener((genericSelectView, value)
-                    -> mGameControl.setGamePackages(value.replaceAll("\\s+","\n"), getActivity()));
+        items.add(gameControlCard);
+    }
 
-            gameCotrolCard.addItem(gamePackages);
+    private void gamePackagesInit (List<RecyclerViewItem> items){
+        final CardView CardPackages = new CardView(getActivity());
+        CardPackages.setTitle(getString(R.string.gameControl_packages));
+
+        CardGamePackagesInit(CardPackages);
+
+        if (CardPackages.size() > 0) {
+            items.add(CardPackages);
         }
+    }
 
-        items.add(gameCotrolCard);
+    private void CardGamePackagesInit(final CardView card) {
+        card.clearItems();
+        mPACKAGES.clear();
+
+        mPackageInfoMode = AppSettings.getInt("game_control_show_packages_filter", 1, getActivity());
+
+        SeekBarView mode = new SeekBarView();
+        mode.setSummary(getString(R.string.gameControl_packages_mode));
+        mode.setMax(11);
+        mode.setMin(1);
+        mode.setProgress(mPackageInfoMode - 1);
+        mode.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+            @Override
+            public void onStop(SeekBarView seekBarView, int position, String value) {
+                mPackageInfoMode = position + 1;
+                AppSettings.saveInt("game_control_show_packages_filter", mPackageInfoMode, getActivity());
+                getHandler().postDelayed(() -> CardGamePackagesInit(card), 250);
+            }
+
+            @Override
+            public void onMove(SeekBarView seekBarView, int position, String value) {
+            }
+        });
+
+        card.addItem(mode);
+
+        ButtonView2 reset = new ButtonView2();
+        reset.setTitle(getString(R.string.reset));
+        reset.setSummary(getString(R.string.reset_summary));
+        reset.setButtonText(getString(R.string.reset));
+        reset.setOnItemClickListener(view -> {
+            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+            alert.setTitle(getString(R.string.wkl_alert_title));
+            alert.setMessage(getString(R.string.gameControl_reset_message));
+            alert.setNegativeButton(getString(R.string.cancel), (dialog, which) -> {});
+            alert.setPositiveButton(getString(R.string.ok), (dialog, id) -> {
+                mPackageInfoMode = 1;
+                mode.setProgress(mPackageInfoMode - 1);
+                AppSettings.saveInt("game_control_show_packages_filter", mPackageInfoMode, getActivity());
+                mGameControl.setGamePackages("", getActivity());
+                getHandler().postDelayed(() -> CardGamePackagesInit(card), 250);
+            });
+            alert.show();
+        });
+        card.addItem(reset);
+
+        for (int i=0; i<mPackageInfo.getAdjustedAppPackages(mPackageInfoMode).size(); i++) {
+            String packageName = mPackageInfo.getAdjustedAppPackages(mPackageInfoMode).get(i);
+            SwitchView gamePackages = new SwitchView();
+            gamePackages.setSummary(packageName);
+            gamePackages.setTitle(mPackageInfo.getAppNameFromPackage(packageName));
+            gamePackages.setIcon(mPackageInfo.getIconFromPackage(packageName, getActivity()));
+            gamePackages.setChecked(mGameControl.checkGamePackage(mPackageInfo.getAdjustedAppPackages(mPackageInfoMode).get(i)));
+            gamePackages.addOnSwitchListener((switchView, isChecked) ->
+                    mGameControl.editGamePackage(isChecked, String.valueOf(switchView.getSummary()), getActivity())
+            );
+            card.addItem(gamePackages);
+            mPACKAGES.add(gamePackages);
+        }
     }
 }
