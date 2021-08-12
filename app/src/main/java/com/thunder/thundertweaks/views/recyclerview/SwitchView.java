@@ -21,7 +21,10 @@ package com.thunder.thundertweaks.views.recyclerview;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.SwitchCompat;
+
+import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.thunder.thundertweaks.R;
 
@@ -40,6 +43,7 @@ public class SwitchView extends RecyclerViewItem {
     private AppCompatTextView mTitle;
     private AppCompatTextView mSummary;
     private SwitchCompat mSwitcher;
+    private ImageView mIcon;
 
     private CharSequence mTitleText;
     private CharSequence mSummaryText;
@@ -49,6 +53,7 @@ public class SwitchView extends RecyclerViewItem {
     private boolean mEnabled = true;
     private float mAlpha = 1f;
     private View mView;
+    private Drawable mIconDrawable;
 
     private List<OnSwitchListener> mOnSwitchListeners = new ArrayList<>();
 
@@ -63,6 +68,7 @@ public class SwitchView extends RecyclerViewItem {
         mTitle = mView.findViewById(R.id.title);
         mSummary = mView.findViewById(R.id.summary);
         mSwitcher = mView.findViewById(R.id.switcher);
+        mIcon = mView.findViewById(R.id.icon);
 
         super.onCreateView(mView);
 
@@ -121,8 +127,17 @@ public class SwitchView extends RecyclerViewItem {
         refresh();
     }
 
+    public void setIcon(Drawable icon) {
+        mIconDrawable = icon;
+        refresh();
+    }
+
     public CharSequence getTitle() {
         return mTitleText;
+    }
+
+    public CharSequence getSummary() {
+        return mSummaryText;
     }
 
     public boolean isChecked() {
@@ -138,7 +153,7 @@ public class SwitchView extends RecyclerViewItem {
     }
 
     @Override
-    protected void refresh() {
+    public void refresh() {
         super.refresh();
         if (mTitle != null) {
             if (mTitleText != null) {
@@ -163,6 +178,15 @@ public class SwitchView extends RecyclerViewItem {
             mSwitcher.setChecked(mChecked);
             mSwitcher.setEnabled(mEnabled);
             mSwitcher.setAlpha(mAlpha);
+        }
+
+        if (mIcon != null) {
+            if (mIconDrawable != null) {
+                mIcon.setImageDrawable(mIconDrawable);
+                mIcon.setVisibility(View.VISIBLE);
+            } else {
+                mIcon.setVisibility(View.GONE);
+            }
         }
     }
 }
