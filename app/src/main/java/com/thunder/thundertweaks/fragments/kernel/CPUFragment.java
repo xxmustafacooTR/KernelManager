@@ -58,6 +58,7 @@ public class CPUFragment extends RecyclerViewFragment {
 
     private CPUFreq mCPUFreq;
     private CPUBoost mCPUBoost;
+    private Misc mMisc;
 
     private XYGraphView mCPUUsageBig;
     private SelectView mCPUMaxBig;
@@ -167,9 +168,9 @@ public class CPUFragment extends RecyclerViewFragment {
         if (mCPUBoost.hasirqAffinity()) {
             irqAffinityInit(items);
         }
-		if (Misc.hasCPUSet()) {
+	/*	if (Misc.hasCPUSet()) {
 			cpusetInit(items);
-		}
+		}*/
         kernelTunablesInit(items);
     }
 
@@ -606,31 +607,31 @@ public class CPUFragment extends RecyclerViewFragment {
 		}
     }
 	
+/*
 	private void cpusetInit(List<RecyclerViewItem> items) {
 		CardView cpusetCard = new CardView(getActivity());
 		cpusetCard.setTitle(getString(R.string.cpuset));
-
 		for (int i = 0; i < Misc.size(); i++) {
 			if (Misc.exists(i)) {
-				GenericInputView cpuset = new GenericInputView();
-				cpuset.setTitle(Misc.getName(i));
-				cpuset.setValue(Misc.getValue(i));
+				GenericSelectView2 cpuset = new GenericSelectView2();	
+				cpuset.setSummary(Misc.getCPUName(i));
+				cpuset.setValue(Misc.getCPUValue(i));
 				cpuset.setValueRaw(cpuset.getValue());
-
+				cpuset.setInputType(InputType.TYPE_CLASS_TEXT);
+				
 				final int position = i;
 				cpuset.setOnGenericValueListener((genericSelectView, value) -> {
-					mMisc.setValue(value, position, getActivity());
+					mMisc.setCPUValue(value, position, getActivity());
 					genericSelectView.setValue(value);
 				});
 				cpusetCard.addItem(cpuset);
 			}
 		}
-
 		if (cpusetCard.size() > 0) {
 			items.add(cpusetCard);
 		}
-
 	}
+*/
 
     private void cpuBoostInit(List<RecyclerViewItem> items) {
         CardView cpuBoostCard = new CardView(getActivity());
