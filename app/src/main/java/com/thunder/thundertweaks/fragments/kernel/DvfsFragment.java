@@ -120,7 +120,9 @@ public class DvfsFragment extends RecyclerViewFragment {
         list.addAll(Arrays.asList("2730 MHz", "2535 MHz", "2288 MHz", "2028 MHz", "1716 MHz", "1539 MHz", "1352 MHz", "1014 MHz", "845 MHz", "676 MHz", "546 MHz", "421 MHz"));
 	} else if (board.equalsIgnoreCase("exynos9820") || board.equalsIgnoreCase("exynos9825")) {
 		list.addAll(Arrays.asList("2093 MHz", "1794 MHz", "1539 MHz", "1352 MHz", "1014 MHz", "845 MHz", "676 MHz", "546 MHz", "421 MHz"));
-	} else { 
+	} else if(Dvfs.hasAvailableFreq()) {
+        list.addAll(Dvfs.getAvailableFreq());
+    } else {
 		list.addAll(Arrays.asList("not supported"));
 	}
         SelectView mif_min = new SelectView();
