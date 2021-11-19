@@ -19,7 +19,7 @@
  *
  */
 
-package com.smartpack.kernelmanager.views.recyclerview;
+package com.thunder.thundertweaks.views.recyclerview;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,14 +29,14 @@ import android.view.View;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 
-import com.smartpack.kernelmanager.R;
-import com.smartpack.kernelmanager.utils.ViewUtils;
+import com.thunder.thundertweaks.R;
+import com.thunder.thundertweaks.utils.ViewUtils;
 
 /**
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 21, 2020
  */
 
-public class GenericInputView extends InputValueView {
+public class GenericInputView extends ValueView {
 
     public interface OnGenericValueListener {
         void onGenericValueSelected(GenericInputView genericSelectView, String value);
