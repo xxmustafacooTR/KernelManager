@@ -1,6 +1,7 @@
 package com.thunder.thundertweaks.utils.kernel.game;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.thunder.thundertweaks.fragments.ApplyOnBootFragment;
 import com.thunder.thundertweaks.utils.Utils;
@@ -192,16 +193,21 @@ public class GameControl {
         String readed = Utils.readFile(GAME_PACKAGES);
 
         if (!readed.contains(value))
-            setGamePackages(readed + "\n" + value, context);
+            readed += "\n" + value;
+
+        setGamePackages(readed, context);
     }
 
     public void removeGamePackage(String value, Context context) {
-        String readed = Utils.readFile(GAME_PACKAGES);
+        String packages[] = Utils.readFile(GAME_PACKAGES).split("\n");
+        String readed = "";
 
-        readed = readed.replace(value, "");
+        for (String onepackage : packages) {
+            if(!onepackage.equals(value))
+                readed += "\n" + onepackage;
+        }
 
-        if (readed.contains(value))
-            setGamePackages(readed.replaceAll("\\s+","\n"), context);
+        setGamePackages(readed, context);
     }
 
     public void editGamePackage(Boolean add, String value, Context context) {
