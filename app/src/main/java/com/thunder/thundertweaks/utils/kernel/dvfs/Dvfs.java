@@ -31,7 +31,7 @@ public class Dvfs {
 	private static final String MIF_AVAILABLE_FREQ = MIF + "/available_frequencies";
 
     public static List<String> getAvailableFreq() {
-        String freqs[] = Utils.readFile(MIF_AVAILABLE_FREQ).split(" ");
+        String[] freqs = Utils.readFile(MIF_AVAILABLE_FREQ).split(" ");
         List<String> AVAILABLE_FREQS = new ArrayList<>();
         for (String freq : freqs) {
             if (!AVAILABLE_FREQS.contains(freq)) {
@@ -93,84 +93,11 @@ public class Dvfs {
     }
 
     public static void setDevfreqMinFreq(String value, Context context) {
-	String board = Device.getBoard();
-  if (board.equalsIgnoreCase("exynos9830") || board.equalsIgnoreCase("exynos990")) {
-		switch (value){
-            case "2730 MHz" :
-                run(Control.write("2730000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-            case "2535 MHz" :
-                run(Control.write("2535000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-            case "2288 MHz" :
-                run(Control.write("2288000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "2028 MHz" :
-                run(Control.write("2028000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "1716 MHz" :
-                run(Control.write("1716000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "1539 MHz" :
-                run(Control.write("1539000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "1352 MHz" :
-                run(Control.write("1352000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "1014 MHz" :
-                run(Control.write("1014000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "845 MHz" :
-                run(Control.write("845000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "676 MHz" :
-                run(Control.write("676000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "546 MHz" :
-                run(Control.write("546000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "421 MHz" :
-                run(Control.write("421000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-        }
-  } else if (board.equalsIgnoreCase("exynos9820") || board.equalsIgnoreCase("exynos9825")) {
-		switch (value){
-			case "2093 MHz" :
-                run(Control.write("2093000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "1794 MHz" :
-                run(Control.write("1794000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "1539 MHz" :
-                run(Control.write("1539000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "1352 MHz" :
-                run(Control.write("1352000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "1014 MHz" :
-                run(Control.write("1014000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "845 MHz" :
-                run(Control.write("845000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "676 MHz" :
-                run(Control.write("676000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "546 MHz" :
-                run(Control.write("546000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-			case "421 MHz" :
-                run(Control.write("421000", MIF_MIN_FREQ), MIF_MIN_FREQ, context);
-                break;
-        }
-  } else {
       value = value.substring(0, value.length() - 4);
       run(Control.write(value + "000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-		}
     }
 
     public static String getDevfreqMinFreq() {
-			String board = Device.getBoard();
         if (Utils.readFile(MIF_MIN_FREQ) != null) {
             String value = Utils.readFile(MIF_MIN_FREQ);
             value = value.substring(0, value.length() - 3);
@@ -184,84 +111,11 @@ public class Dvfs {
     }
 
     public static void setDevfreqMaxFreq(String value, Context context) {
-			String board = Device.getBoard();
-  if (board.equalsIgnoreCase("exynos9830") || board.equalsIgnoreCase("exynos990")) {
-		switch (value){
-            case "2730 MHz" :
-                run(Control.write("2730000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-            case "2535 MHz" :
-                run(Control.write("2535000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-            case "2288 MHz" :
-                run(Control.write("2288000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "2028 MHz" :
-                run(Control.write("2028000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "1716 MHz" :
-                run(Control.write("1716000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "1539 MHz" :
-                run(Control.write("1539000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "1352 MHz" :
-                run(Control.write("1352000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "1014 MHz" :
-                run(Control.write("1014000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "845 MHz" :
-                run(Control.write("845000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "676 MHz" :
-                run(Control.write("676000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "546 MHz" :
-                run(Control.write("546000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "421 MHz" :
-                run(Control.write("421000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-        }
-  } else if (board.equalsIgnoreCase("exynos9820") || board.equalsIgnoreCase("exynos9825")) {
-		switch (value){
-			case "2093 MHz" :
-                run(Control.write("2093000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "1794 MHz" :
-                run(Control.write("1794000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "1539 MHz" :
-                run(Control.write("1539000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "1352 MHz" :
-                run(Control.write("1352000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "1014 MHz" :
-                run(Control.write("1014000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "845 MHz" :
-                run(Control.write("845000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "676 MHz" :
-                run(Control.write("676000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "546 MHz" :
-                run(Control.write("546000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-			case "421 MHz" :
-                run(Control.write("421000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-                break;
-        }
-  } else {
       value = value.substring(0, value.length() - 4);
       run(Control.write(value + "000", MIF_MAX_FREQ), MIF_MAX_FREQ, context);
-		}
     }
 
     public static String getDevfreqMaxFreq() {
-			String board = Device.getBoard();
         if (Utils.readFile(MIF_MAX_FREQ) != null) {
             String value = Utils.readFile(MIF_MAX_FREQ);
             value = value.substring(0, value.length() - 3);
