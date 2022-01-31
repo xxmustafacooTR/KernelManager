@@ -1533,4 +1533,5 @@
     <string name="gameControl_reset_message">Do you want to reset selected packages?</string>
     <string name="reset_message">Do you want to reset all controls to default value?</string>
     <string name="reset_summary">Reset to default values</string>
+    <string name="limitCapacity">Limit Battery Capacity While Charging</string>
 </resources>
