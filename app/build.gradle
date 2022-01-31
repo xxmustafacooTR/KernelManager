@@ -6,9 +6,10 @@ android {
     defaultConfig {
         applicationId 'com.thunder.thundertweaks'
         minSdkVersion 23
+        //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 29
-        versionCode 1103
-        versionName "1.1.0.3"
+        versionCode 1104
+        versionName "1.1.0.4"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,9 +44,9 @@ dependencies {
     implementation('com.github.ozodrukh.CircularReveal:circualreveal:2.1.0@aar') {
         transitive = true;
     }
-    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
