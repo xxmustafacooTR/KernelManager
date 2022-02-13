@@ -78,6 +78,17 @@ public class GameFragment extends RecyclerViewFragment {
             gameControlCard.addItem(alwaysOn);
         }
 
+        if(mGameControl.hasBatteryIdle()){
+            SwitchView batteryidle = new SwitchView();
+            batteryidle.setTitle(getString(R.string.gameControl_batteryidle));
+            batteryidle.setSummary(getString(R.string.gameControl_batteryidle_desc));
+            batteryidle.setChecked(mGameControl.isEnabledBatteryIdle());
+            batteryidle.addOnSwitchListener((switchView, isChecked) ->
+                    mGameControl.enableBatteryIdle(isChecked, getActivity())
+            );
+            gameControlCard.addItem(batteryidle);
+        }
+
         if(mCPUFreq.getFreqs() != null) {
 
             if (mGameControl.hasBIGMax()) {

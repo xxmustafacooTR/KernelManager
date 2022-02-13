@@ -22,6 +22,7 @@ public class GameControl {
     private static final String VERSION = GAMING_CONTROL + "/version";
     private static final String GAME_PACKAGES = GAMING_CONTROL + "/game_packages";
     private static final String ALWAYS_ON = GAMING_CONTROL + "/always_on";
+    private static final String BATTERY_IDLE = GAMING_CONTROL + "/battery_idle";
     private static final String MIF_MIN = GAMING_CONTROL + "/min_mif";
     private static final String LITTLE_MIN = GAMING_CONTROL + "/little_freq_min";
     private static final String LITTLE_MAX = GAMING_CONTROL + "/little_freq_max";
@@ -54,6 +55,18 @@ public class GameControl {
 
     public static void enableAlwaysOn(Boolean enable, Context context){
         run(Control.write(enable ? "1" : "0", ALWAYS_ON), ALWAYS_ON, context);
+    }
+
+    public static boolean hasBatteryIdle(){
+        return Utils.existFile(BATTERY_IDLE);
+    }
+
+    public static Boolean isEnabledBatteryIdle(){
+        return Utils.readFile(BATTERY_IDLE).equals("1");
+    }
+
+    public static void enableBatteryIdle(Boolean enable, Context context){
+        run(Control.write(enable ? "1" : "0", BATTERY_IDLE), BATTERY_IDLE, context);
     }
 
     public static boolean hasMIFMin(){

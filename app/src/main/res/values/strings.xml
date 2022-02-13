@@ -1534,4 +1534,6 @@
     <string name="reset_message">Do you want to reset all controls to default value?</string>
     <string name="reset_summary">Reset to default values</string>
     <string name="limitCapacity">Limit Battery Capacity While Charging</string>
+    <string name="gameControl_batteryidle">Idle Battery While Gaming</string>
+    <string name="gameControl_batteryidle_desc">Do not charge BATTERY while playing game</string>
 </resources>
