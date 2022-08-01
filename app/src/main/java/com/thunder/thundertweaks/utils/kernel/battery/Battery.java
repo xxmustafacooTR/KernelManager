@@ -118,7 +118,7 @@ public class Battery {
     private static String STORE_MODE_MIN = "/sys/module/sec_battery/parameters/store_mode_min";
     private static String LIMIT_CAPACITY = "/sys/class/power_supply/battery/batt_full_capacity";
 
-    private int mCapacity;
+    private static int mCapacity;
     private Battery(Context context) {
         if (BATTERY_NODE == null) {
             setValues();
@@ -141,7 +141,7 @@ public class Battery {
         return (float) Utils.strToInt(Utils.readFile(FG_FULLCAPNOM));
     }
 
-    public String getHealthValue() {
+    public static String getHealthValue() {
         String state = Utils.readFile(HEALTH);
         if (state == null){
             return null;
@@ -372,7 +372,7 @@ public class Battery {
     }
 
 
-    public int getCapacity() {
+    public static int getCapacity() {
         return mCapacity;
     }
 
