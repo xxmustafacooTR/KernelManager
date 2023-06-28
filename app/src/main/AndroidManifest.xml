@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.thunder.thundertweaks">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -44,7 +43,8 @@
         android:theme="@style/Theme.Default.Blue"
         tools:ignore="GoogleAppIndexingWarning"
         android:requestLegacyExternalStorage="true"
-        tools:targetApi="q">
+        tools:targetApi="s"
+        android:dataExtractionRules="@xml/data_extraction_rules">
 
         <activity android:name="com.thunder.thundertweaks.activities.StartActivity"
             android:exported="true">
