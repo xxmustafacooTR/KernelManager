@@ -61,6 +61,8 @@ public class Misc {
     private static final String REGISTER_HOOK = "/sys/class/misc/mdnie/hook_intercept";
     private static final String MASTER_SEQUENCE = "/sys/class/misc/mdnie/sequence_intercept";
 
+    private static final String FIX_GREEN_SCREEN = "/sys/devices/platform/panel_drv@001/backlight/panel/device/lcd/panel/fix_green_screen";
+
     private final List<String> mBackLightDimmer = new ArrayList<>();
     private final HashMap<String, Integer> mMinBrightnessFiles = new HashMap<>();
     private final HashMap<String, Switch> mGloveMode = new HashMap<>();
@@ -271,6 +273,19 @@ public class Misc {
 
     public boolean isMdnieEnabled() {
         return Utils.readFile(MDNIE_FILE).equals(MDNIE_USE_INTEGER ? "1" : "Y");
+    }
+
+    public void enableGreenFix(boolean enable, Context context) {
+        run(Control.write(enable ? "1" : "0", FIX_GREEN_SCREEN),
+                FIX_GREEN_SCREEN, context);
+    }
+
+    public boolean hasGreenFix() {
+        return Utils.existFile(FIX_GREEN_SCREEN);
+    }
+
+    public boolean isGreenFixEnabled() {
+        return Utils.readFile(FIX_GREEN_SCREEN).equals("1");
     }
 
     public boolean supported() {

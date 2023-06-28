@@ -1539,4 +1539,6 @@
     <string name="limitCapacity">Limit Battery Capacity While Charging</string>
     <string name="gameControl_batteryidle">Idle Battery While Gaming</string>
     <string name="gameControl_batteryidle_desc">Do not charge BATTERY while playing game</string>
+    <string name="green_screen_fix">Green Screen Fix</string>
+    <string name="green_screen_fix_desc">Fix Green Screen Tint that some devices have</string>
 </resources>

@@ -100,6 +100,9 @@ public class ScreenFragment extends RecyclerViewFragment {
         if (mMisc.hasMdnie()) {
             mdnieInit(items);
         }
+        if (mMisc.hasGreenFix()) {
+            greenFixInit(items);
+        }
         screenColorInit(items);
         List<RecyclerViewItem> gammas = new ArrayList<>();
         if (Gamma.hasKGamma()) {
@@ -139,6 +142,16 @@ public class ScreenFragment extends RecyclerViewFragment {
         items.add(mdnie);
     }
 
+    private void greenFixInit(List<RecyclerViewItem> items) {
+        SwitchView greenfix = new SwitchView();
+        greenfix.setTitle(getString(R.string.green_screen_fix));
+        greenfix.setSummary(getString(R.string.green_screen_fix_desc));
+        greenfix.setChecked(mMisc.isGreenFixEnabled());
+        greenfix.addOnSwitchListener((switchView, isChecked)
+                -> mMisc.enableGreenFix(isChecked, getActivity()));
+
+        items.add(greenfix);
+    }
 
     private void screenColorInit(List<RecyclerViewItem> items) {
         if (mCalibration.hasColors()) {
