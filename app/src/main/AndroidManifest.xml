@@ -43,8 +43,9 @@
         android:theme="@style/Theme.Default.Blue"
         tools:ignore="GoogleAppIndexingWarning"
         android:requestLegacyExternalStorage="true"
-        tools:targetApi="s"
-        android:dataExtractionRules="@xml/data_extraction_rules">
+        tools:targetApi="tiramisu"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true">
 
         <activity android:name="com.thunder.thundertweaks.activities.StartActivity"
             android:exported="true">

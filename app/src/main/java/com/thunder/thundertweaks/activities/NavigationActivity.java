@@ -30,6 +30,8 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
 import androidx.fragment.app.Fragment;
@@ -43,6 +45,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.window.OnBackInvokedDispatcher;
 
 import com.thunder.thundertweaks.R;
 import com.thunder.thundertweaks.fragments.BaseFragment;
@@ -158,6 +161,32 @@ public class NavigationActivity extends BaseActivity
         } else {
             mFragments = savedInstanceState.getParcelableArrayList("fragments");
             init(savedInstanceState);
+        }
+
+         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
+                        mDrawer.closeDrawer(GravityCompat.START);
+                    } else {
+                        Fragment currentFragment = getFragment(mSelection);
+                        if (!(currentFragment instanceof BaseFragment)
+                                || !((BaseFragment) currentFragment).onBackPressed()) {
+                            long currentTime = SystemClock.elapsedRealtime();
+                            if (currentTime - mLastTimeBackbuttonPressed > 2000) {
+                                mLastTimeBackbuttonPressed = currentTime;
+                                Utils.toast(R.string.press_back_again_exit, NavigationActivity.this);
+                            } else {
+                                finishAffinity();
+                            }
+                        }
+                    }
+
+
+                }
+            };
+            getOnBackPressedDispatcher().addCallback(this, callback);
         }
     }
 
@@ -454,25 +483,6 @@ public class NavigationActivity extends BaseActivity
 
     public Map<Integer, Class<? extends Fragment>> getActualFragments() {
         return mActualFragments;
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.START)) {
-            mDrawer.closeDrawer(GravityCompat.START);
-        } else {
-            Fragment currentFragment = getFragment(mSelection);
-            if (!(currentFragment instanceof BaseFragment)
-                    || !((BaseFragment) currentFragment).onBackPressed()) {
-                long currentTime = SystemClock.elapsedRealtime();
-                if (currentTime - mLastTimeBackbuttonPressed > 2000) {
-                    mLastTimeBackbuttonPressed = currentTime;
-                    Utils.toast(R.string.press_back_again_exit, this);
-                } else {
-                    super.onBackPressed();
-                }
-            }
-        }
     }
 
     @Override
