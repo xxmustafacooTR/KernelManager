@@ -37,7 +37,7 @@ public class VoltageCl1 {
 
     public static final String BACKUP = "/data/.thundertweaks/cpuCl1_stock_voltage";
 
-    public static final String CL1_VOLTAGE = "/sys/devices/system/cpu/cpufreq/mp-cpufreq/cluster1_volt_table";
+    public static final String CL1_VOLTAGE = "/sys/power/cpucl1volt_table";
 
     private static final HashMap<String, Boolean> sVoltages = new HashMap<>();
     private static final HashMap<String, Integer> sOffset = new HashMap<>();
