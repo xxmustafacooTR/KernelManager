@@ -306,22 +306,34 @@ public class MiscFragment extends RecyclerViewFragment {
     private void dozeInit(List<RecyclerViewItem> items) {
         CardView doze = new CardView(getActivity());
         doze.setTitle(getString(R.string.doze));
-		
-		if (mMisc.hasDoze()) {
-				SelectView dozes = new SelectView();
-				dozes.setTitle(getString(R.string.doze));
-				dozes.setSummary(getString(R.string.doze_summary));
-			    dozes.setItems(Misc.doze(requireActivity()));
-			    dozes.setItem(Misc.getDozeState());
-			    dozes.setOnItemSelected((selectView, position, item) -> {
-				    mMisc.setDoze(position, getActivity());
-				    getHandler().postDelayed(() -> dozes.setItem(Misc.getDozeState()),
-						    500);
-			    });
+
+        if (mMisc.hasDeepestIdleState()) {
+            SwitchView deepesIdle = new SwitchView();
+            deepesIdle.setTitle(getString(R.string.doze_cpuidle));
+            deepesIdle.setSummary(getString(R.string.doze_summary));
+            deepesIdle.setChecked(mMisc.isDeepestIdleStateEnabled());
+            deepesIdle.addOnSwitchListener((switchView, isChecked) -> {
+                mMisc.enableDeepestIdleState(isChecked, getActivity());
+            });
+
+            doze.addItem(deepesIdle);
+        }
+
+        if (mMisc.hasDoze()) {
+            SelectView dozes = new SelectView();
+            dozes.setTitle(getString(R.string.doze));
+            dozes.setSummary(getString(R.string.doze_summary));
+            dozes.setItems(Misc.doze(requireActivity()));
+            dozes.setItem(Misc.getDozeState());
+            dozes.setOnItemSelected((selectView, position, item) -> {
+                mMisc.setDoze(position, getActivity());
+                getHandler().postDelayed(() -> dozes.setItem(Misc.getDozeState()),
+                        500);
+            });
 
             doze.addItem(dozes);
-		}
-		
+        }
+
         if (doze.size() > 0) {
             items.add(doze);
 		}

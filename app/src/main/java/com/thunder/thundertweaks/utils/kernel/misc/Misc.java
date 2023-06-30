@@ -55,6 +55,7 @@ public class Misc {
     private static final String CPUSET = "/dev/cpuset";
     private static final String[] PARAMETERS = {"abnormal/cpus", "background/cpus", "deoxp/cpus",
             "foreground/cpus", "moderate/cpus", "restricted/cpus", "sf/cpus", "system-background/cpus", "top-app/cpus"};
+    private static final String DEEPEST_STATE = "/sys/devices/system/cpu/cpuidle/use_deepest_state";
 
     private static final String DOZE = "dumpsys deviceidle";
 
@@ -192,6 +193,18 @@ public class Misc {
 
     public static boolean hasDoze() {
         return RootUtils.runCommand(DOZE + " enabled").equals("1") || RootUtils.runCommand(DOZE + " enabled").equals("0");
+    }
+
+    public void enableDeepestIdleState(boolean enable, Context context) {
+        run(Control.write(enable ? "1" : "0", DEEPEST_STATE), DEEPEST_STATE, context);
+    }
+
+    public boolean isDeepestIdleStateEnabled() {
+        return Utils.readFile(DEEPEST_STATE).equals("1");
+    }
+
+    public boolean hasDeepestIdleState() {
+        return Utils.existFile(DEEPEST_STATE);
     }
 
     public static boolean hasWireguard() {
