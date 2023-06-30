@@ -206,6 +206,83 @@ public class GameFragment extends RecyclerViewFragment {
             gameControlCard.addItem(minMIFfreq);
         }
 
+        if(mGameControl.hasINTMin()) {
+            GenericSelectView minINTfreq = new GenericSelectView();
+            minINTfreq.setSummary(getString(R.string.gameControl_INT_min));
+            minINTfreq.setValue(String.valueOf(mGameControl.getINTMin()));
+            minINTfreq.setValueRaw(minINTfreq.getValue());
+            minINTfreq.setOnGenericValueListener((genericSelectView, value)
+                    -> mGameControl.setINTMin(Integer.parseInt(value), getActivity()));
+
+            gameControlCard.addItem(minINTfreq);
+        }
+
+        if (mGameControl.hasLittleFreq()) {
+            GenericSelectView customLittlefreq = new GenericSelectView();
+            customLittlefreq.setSummary(getString(R.string.gameControl_custom_little_freq));
+            customLittlefreq.setValue(String.valueOf(mGameControl.getLittleFreq()));
+            customLittlefreq.setValueRaw(customLittlefreq.getValue());
+            customLittlefreq.setOnGenericValueListener((genericSelectView, value)
+                    -> mGameControl.setLittleFreq(Integer.parseInt(value), getActivity()));
+
+            gameControlCard.addItem(customLittlefreq);
+        }
+
+        if (mGameControl.hasLittleVolt()) {
+            GenericSelectView customLittleVolt = new GenericSelectView();
+            customLittleVolt.setSummary(getString(R.string.gameControl_custom_little_volt));
+            customLittleVolt.setValue(String.valueOf(mGameControl.getLittleVolt()));
+            customLittleVolt.setValueRaw(customLittleVolt.getValue());
+            customLittleVolt.setOnGenericValueListener((genericSelectView, value)
+                    -> mGameControl.setLittleVolt(Integer.parseInt(value), getActivity()));
+
+            gameControlCard.addItem(customLittleVolt);
+        }
+
+        if (mGameControl.hasBigFreq()) {
+            GenericSelectView customBigfreq = new GenericSelectView();
+            customBigfreq.setSummary(getString(R.string.gameControl_custom_Big_freq));
+            customBigfreq.setValue(String.valueOf(mGameControl.getBigFreq()));
+            customBigfreq.setValueRaw(customBigfreq.getValue());
+            customBigfreq.setOnGenericValueListener((genericSelectView, value)
+                    -> mGameControl.setBigFreq(Integer.parseInt(value), getActivity()));
+
+            gameControlCard.addItem(customBigfreq);
+        }
+
+        if (mGameControl.hasBigVolt()) {
+            GenericSelectView customBigVolt = new GenericSelectView();
+            customBigVolt.setSummary(getString(R.string.gameControl_custom_Big_volt));
+            customBigVolt.setValue(String.valueOf(mGameControl.getBigVolt()));
+            customBigVolt.setValueRaw(customBigVolt.getValue());
+            customBigVolt.setOnGenericValueListener((genericSelectView, value)
+                    -> mGameControl.setBigVolt(Integer.parseInt(value), getActivity()));
+
+            gameControlCard.addItem(customBigVolt);
+        }
+
+        if (mGameControl.hasGpuFreq()) {
+            GenericSelectView customGpufreq = new GenericSelectView();
+            customGpufreq.setSummary(getString(R.string.gameControl_custom_Gpu_freq));
+            customGpufreq.setValue(String.valueOf(mGameControl.getGpuFreq()));
+            customGpufreq.setValueRaw(customGpufreq.getValue());
+            customGpufreq.setOnGenericValueListener((genericSelectView, value)
+                    -> mGameControl.setGpuFreq(Integer.parseInt(value), getActivity()));
+
+            gameControlCard.addItem(customGpufreq);
+        }
+
+        if (mGameControl.hasGpuVolt()) {
+            GenericSelectView customGpuVolt = new GenericSelectView();
+            customGpuVolt.setSummary(getString(R.string.gameControl_custom_Gpu_volt));
+            customGpuVolt.setValue(String.valueOf(mGameControl.getGpuVolt()));
+            customGpuVolt.setValueRaw(customGpuVolt.getValue());
+            customGpuVolt.setOnGenericValueListener((genericSelectView, value)
+                    -> mGameControl.setGpuVolt(Integer.parseInt(value), getActivity()));
+
+            gameControlCard.addItem(customGpuVolt);
+        }
+
         items.add(gameControlCard);
     }
 

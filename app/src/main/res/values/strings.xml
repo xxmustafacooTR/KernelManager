@@ -1535,6 +1535,13 @@
     <string name="gameControl_packages">Game Control will work on these apps</string>
     <string name="gameControl_packages_mode">App Show Filter for Categories</string>
     <string name="gameControl_reset_message">Do you want to reset selected packages?</string>
+	<string name="gameControl_INT_min">Minimum INT freq while playing game</string>
+    <string name="gameControl_custom_little_freq">Forced freq for Little Cpu</string>
+    <string name="gameControl_custom_Big_freq">Forced freq for Big Cpu (In Testing)</string>
+    <string name="gameControl_custom_Gpu_freq">Forced freq for Gpu</string>
+    <string name="gameControl_custom_little_volt">Custom volt for Little Cpu</string>
+    <string name="gameControl_custom_Big_volt">Custom volt for Big Cpu</string>
+    <string name="gameControl_custom_Gpu_volt">Custom volt for Gpu</string>
     <string name="reset_message">Do you want to reset all controls to default value?</string>
     <string name="reset_summary">Reset to default values</string>
     <string name="limitCapacity">Limit Battery Capacity While Charging</string>

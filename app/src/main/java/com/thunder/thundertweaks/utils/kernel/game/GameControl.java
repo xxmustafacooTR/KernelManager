@@ -23,15 +23,22 @@ public class GameControl {
     private static final String GAME_PACKAGES = GAMING_CONTROL + "/game_packages";
     private static final String ALWAYS_ON = GAMING_CONTROL + "/always_on";
     private static final String BATTERY_IDLE = GAMING_CONTROL + "/battery_idle";
-    private static final String MIF_MIN = GAMING_CONTROL + "/min_mif";
-    private static final String LITTLE_MIN = GAMING_CONTROL + "/little_freq_min";
-    private static final String LITTLE_MAX = GAMING_CONTROL + "/little_freq_max";
-    private static final String MIDDLE_MIN = GAMING_CONTROL + "/middle_freq_min";
-    private static final String MIDDLE_MAX = GAMING_CONTROL + "/middle_freq_max";
-    private static final String BIG_MIN = GAMING_CONTROL + "/big_freq_min";
-    private static final String BIG_MAX = GAMING_CONTROL + "/big_freq_max";
-    private static final String GPU_MIN = GAMING_CONTROL + "/gpu_freq_min";
-    private static final String GPU_MAX = GAMING_CONTROL + "/gpu_freq_max";
+    private static final String INT_MIN = GAMING_CONTROL + "/min_int_freq";
+    private static final String MIF_MIN = GAMING_CONTROL + "/min_mif_freq";
+    private static final String LITTLE_MIN = GAMING_CONTROL + "/min_little_freq";
+    private static final String LITTLE_MAX = GAMING_CONTROL + "/max_little_freq";
+    private static final String MIDDLE_MIN = GAMING_CONTROL + "/min_middle_freq";
+    private static final String MIDDLE_MAX = GAMING_CONTROL + "/max_middle_freq";
+    private static final String BIG_MIN = GAMING_CONTROL + "/min_big_freq";
+    private static final String BIG_MAX = GAMING_CONTROL + "/max_big_freq";
+    private static final String GPU_MIN = GAMING_CONTROL + "/min_gpu_freq";
+    private static final String GPU_MAX = GAMING_CONTROL + "/max_gpu_freq";
+    private static final String LITTLE_FREQ = GAMING_CONTROL + "/custom_little_freq";
+    private static final String LITTLE_VOLT = GAMING_CONTROL + "/custom_little_voltage";
+    private static final String BIG_FREQ = GAMING_CONTROL + "/custom_big_freq";
+    private static final String BIG_VOLT = GAMING_CONTROL + "/custom_big_voltage";
+    private static final String GPU_FREQ = GAMING_CONTROL + "/custom_gpu_freq";
+    private static final String GPU_VOLT = GAMING_CONTROL + "/custom_gpu_voltage";
 
     public static boolean hasGameControl() {
         return Utils.existFile(GAMING_CONTROL);
@@ -76,6 +83,19 @@ public class GameControl {
     public void setMIFMin(int value, Context context) {
         run(Control.write(String.valueOf(value), MIF_MIN),
                 MIF_MIN, context);
+    }
+
+    public static int getINTMin() {
+        return Utils.strToInt(Utils.readFile(INT_MIN));
+    }
+
+    public static boolean hasINTMin(){
+        return Utils.existFile(INT_MIN);
+    }
+
+    public void setINTMin(int value, Context context) {
+        run(Control.write(String.valueOf(value), INT_MIN),
+                INT_MIN, context);
     }
 
     public static int getMIFMin() {
@@ -184,6 +204,84 @@ public class GameControl {
 
     public static int getGPUMax() {
         return Utils.strToInt(Utils.readFile(GPU_MAX));
+    }
+
+    public static boolean hasLittleFreq(){
+        return Utils.existFile(LITTLE_FREQ);
+    }
+
+    public void setLittleFreq(int value, Context context) {
+        run(Control.write(String.valueOf(value), LITTLE_FREQ),
+                LITTLE_FREQ, context);
+    }
+
+    public static int getLittleFreq() {
+        return Utils.strToInt(Utils.readFile(LITTLE_FREQ));
+    }
+
+    public static boolean hasLittleVolt(){
+        return Utils.existFile(LITTLE_VOLT);
+    }
+
+    public void setLittleVolt(int value, Context context) {
+        run(Control.write(String.valueOf(value), LITTLE_VOLT),
+                LITTLE_VOLT, context);
+    }
+
+    public static int getLittleVolt() {
+        return Utils.strToInt(Utils.readFile(LITTLE_VOLT));
+    }
+
+    public static boolean hasBigFreq(){
+        return Utils.existFile(BIG_FREQ);
+    }
+
+    public void setBigFreq(int value, Context context) {
+        run(Control.write(String.valueOf(value), BIG_FREQ),
+                BIG_FREQ, context);
+    }
+
+    public static int getBigFreq() {
+        return Utils.strToInt(Utils.readFile(BIG_FREQ));
+    }
+
+    public static boolean hasBigVolt(){
+        return Utils.existFile(BIG_VOLT);
+    }
+
+    public void setBigVolt(int value, Context context) {
+        run(Control.write(String.valueOf(value), BIG_VOLT),
+                BIG_VOLT, context);
+    }
+
+    public static int getBigVolt() {
+        return Utils.strToInt(Utils.readFile(BIG_VOLT));
+    }
+
+    public static boolean hasGpuFreq(){
+        return Utils.existFile(GPU_FREQ);
+    }
+
+    public void setGpuFreq(int value, Context context) {
+        run(Control.write(String.valueOf(value), GPU_FREQ),
+                GPU_FREQ, context);
+    }
+
+    public static int getGpuFreq() {
+        return Utils.strToInt(Utils.readFile(GPU_FREQ));
+    }
+
+    public static boolean hasGpuVolt(){
+        return Utils.existFile(GPU_VOLT);
+    }
+
+    public void setGpuVolt(int value, Context context) {
+        run(Control.write(String.valueOf(value), GPU_VOLT),
+                GPU_VOLT, context);
+    }
+
+    public static int getGpuVolt() {
+        return Utils.strToInt(Utils.readFile(GPU_VOLT));
     }
 
     public static boolean hasGamePackages(){
