@@ -7,8 +7,8 @@ android {
     defaultConfig {
         applicationId 'com.thunder.thundertweaks'
         minSdkVersion 27
-        //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 33
+        //noinspection ExpiredTargetSdkVersion,OldTargetApi
+        targetSdkVersion 29
         versionCode 1105
         versionName "1.1.0.5"
         vectorDrawables.useSupportLibrary = true
@@ -16,8 +16,19 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk {
+                //noinspection ChromeOsAbiSupport
+                abiFilters "arm64-v8a"
+            }
+        }
+        debug {
+            minifyEnabled false
+            ndk {
+                //noinspection ChromeOsAbiSupport
+                abiFilters "arm64-v8a"
+            }
         }
     }
     compileOptions {
@@ -40,7 +51,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.5.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -49,6 +60,7 @@ dependencies {
     }
     implementation "androidx.activity:activity:1.7.2"
     implementation "androidx.activity:activity-ktx:1.7.2"
+    implementation "androidx.multidex:multidex:2.0.1"
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.android.material:material:1.9.0'
