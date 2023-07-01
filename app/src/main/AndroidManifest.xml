@@ -43,7 +43,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Default.Cyan"
+        android:theme="@style/Theme.Material.Material"
         tools:ignore="GoogleAppIndexingWarning"
         android:requestLegacyExternalStorage="true"
         tools:targetApi="tiramisu"

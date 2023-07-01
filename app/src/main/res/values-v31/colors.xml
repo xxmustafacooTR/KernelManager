@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dynamic_main">@android:color/system_accent1_400</color>
+    <color name="dynamic_secondary">@android:color/system_accent2_600</color>
+    <color name="dynamic_main_dark">@android:color/system_accent1_500</color>
+</resources>
