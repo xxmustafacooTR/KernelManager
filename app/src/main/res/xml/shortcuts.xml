@@ -8,11 +8,11 @@
         android:shortcutShortLabel="@string/settings">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.thunder.thundertweaks.activities.MainActivity"
-            android:targetPackage="com.thunder.thundertweaks">
+            android:targetClass="com.xxmustafacooTR.kernelmanager.activities.MainActivity"
+            android:targetPackage="com.xxmustafacooTR.kernelmanager">
             <extra
                 android:name="section"
-                android:value="com.thunder.thundertweaks.fragments.other.SettingsFragment" />
+                android:value="com.xxmustafacooTR.kernelmanager.fragments.other.SettingsFragment" />
         </intent>
         <categories android:name="android.shortcut.conversation" />
     </shortcut>

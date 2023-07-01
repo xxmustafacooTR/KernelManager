@@ -13,8 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
-import com.thunder.thundertweaks.R;
-import com.thunder.thundertweaks.BuildConfig;
+import com.xxmustafacooTR.kernelmanager.R;
 
 import java.net.URL;
 

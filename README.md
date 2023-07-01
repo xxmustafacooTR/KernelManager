@@ -1,12 +1,12 @@
-# ThunderTweaks
+# xxTR Manager
 
-It is a fork of hKTweaks [hKTweaks](https://github.com/corsicanu/hKtweaks) and MoroGoku's [MTweaks](https://github.com/morogoku/MTweaks-KernelAdiutorMOD), properly adaptated to exynos7870/7880/7884/7885/7904/8890 devices (maybe even more).
+It is a fork of ThunderTweaks [ThunderTweaks](https://github.com/ThunderStorms21th/ThunderTweaks), hKTweaks [hKTweaks](https://github.com/corsicanu/hKtweaks) and MoroGoku's [MTweaks](https://github.com/morogoku/MTweaks-KernelAdiutorMOD), properly adaptated to exynos7870/7880/7884/7885/7904/8890 devices (maybe even more).
 Original hKTweaks and MTweaks app is a Mod of Grarak's [KernelAdiutor](https://github.com/Grarak/KernelAdiutor) for compatibilize to Samsung Exynos.
 Thanks to Willi Ye for this great application.
-First version of ThunderTweaks v1.0.0 is builded from hKTweaks v1.1.5 and MTWeaks v2.14.0.
-I've added some fixes and new stuff for better work with ThundeRStormS kernel : (https://github.com/ThunderStorms21th/Galaxy-S7-Pie-kernel) and (https://github.com/ThunderStorms21th/Galaxy-S7-kernel).
+First version of xxTR Manager is builded from ThunderTweaks, hKTweaks and MTWeaks.
+This app works with only Exynos 9810 devices, if you don't have that device use other managers.
 
-## Donation link of myself Nalas (Original creator of ThunderTweaks)
+## Donation link for Nalas (Original creator of ThunderTweaks)
 [![PayPal](https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-200px.png)](https://paypal.me/pnalas)
 
 ## Donation link for Corsicanu (Original creator of hKTweaks)
@@ -58,17 +58,18 @@ _(Many sys interface paths has been taken from his [UKM-Project](https://github.
     Copyright (C) 2017 morogoku <morogoku@hotmail.com>
     Copyright (C) 2019 corsicanu <corsicanu22@gmail.com>
     Copyright (C) 2019 nalas <pn2604@gmail.com>
+    Copyright (C) 2023 xxmustafacooTR <mustafa.gokmen2004@gmail.com>
 	
     
-    ThunderTweaks is free software: you can redistribute it and/or modify
+    xxTR Manager is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
     
-    ThunderTweaks is distributed in the hope that it will be useful,
+    xxTR Manager is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
     
     You should have received a copy of the GNU General Public License
-    along with ThunderTweaks.  If not, see <http://www.gnu.org/licenses/>.
+    along with xxTR Manager.  If not, see <http://www.gnu.org/licenses/>.

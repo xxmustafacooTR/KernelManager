@@ -5,12 +5,12 @@ android {
     compileSdkVersion 33
     buildToolsVersion '33.0.0'
     defaultConfig {
-        applicationId 'com.thunder.thundertweaks'
+        applicationId 'com.xxmustafacooTR.kernelmanager'
         minSdkVersion 27
         //noinspection ExpiredTargetSdkVersion,OldTargetApi
         targetSdkVersion 29
-        versionCode 1105
-        versionName "1.1.0.5"
+        versionCode 4603
+        versionName "46.0-Beta3"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -41,10 +41,10 @@ android {
     lint {
         abortOnError false
     }
-    namespace 'com.thunder.thundertweaks'
+    namespace 'com.xxmustafacooTR.kernelmanager'
     android.applicationVariants.all { final variant ->
         variant.outputs.all {
-            outputFileName = "ThunderTweaks_v${variant.versionName}.apk"
+            outputFileName = "xxTR_Manager_v${variant.versionName}.apk"
         }
     }
 }

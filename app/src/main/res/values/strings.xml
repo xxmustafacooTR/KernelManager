@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name">ThunderTweaks 9810</string>
+    <string name="app_name">xxTR Manager</string>
 
     <string name="checking_info">Checking info…</string>
     <string name="checking_root">Checking root access</string>
@@ -9,7 +9,7 @@
     <string name="no_busybox">No busybox</string>
     <string name="open">Open %s</string>
     <string name="disable">Disable</string>
-    <string name="changelog">ThunderTweaks v%s</string>
+    <string name="changelog">xxTR Manager v%s</string>
     <string name="changelog_message">\n* Support Battery Limiting Feature\n</string>
     <string name="close">Close</string>
 
@@ -1351,7 +1351,7 @@
     <string name="app_update_notif_title">Update Notification</string>
     <string name="app_update_notif_summary">Show update notifications when new version ia available</string>
     <string name="check_update_title">Check update</string>
-    <string name="check_update_summary">Check if there is a new update of ThunderTweaks</string>
+    <string name="check_update_summary">Check if there is a new update of Kernel Manager</string>
     <string name="reset_data_summary">Clear data and restore the application settings</string>
     <string name="reset_data_dialog1">The data and the configuration of the entire application will be erased.\n\nAre you sure?\n</string>
     <string name="reset_data_dialog2_title">Reboot</string>
@@ -1389,7 +1389,7 @@
     <string name="confirmation_notification">Confirmation Notification</string>
     <string name="apply_on_boot_confirmation_notification_summary">After apply on boot with visible notification, show a notification afterwards with the confirmation that apply on boot was successful.</string>
     <string name="script">Script</string>
-    <string name="apply_on_boot_script_summary">Use a shell script to apply settings. Please only enable this if you have troubles with apply on boot. If the problem still persists after enabling this option, please make sure no other app is conflicting with ThunderTweaks.</string>
+    <string name="apply_on_boot_script_summary">Use a shell script to apply settings. Please only enable this if you have troubles with apply on boot. If the problem still persists after enabling this option, please make sure no other app is conflicting with Kernel Manager.</string>
     <string name="debugging">Debugging</string>
     <string name="logcat">Logcat</string>
     <string name="logcat_summary">Copy logcat to /sdcard/logcat.txt</string>
@@ -1399,7 +1399,7 @@
     <string name="driver_message_summary">Copy driver message (dmesg) to /sdcard/dmesg.txt</string>
     <string name="security">Security</string>
     <string name="set_password">Set Password</string>
-    <string name="set_password_summary">You can protect ThunderTweaks by setting up a password. Every time you open this application, you have to enter it. If you forget it, simply wipe the data of this application in settings of your device. Don\'t worry I won\'t share your password.</string>
+    <string name="set_password_summary">You can protect Kernel Manager by setting up a password. Every time you open this application, you have to enter it. If you forget it, simply wipe the data of this application in settings of your device. Don\'t worry I won\'t share your password.</string>
     <string name="delete_password">Delete Password</string>
     <string name="old_password">Old password</string>
     <string name="new_password">New password</string>
@@ -1416,13 +1416,14 @@
     <!--<string name="about_me">Hi, I\'m Willi Ye aka Grarak, a 19 year old student living in Vienna. I\'ve been developing on Android for quite a long time. Beside thunderstorm.ThunderTweaks I\'m also maintaining LineageOS for few devices and working on ParanoidAndroid. So please understand if I don\'t find the time to update this application.</string>-->
     <!--<string name="about_me">Hi, I\'m MoroGoku, developer of MoRoKernel of Samsung S7. This app is a mod of \"thunderstorm.ThunderTweaks\" of Willi Ye, aka Grarak. I make this mod for compatibilize thunderstorm.ThunderTweaks with Galaxy S7 smartphone, and add some new options. Thanks Willi for this great app.</string>-->
     <!--<string name="about_me">Hi, I\'m Corsicanu, developer of hadesKernel.\nThis app is a mod of \"MTweaks\" by MoroGoku, properly adaptated to exynos7870/7880/7884/7885/7904 devices (maybe even more).\n\nThanks Willi for this great app, special thanks to MoroGoku for his awesome MTweaks app.</string>-->
-    <string name="about_me">Hi, I\'m @nalas XDA, developer of ThundeRStormS Kernel.\nThis app is a mod of \"hKtweaks"\ by corsicanu and \"MTweaks\" by MoroGoku, properly adaptated to exynos7870/7880/7884/7885/7904/8890/8895/9810/9820 devices (maybe even more).\n\nThanks Willi for this great app, special thanks to MoroGoku and corsicanu for their awesome hkTweaks and MTweaks apps. Thanks for Rohan D. and graphics projects for XDA@Franz S. and XDA@phghost, @nckmml, XDA@VHFG22, @Game Over, XDA@matt_988 and XDA@Kyo-Ito</string>
+    <!--<string name="about_me">Hi, I\'m @nalas XDA, developer of ThundeRStormS Kernel.\nThis app is a mod of \"hKtweaks"\ by corsicanu and \"MTweaks\" by MoroGoku, properly adaptated to exynos7870/7880/7884/7885/7904/8890/8895/9810/9820 devices (maybe even more).\n\nThanks Willi for this great app, special thanks to MoroGoku and corsicanu for their awesome hkTweaks and MTweaks apps. Thanks for Rohan D. and graphics projects for XDA@Franz S. and XDA@phghost, @nckmml, XDA@VHFG22, @Game Over, XDA@matt_988 and XDA@Kyo-Ito</string>-->
+    <string name="about_me">Hi, I\'m @xxmustafacooTR, developer of xxTR Kernel.\nThis app is a mod of \"ThunderTweaks"\ by @nalas XDA and \"hKtweaks"\ by corsicanu and \"MTweaks\" by MoroGoku, adapted only to exynos9810 devices.\n\nThanks Willi for this great app, special thanks to Nalas, MoroGoku and corsicanu for their awesome ThunderTweaks, hkTweaks and MTweaks apps. Thanks for Rohan D. and graphics projects for XDA@Franz S. and XDA@phghost, @nckmml, XDA@VHFG22, @Game Over, XDA@matt_988 and XDA@Kyo-Ito</string>
     <string name="libraries_used">Libraries used</string>
 
     <!-- Donation -->
     <string name="donation_title">Donation</string>
-    <string name="donation_summary_mg">Hi, ThunderTweaks is an application based on \"Kernel Adiutor\" by Willi Ye, aka Grarak.\n\nIt has several new modifications and adjustments, especially for the latest Samsung Galaxy S7.\n\nI do this because I have fun and I like to share my work, that\'s why it\'s free and does not carry advertising.\n\nAlthough if you liked the work I have done and you want to donate something and invite me to a beer, as they say, you can do it in the following Paypal link.</string>
-    <string name="donation_summary">ThunderTweaks is an app based on \"hKtweaks"\ by corsicanu and \"MTweaks\" by MoroGoku, properly adaptated to exynos7870/7880/7884/7885/7904/8890/8895/9810/9820 devices (maybe even more).\nIf you appreciate my work and you want to donate to support my work and provide me more coffee, you can do it on the following Paypal link.</string>
+    <string name="donation_summary_mg">Hi, xxTR Manager is an application based on \"Kernel Adiutor\" by Willi Ye, aka Grarak.\n\nIt has several new modifications and adjustments, especially for the latest Samsung Galaxy S7.\n\nI do this because I have fun and I like to share my work, that\'s why it\'s free and does not carry advertising.\n\nAlthough if you liked the work I have done and you want to donate something and invite me to a beer, as they say, you can do it in the following Paypal link.</string>
+    <string name="donation_summary">xxTR Manager is an app based on \"hKtweaks"\ by corsicanu and \"MTweaks\" by MoroGoku, properly adaptated to exynos7870/7880/7884/7885/7904/8890/8895/9810/9820 devices (maybe even more).\nIf you appreciate my work and you want to donate to support my work and provide me more coffee, you can do it on the following Paypal link.</string>
 
     <!-- Contributors -->
     <string name="commits">%d commits</string>
@@ -1457,7 +1458,7 @@
     <string name="appupdater_btn_dismiss">Dismiss</string>
     <string name="appupdater_download_filed">Download FAILED!</string>
     <string name="appupdater_downloading_file">Downloading</string>
-    <string name="appupdater_json">https://raw.githubusercontent.com/corsicanu/thunderTweaks/master/app/update.json</string>
+    <string name="appupdater_json">https://raw.githubusercontent.com/xxmustafacooTR/KernelManager/main/app/update.json</string>
 	<string name="battery_health">Battery Health</string>
     <string name="mdnie">Force screen to use all colors at max</string>
     <string name="mif">MIF</string>

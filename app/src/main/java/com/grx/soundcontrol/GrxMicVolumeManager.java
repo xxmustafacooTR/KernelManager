@@ -9,17 +9,16 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.SwitchCompat;
 
-import com.thunder.thundertweaks.R;
-import com.thunder.thundertweaks.database.Settings;
-import com.thunder.thundertweaks.utils.AppSettings;
-import com.thunder.thundertweaks.utils.kernel.sound.MoroSound;
-import com.thunder.thundertweaks.views.recyclerview.RecyclerViewItem;
+import com.xxmustafacooTR.kernelmanager.R;
+import com.xxmustafacooTR.kernelmanager.database.Settings;
+import com.xxmustafacooTR.kernelmanager.utils.AppSettings;
+import com.xxmustafacooTR.kernelmanager.utils.kernel.sound.MoroSound;
+import com.xxmustafacooTR.kernelmanager.views.recyclerview.RecyclerViewItem;
 
 import java.util.HashMap;
 

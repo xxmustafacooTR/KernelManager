@@ -12,13 +12,8 @@ import android.os.SystemClock;
 import androidx.annotation.NonNull;
 import android.util.SparseArray;
 
-import com.thunder.thundertweaks.fragments.ApplyOnBootFragment;
-import com.thunder.thundertweaks.utils.Log;
-import com.thunder.thundertweaks.utils.Utils;
-import com.thunder.thundertweaks.utils.kernel.cpu.CPUFreq;
-import com.thunder.thundertweaks.utils.kernel.gpu.GPUFreq;
-import com.thunder.thundertweaks.utils.kernel.gpu.GPUFreqExynos;
-import com.thunder.thundertweaks.utils.kernel.gpu.GPUFreqTmu;
+import com.xxmustafacooTR.kernelmanager.utils.Utils;
+import com.xxmustafacooTR.kernelmanager.utils.kernel.cpu.CPUFreq;
 
 import java.util.ArrayList;
 import java.util.Collections;

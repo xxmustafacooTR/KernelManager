@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
-        <com.thunder.thundertweaks.views.XYGraph
+        <com.xxmustafacooTR.kernelmanager.views.XYGraph
             android:id="@+id/graph"
             android:layout_width="match_parent"
             android:layout_height="100dp" />

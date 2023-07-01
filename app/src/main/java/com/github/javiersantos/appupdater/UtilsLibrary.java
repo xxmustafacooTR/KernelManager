@@ -1,5 +1,6 @@
 package com.github.javiersantos.appupdater;
 
+import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,8 +22,8 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.GitHub;
 import com.github.javiersantos.appupdater.objects.Update;
 import com.github.javiersantos.appupdater.objects.Version;
-import com.thunder.thundertweaks.R;
-import com.thunder.thundertweaks.utils.Utils;
+import com.xxmustafacooTR.kernelmanager.R;
+import com.xxmustafacooTR.kernelmanager.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -353,7 +354,7 @@ class UtilsLibrary {
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         Uri uriFile;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uriFile = FileProvider.getUriForFile(context, "com.thunder.thundertweaks.provider", file);
+            uriFile = FileProvider.getUriForFile(context, "com.xxmustafacooTR.kernelmanager.provider", file);
         } else {
             uriFile = Uri.fromFile(file);
         }
@@ -372,13 +373,13 @@ class UtilsLibrary {
             Cursor cursor = downloadManager.query(query);
 
             if(cursor.moveToFirst()) {
-                int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
-                int reason = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
+                @SuppressLint("Range") int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                @SuppressLint("Range") int reason = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
 
                 if(status == DownloadManager.STATUS_SUCCESSFUL) {
 
                     // Si la descarga es correcta abrimos el archivo para instalarlo
-                    File file = new File(Uri.parse(cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI))).getPath());
+                    @SuppressLint("Range") File file = new File(Uri.parse(cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI))).getPath());
                     OpenNewVersion(context, file);
                 }
                 else if(status == DownloadManager.STATUS_FAILED) {

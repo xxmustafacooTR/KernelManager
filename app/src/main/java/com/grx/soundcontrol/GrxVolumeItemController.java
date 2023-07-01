@@ -32,7 +32,7 @@ import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.thunder.thundertweaks.R;
+import com.xxmustafacooTR.kernelmanager.R;
 
 
 public class GrxVolumeItemController extends LinearLayout implements GrxVolumeControlView.onProgressChangedListener{

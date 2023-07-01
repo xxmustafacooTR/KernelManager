@@ -43,7 +43,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Default.Blue"
+        android:theme="@style/Theme.Default.Cyan"
         tools:ignore="GoogleAppIndexingWarning"
         android:requestLegacyExternalStorage="true"
         tools:targetApi="tiramisu"
@@ -66,7 +66,7 @@
         <activity
             android:name=".activities.StartActivityMaterial"
             android:enabled="false"
-            android:icon="@mipmap/ic_launcher_material"
+            android:icon="@mipmap/ic_launcher"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
