@@ -1360,6 +1360,7 @@
     <string name="fahrenheit_summary">Use fahrenheit to measure temperature.</string>
     <string name="force_english">Force displaying english language</string>
     <string name="user_interface">User interface</string>
+    <string name="auto_theme">Automatic theme</string>
     <string name="dark_theme">Dark theme</string>
     <string name="material_icon">Material icon</string>
     <string name="banner_resizer">Banner resizer</string>

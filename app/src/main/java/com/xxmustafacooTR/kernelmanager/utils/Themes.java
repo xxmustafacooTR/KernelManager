@@ -20,6 +20,8 @@
 package com.xxmustafacooTR.kernelmanager.utils;
 
 import android.content.Context;
+import android.content.res.Configuration;
+
 import androidx.annotation.ColorRes;
 import androidx.annotation.StyleRes;
 
@@ -60,10 +62,24 @@ public class Themes {
 
     private static final String THEME_PREF_KEY = "application_theme";
     private static final String DARK_THEME_PREF_KEY = "darktheme";
+    private static final String AUTO_THEME_PREF_KEY = "autotheme";
     private static final String DEFAULT_THEME = "dynamic_main;dynamic_secondary";
 
     public static boolean isDarkTheme(Context context) {
-        return Prefs.getBoolean(DARK_THEME_PREF_KEY, false, context);
+        if (Prefs.getBoolean(DARK_THEME_PREF_KEY, false, context))
+            return true;
+
+        if (Prefs.getBoolean(AUTO_THEME_PREF_KEY, false, context)) {
+            int currentNightMode = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            switch (currentNightMode) {
+                case Configuration.UI_MODE_NIGHT_NO:
+                    return false;
+                case Configuration.UI_MODE_NIGHT_YES:
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     public static Theme getTheme(Context context, boolean darktheme) {

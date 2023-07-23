@@ -33,6 +33,9 @@
         android:key="user_interface"
         android:title="@string/user_interface">
         <SwitchPreferenceCompat
+            android:key="autotheme"
+            android:summary="@string/auto_theme" />
+        <SwitchPreferenceCompat
             android:key="darktheme"
             android:summary="@string/dark_theme" />
         <SwitchPreferenceCompat

@@ -82,6 +82,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     private static final String KEY_FORCE_ENGLISH = "forceenglish";
     //private static final String KEY_USER_INTERFACE = "user_interface";
     private static final String KEY_DARK_THEME = "darktheme";
+    private static final String KEY_AUTO_THEME = "autotheme";
     //private static final String KEY_MATERIAL_ICON = "materialicon";
     private static final String KEY_BANNER_RESIZER = "banner_resizer";
     private static final String KEY_HIDE_BANNER = "hide_banner";
@@ -153,6 +154,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         //findPreference(KEY_UPDATE_NOTIFICATION).setOnPreferenceChangeListener(this);
         //findPreference(KEY_CHECK_UPDATE).setOnPreferenceClickListener(this);
         findPreference(KEY_DARK_THEME).setOnPreferenceChangeListener(this);
+        findPreference(KEY_AUTO_THEME).setOnPreferenceChangeListener(this);
         findPreference(KEY_BANNER_RESIZER).setOnPreferenceClickListener(this);
         findPreference(KEY_HIDE_BANNER).setOnPreferenceChangeListener(this);
         findPreference(KEY_PRIMARY_COLOR).setOnPreferenceClickListener(this);
@@ -209,6 +211,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 //AppSettings.saveBoolean("show_update_notif", checked, getActivity());
                 //return true;
             case KEY_FORCE_ENGLISH:
+            case KEY_AUTO_THEME:
             case KEY_DARK_THEME:
                 getActivity().finish();
                 Intent intent = new Intent(getActivity(), MainActivity.class);
