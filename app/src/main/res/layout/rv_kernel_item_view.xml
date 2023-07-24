@@ -5,8 +5,8 @@
     android:layout_height="wrap_content"
     android:foreground="?attr/selectableItemBackground"
     android:gravity="center_vertical"
-    app:cardCornerRadius="3dp"
-    app:cardElevation="3dp"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="12dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout

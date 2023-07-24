@@ -34,6 +34,7 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.utils.AppSettings;
 import com.xxmustafacooTR.kernelmanager.utils.Utils;
@@ -102,7 +103,7 @@ public class NavHeaderView extends LinearLayout {
         }
 
         findViewById(R.id.nav_header_fab).setOnClickListener(v
-                -> new Dialog(context).setItems(v.getResources()
+                -> new MaterialAlertDialogBuilder(context).setItems(v.getResources()
                         .getStringArray(R.array.main_header_picture_items),
                 (dialog, which) -> {
                     switch (which) {

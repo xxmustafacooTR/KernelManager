@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import android.view.Menu;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.activities.EditorActivity;
 import com.xxmustafacooTR.kernelmanager.fragments.SwitcherFragment;
@@ -57,9 +58,9 @@ public class InitdFragment extends RecyclerViewFragment {
             e.printStackTrace();
         }
     }
-    private Dialog mExecuteDialog;
-    private Dialog mResultDialog;
-    private Dialog mDeleteDialog;
+    private MaterialAlertDialogBuilder mExecuteDialog;
+    private MaterialAlertDialogBuilder mResultDialog;
+    private MaterialAlertDialogBuilder mDeleteDialog;
     private boolean mShowCreateNameDialog;
 
     private String mCreateName;

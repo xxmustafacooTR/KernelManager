@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.wake.S2w;
 import com.xxmustafacooTR.kernelmanager.views.dialog.Dialog;
@@ -36,7 +37,7 @@ import java.util.List;
 public class SelectViewCheckbox extends ValueView {
 
     private View mView;
-    private Dialog mDialog;
+    private MaterialAlertDialogBuilder mDialog;
     private List<String> mItems = new ArrayList<>();
     private boolean[] mCheckBoxes = new boolean[]{false, false, false, false};
     private int mCurrValue = S2w.getInstance().get();
@@ -78,7 +79,7 @@ public class SelectViewCheckbox extends ValueView {
         String[] items = mItems.toArray(new String[mItems.size()]);
 
         setCheckBoxesFromInt();
-        mDialog = new Dialog(context)
+        mDialog = new MaterialAlertDialogBuilder(context)
 
                 .setMultiChoiceItems(items, mCheckBoxes,
                         (dialog, which, isChecked) -> {

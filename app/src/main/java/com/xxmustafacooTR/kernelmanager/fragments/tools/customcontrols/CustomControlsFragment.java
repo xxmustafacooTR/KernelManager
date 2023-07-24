@@ -30,6 +30,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.activities.FilePickerActivity;
 import com.xxmustafacooTR.kernelmanager.activities.tools.CustomControlsActivity;
@@ -61,10 +62,10 @@ import java.util.List;
  */
 public class CustomControlsFragment extends RecyclerViewFragment {
 
-    private Dialog mOptionsDialog;
-    private Dialog mItemsDialog;
-    private Dialog mDeleteDialog;
-    private Dialog mDonateDialog;
+    private MaterialAlertDialogBuilder mOptionsDialog;
+    private MaterialAlertDialogBuilder mItemsDialog;
+    private MaterialAlertDialogBuilder mDeleteDialog;
+    private MaterialAlertDialogBuilder mDonateDialog;
 
     private AsyncTask<Void, Void, ImportControl> mImportingThread;
     private Controls mControlsProvider;
@@ -86,7 +87,7 @@ public class CustomControlsFragment extends RecyclerViewFragment {
     @Override
     protected void onTopFabClick() {
         super.onTopFabClick();
-        mOptionsDialog = new Dialog(getActivity()).setItems(getResources().getStringArray(
+        mOptionsDialog = new MaterialAlertDialogBuilder(getActivity()).setItems(getResources().getStringArray(
                 R.array.custom_controls_options),
                 (dialog, which) -> {
                     switch (which) {
@@ -113,7 +114,7 @@ public class CustomControlsFragment extends RecyclerViewFragment {
     }
 
     private void showControls() {
-        mItemsDialog = new Dialog(getActivity()).setItems(getResources().getStringArray(
+        mItemsDialog = new MaterialAlertDialogBuilder(getActivity()).setItems(getResources().getStringArray(
                 R.array.custom_controls_items), (dialog, which) -> {
             Intent i = new Intent(getActivity(), CustomControlsActivity.class);
             i.putParcelableArrayListExtra(CustomControlsActivity.SETTINGS_INTENT, Items.getSettings(which));

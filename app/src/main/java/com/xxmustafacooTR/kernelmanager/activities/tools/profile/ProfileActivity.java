@@ -23,6 +23,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -100,7 +102,7 @@ public class ProfileActivity extends BaseActivity {
                 currentSettings();
             }
         } else {
-            new Dialog(this).setItems(getResources().getStringArray(R.array.profile_modes),
+            new MaterialAlertDialogBuilder(this).setItems(getResources().getStringArray(R.array.profile_modes),
                     (dialog, which) -> {
                         switch (which) {
                             case 0:

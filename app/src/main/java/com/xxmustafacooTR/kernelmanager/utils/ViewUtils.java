@@ -23,7 +23,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -36,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.views.dialog.Dialog;
 
@@ -102,8 +106,8 @@ public class ViewUtils {
         void onClick(String text, String text2);
     }
 
-    public static Dialog dialogDonate(final Context context) {
-        return new Dialog(context).setTitle(context.getString(R.string.donate))
+    public static MaterialAlertDialogBuilder dialogDonate(final Context context) {
+        return new MaterialAlertDialogBuilder(context).setTitle(context.getString(R.string.donate))
                 .setMessage(context.getString(R.string.donate_summary))
                 .setNegativeButton(context.getString(R.string.donate_nope), (dialog, which) -> {
                 })
@@ -111,7 +115,7 @@ public class ViewUtils {
                         -> Utils.launchUrl("https://play.google.com/store/apps/details?id=com.grarak.kerneladiutordonate", context));
     }
 
-    public static Dialog dialogEditTexts(String text, String text2, String hint, String hint2,
+    public static MaterialAlertDialogBuilder dialogEditTexts(String text, String text2, String hint, String hint2,
                                          final DialogInterface.OnClickListener negativeListener,
                                          final onDialogEditTextsListener onDialogEditTextListener,
                                          Context context) {
@@ -145,7 +149,7 @@ public class ViewUtils {
         layout.addView(editText);
         layout.addView(editText2);
 
-        Dialog dialog = new Dialog(context).setView(layout);
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(context).setView(layout);
         if (negativeListener != null) {
             dialog.setNegativeButton(context.getString(R.string.cancel), negativeListener);
         }
@@ -163,13 +167,13 @@ public class ViewUtils {
         return dialog;
     }
 
-    public static Dialog dialogEditText(String text, final DialogInterface.OnClickListener negativeListener,
+    public static MaterialAlertDialogBuilder dialogEditText(String text, final DialogInterface.OnClickListener negativeListener,
                                         final OnDialogEditTextListener onDialogEditTextListener,
                                         Context context) {
         return dialogEditText(text, negativeListener, onDialogEditTextListener, -1, context);
     }
 
-    public static Dialog dialogEditText(String text, final DialogInterface.OnClickListener negativeListener,
+    public static MaterialAlertDialogBuilder dialogEditText(String text, final DialogInterface.OnClickListener negativeListener,
                                         final OnDialogEditTextListener onDialogEditTextListener, int inputType,
                                         Context context) {
         LinearLayout layout = new LinearLayout(context);
@@ -190,7 +194,7 @@ public class ViewUtils {
 
         layout.addView(editText);
 
-        Dialog dialog = new Dialog(context).setView(layout);
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(context).setView(layout);
         if (negativeListener != null) {
             dialog.setNegativeButton(context.getString(R.string.cancel), negativeListener);
         }
@@ -206,10 +210,10 @@ public class ViewUtils {
         return dialog;
     }
 
-    public static Dialog dialogBuilder(CharSequence message, DialogInterface.OnClickListener negativeListener,
+    public static MaterialAlertDialogBuilder dialogBuilder(CharSequence message, DialogInterface.OnClickListener negativeListener,
                                        DialogInterface.OnClickListener positiveListener,
                                        DialogInterface.OnDismissListener dismissListener, Context context) {
-        Dialog dialog = new Dialog(context).setMessage(message);
+        MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(context).setMessage(message);
         if (negativeListener != null) {
             dialog.setNegativeButton(context.getString(R.string.cancel), negativeListener);
         }
@@ -246,8 +250,35 @@ public class ViewUtils {
         return width != newWidth || height != newHeight ? resizeBitmap(bitmap, newWidth, newHeight) : bitmap;
     }
 
-    private static Bitmap resizeBitmap(Bitmap bitmap, int newWidth, int newHeight) {
+    public static Bitmap resizeBitmap(Bitmap bitmap, int newWidth, int newHeight) {
         return Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false);
+    }
+
+    public static int blendColors ( int color1, int color2, float amount )
+    {
+        final byte ALPHA_CHANNEL = 24;
+        final byte RED_CHANNEL   = 16;
+        final byte GREEN_CHANNEL =  8;
+        final byte BLUE_CHANNEL  =  0;
+
+        final float inverseAmount = 1.0f - amount;
+
+        int a = ((int)(((float)(color1 >> ALPHA_CHANNEL & 0xff )*amount) +
+                ((float)(color2 >> ALPHA_CHANNEL & 0xff )*inverseAmount))) & 0xff;
+        int r = ((int)(((float)(color1 >> RED_CHANNEL & 0xff )*amount) +
+                ((float)(color2 >> RED_CHANNEL & 0xff )*inverseAmount))) & 0xff;
+        int g = ((int)(((float)(color1 >> GREEN_CHANNEL & 0xff )*amount) +
+                ((float)(color2 >> GREEN_CHANNEL & 0xff )*inverseAmount))) & 0xff;
+        int b = ((int)(((float)(color1 & 0xff )*amount) +
+                ((float)(color2 & 0xff )*inverseAmount))) & 0xff;
+
+        return a << ALPHA_CHANNEL | r << RED_CHANNEL | g << GREEN_CHANNEL | b << BLUE_CHANNEL;
+    }
+
+    public static int resolveThemeColor(Context context, int attrColor) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(attrColor, typedValue, true);
+        return ContextCompat.getColor(context, typedValue.resourceId);
     }
 
 }

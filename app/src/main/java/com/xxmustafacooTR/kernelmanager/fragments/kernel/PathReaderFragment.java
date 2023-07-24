@@ -19,6 +19,7 @@
  */
 package com.xxmustafacooTR.kernelmanager.fragments.kernel;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 import com.xxmustafacooTR.kernelmanager.R;
@@ -131,12 +132,12 @@ public class PathReaderFragment extends RecyclerViewFragment {
 
     private void showArrayDialog(final String value, final String[] values, final String path,
                                  final String name) {
-        new Dialog(getActivity()).setItems(
+        new MaterialAlertDialogBuilder(getActivity()).setItems(
                 getResources().getStringArray(R.array.path_reader_options),
                 (dialog, which) -> {
                     switch (which) {
                         case 0:
-                            new Dialog(getActivity()).setItems(values, (dialog1, which1) -> {
+                            new MaterialAlertDialogBuilder(getActivity()).setItems(values, (dialog1, which1) -> {
                                 run(path, values[which1], path);
                                 reload();
                             }).setTitle(name).show();

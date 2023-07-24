@@ -31,8 +31,8 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_gravity="center_vertical"
-            android:tint="?attr/colorAccent"
             android:visibility="gone"
-            app:srcCompat="@drawable/ic_done" />
+            app:srcCompat="@drawable/ic_done"
+            app:tint="?attr/colorAccent" />
     </LinearLayout>
 </FrameLayout>

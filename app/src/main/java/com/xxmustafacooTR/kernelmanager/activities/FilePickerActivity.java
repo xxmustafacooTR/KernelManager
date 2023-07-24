@@ -28,6 +28,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.appcompat.app.ActionBar;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.fragments.recyclerview.RecyclerViewFragment;
 import com.xxmustafacooTR.kernelmanager.utils.Utils;
@@ -102,7 +103,7 @@ public class FilePickerActivity extends BaseActivity {
         private String mExtension;
         private Drawable mDirImage;
         private Drawable mFileImage;
-        private Dialog mPickDialog;
+        private MaterialAlertDialogBuilder mPickDialog;
 
         @Override
         protected boolean showViewPager() {

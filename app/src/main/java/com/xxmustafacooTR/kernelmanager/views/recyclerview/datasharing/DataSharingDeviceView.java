@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.utils.server.DeviceInfo;
 import com.xxmustafacooTR.kernelmanager.views.dialog.Dialog;
@@ -69,7 +70,7 @@ public class DataSharingDeviceView extends RecyclerViewItem {
         view.setOnClickListener(view1 -> {
             ViewGroup parent = (ViewGroup) mDialogView.getParent();
             if (parent != null) parent.removeView(mDialogView);
-            new Dialog(view1.getContext())
+            new MaterialAlertDialogBuilder(view1.getContext())
                     .setView(mDialogView).show();
         });
 

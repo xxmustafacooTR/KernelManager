@@ -45,14 +45,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/switcher"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
                 android:background="@null"
                 android:clickable="false"
-                android:focusable="false" />
+                android:focusable="false"
+                style="@style/SwitchCompatMaterial" />
 
         </LinearLayout>
 

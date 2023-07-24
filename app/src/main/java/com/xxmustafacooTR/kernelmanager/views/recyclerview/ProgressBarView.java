@@ -30,7 +30,7 @@ public class ProgressBarView extends RecyclerViewItem {
     private long mProgress;
     private int mMax = 100;
     private int mPadding = 0;
-    private int mRadius = 10;
+    private int mRadius = 0;
     private int mColorBackground;
     private int mColorProgress;
     private String mUnit;
@@ -180,7 +180,8 @@ public class ProgressBarView extends RecyclerViewItem {
             mProgressBar.setProgress(mProgress);
             mProgressBar.setMax(mMax);
             mProgressBar.setPadding(mPadding);
-            mProgressBar.setRadius(mRadius);
+            if (mRadius != 0)
+                mProgressBar.setRadius(mRadius);
             if (mColorProgress != 0) mProgressBar.setProgressColor(mColorProgress);
             if (mColorBackground != 0) mProgressBar.setProgressBackgroundColor(mColorBackground);
             if (mPercent != null) {

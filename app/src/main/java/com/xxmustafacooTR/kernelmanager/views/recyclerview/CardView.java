@@ -26,6 +26,9 @@ import android.app.Activity;
 import android.content.res.ColorStateList;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.PopupMenu;
+
+import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +36,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xxmustafacooTR.kernelmanager.R;
+import com.xxmustafacooTR.kernelmanager.utils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +54,7 @@ public class CardView extends RecyclerViewItem {
     private Activity mActivity;
 
     private androidx.cardview.widget.CardView mRootView;
+    private View mLayoutBackground;
     private View mTitleParent;
     private TextView mTitle;
     private AppCompatImageView mArrow;
@@ -98,12 +103,16 @@ public class CardView extends RecyclerViewItem {
 
     private void initLayouts(View view) {
         mRootView = (androidx.cardview.widget.CardView) view;
+        mLayoutBackground = view.findViewById(R.id.linear_layout);
         mTitleParent = view.findViewById(R.id.title_parent);
         mTitle = view.findViewById(R.id.card_title);
         mArrow = view.findViewById(R.id.arrow_image);
         mLayoutParent = view.findViewById(R.id.layout_parent);
         mLayout = view.findViewById(R.id.card_layout);
-        if(mGrxIsInitSelected) this.setCardBackgroundColor(mGrxColor);
+        if (mGrxIsInitSelected)
+            this.setCardBackgroundColor(mGrxColor);
+        else if ((mActivity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES)
+            mLayoutBackground.setBackgroundColor(ViewUtils.blendColors(ViewUtils.resolveThemeColor(mActivity, android.R.attr.colorBackground), ViewUtils.resolveThemeColor(mActivity, R.attr.colorPrimary), 0.95f));
     }
 
     @Override

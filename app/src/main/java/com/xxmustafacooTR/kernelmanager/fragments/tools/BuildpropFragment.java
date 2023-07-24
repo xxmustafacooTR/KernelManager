@@ -37,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.fragments.BaseFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.recyclerview.RecyclerViewFragment;
@@ -71,9 +72,9 @@ public class BuildpropFragment extends RecyclerViewFragment {
     private String mValueText;
 
     private SearchFragment mSearchFragment;
-    private Dialog mAddDialog;
-    private Dialog mItemOptionsDialog;
-    private Dialog mDeleteDialog;
+    private MaterialAlertDialogBuilder mAddDialog;
+    private MaterialAlertDialogBuilder mItemOptionsDialog;
+    private MaterialAlertDialogBuilder mDeleteDialog;
 
     private String mKey;
     private String mValue;
@@ -174,7 +175,7 @@ public class BuildpropFragment extends RecyclerViewFragment {
                 descriptionView.setSummary(value);
             }
             descriptionView.setOnItemClickListener(item -> {
-                mItemOptionsDialog = new Dialog(getActivity()).setItems(
+                mItemOptionsDialog = new MaterialAlertDialogBuilder(getActivity()).setItems(
                         getResources().getStringArray(R.array.build_prop_item_options),
                         (dialogInterface, i1) -> {
                             switch (i1) {
@@ -256,7 +257,7 @@ public class BuildpropFragment extends RecyclerViewFragment {
     @Override
     protected void onBottomFabClick() {
         super.onBottomFabClick();
-        mAddDialog = new Dialog(getActivity()).setItems(getResources().getStringArray(
+        mAddDialog = new MaterialAlertDialogBuilder(getActivity()).setItems(getResources().getStringArray(
                 R.array.build_prop_add_options),
                 (dialog, which) -> {
                     switch (which) {

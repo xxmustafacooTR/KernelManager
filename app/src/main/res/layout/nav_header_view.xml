@@ -46,6 +46,8 @@
         android:layout_marginStart="@dimen/nav_header_fab_margin_left"
         android:layout_marginTop="@dimen/nav_header_fab_margin_top"
         android:tint="@color/white"
+        android:backgroundTint="?attr/colorPrimary"
+        app:backgroundTint="?attr/colorAccent"
         app:fabSize="mini"
         app:srcCompat="@drawable/ic_gallery" />
 </FrameLayout>

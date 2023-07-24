@@ -23,6 +23,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.fragments.recyclerview.RecyclerViewFragment;
 import com.xxmustafacooTR.kernelmanager.utils.Utils;
@@ -95,7 +96,7 @@ public class DataSharingSearchActivity extends BaseActivity {
             filterBtn.setFullSpan(true);
             filterBtn.setOnClickListener(view -> {
                 if (mBoards != null) {
-                    new Dialog(getActivity())
+                    new MaterialAlertDialogBuilder(getActivity())
                             .setTitle(getString(R.string.board))
                             .setItems(mBoards.toArray(new String[mBoards.size()]),
                                     (dialogInterface, i) -> {

@@ -52,6 +52,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.activities.BannerResizerActivity;
 import com.xxmustafacooTR.kernelmanager.activities.MainActivity;
@@ -339,14 +340,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     }
 
     private void resetDataDialog(){
-        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder alert = new MaterialAlertDialogBuilder(requireActivity());
         alert.setTitle(getString(R.string.reset_data_title));
         alert.setMessage(getString(R.string.reset_data_dialog1));
         alert.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
         });
         alert.setPositiveButton(getString(R.string.ok), (dialog, id) -> {
 
-            AlertDialog.Builder alert2 = new AlertDialog.Builder(getActivity());
+            MaterialAlertDialogBuilder alert2 = new MaterialAlertDialogBuilder(requireActivity());
             alert2.setTitle(getString(R.string.reset_data_dialog2_title));
             alert2.setMessage(getString(R.string.reset_data_dialog2_message));
             alert2.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
@@ -390,7 +391,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         confirmNewPassword.setHint(getString(R.string.confirm_new_password));
         linearLayout.addView(confirmNewPassword);
 
-        new Dialog(getActivity()).setView(linearLayout)
+        new MaterialAlertDialogBuilder(getActivity()).setView(linearLayout)
                 .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                 })
                 .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {
@@ -444,7 +445,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         mPassword.setHint(getString(R.string.password));
         linearLayout.addView(mPassword);
 
-        new Dialog(getActivity()).setView(linearLayout)
+        new MaterialAlertDialogBuilder(getActivity()).setView(linearLayout)
                 .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {
                     if (!mPassword.getText().toString().equals(Utils.decodeString(password))) {
                         Utils.toast(getString(R.string.password_wrong), getActivity());
@@ -519,7 +520,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
             subView.addView(circle);
         }
 
-        new Dialog(getActivity()).setView(linearLayout)
+        new MaterialAlertDialogBuilder(getActivity()).setView(linearLayout)
                 .setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
                 })
                 .setPositiveButton(getString(R.string.ok), (dialog, which) -> {

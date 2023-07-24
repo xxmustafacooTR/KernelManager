@@ -36,6 +36,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.activities.FilePickerActivity;
 import com.xxmustafacooTR.kernelmanager.fragments.BaseFragment;
@@ -60,10 +61,10 @@ import java.util.List;
  */
 public class RecoveryFragment extends RecyclerViewFragment {
 
-    private Dialog mRebootDialog;
-    private Dialog mRebootConfirmDialog;
-    private Dialog mAddDialog;
-    private Dialog mFlashDialog;
+    private MaterialAlertDialogBuilder mRebootDialog;
+    private MaterialAlertDialogBuilder mRebootConfirmDialog;
+    private MaterialAlertDialogBuilder mAddDialog;
+    private MaterialAlertDialogBuilder mFlashDialog;
 
     private List<Recovery> mCommands = new ArrayList<>();
 
@@ -117,7 +118,7 @@ public class RecoveryFragment extends RecyclerViewFragment {
     }
 
     private void add() {
-        mAddDialog = new Dialog(getActivity()).setItems(getResources().getStringArray(
+        mAddDialog = new MaterialAlertDialogBuilder(getActivity()).setItems(getResources().getStringArray(
                 R.array.recovery_commands), (dialogInterface, i) -> {
             switch (i) {
                 case 0:
@@ -208,7 +209,7 @@ public class RecoveryFragment extends RecyclerViewFragment {
     }
 
     private void reboot() {
-        mRebootDialog = new Dialog(getActivity()).setItems(getResources()
+        mRebootDialog = new MaterialAlertDialogBuilder(getActivity()).setItems(getResources()
                         .getStringArray(R.array.recovery_reboot_options),
                 (dialog, selection) -> {
                     mRebootConfirmDialog = ViewUtils.dialogBuilder(getString(R.string.sure_question),

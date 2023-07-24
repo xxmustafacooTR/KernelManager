@@ -48,7 +48,8 @@
                 android:layout_gravity="center_vertical|end"
                 android:background="@null"
                 android:clickable="false"
-                android:focusable="false" />
+                android:focusable="false"
+                style="@style/SwitchCompatMaterial" />
 
         </LinearLayout>
 

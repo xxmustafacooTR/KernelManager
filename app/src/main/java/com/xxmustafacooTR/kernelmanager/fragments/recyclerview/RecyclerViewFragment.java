@@ -70,6 +70,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -156,8 +157,8 @@ public abstract class RecyclerViewFragment extends BaseFragment {
 
         mProgress = mRootView.findViewById(R.id.progress);
 
-        mAppBarLayout = ((BaseActivity) getActivity()).getAppBarLayout();
-        mToolBar = ((BaseActivity) getActivity()).getToolBar();
+        mAppBarLayout = ((BaseActivity) requireActivity()).getAppBarLayout();
+        mToolBar = ((BaseActivity) requireActivity()).getToolBar();
 
         if (mAppBarLayout != null && !isForeground()) {
             mAppBarLayout.postDelayed(() -> {

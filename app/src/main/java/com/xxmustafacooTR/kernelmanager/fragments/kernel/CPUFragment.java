@@ -22,6 +22,7 @@ package com.xxmustafacooTR.kernelmanager.fragments.kernel;
 import android.text.InputType;
 import android.util.SparseArray;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.fragments.ApplyOnBootFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.BaseFragment;
@@ -88,7 +89,7 @@ public class CPUFragment extends RecyclerViewFragment {
     private SparseArray<SwitchView> mCoresLITTLE = new SparseArray<>();
 
     private PathReaderFragment mGovernorTunableFragment;
-    private Dialog mGovernorTunableErrorDialog;
+    private MaterialAlertDialogBuilder mGovernorTunableErrorDialog;
 
     private List<GenericSelectView2> mInput = new ArrayList<>();
     private List<GenericSelectView2> mKERNEL = new ArrayList<>();

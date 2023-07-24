@@ -33,6 +33,7 @@
         android:fitsSystemWindows="true"
         android:focusable="false"
         android:theme="@style/ItemTextAppearance"
-        app:headerLayout="@layout/nav_header_layout" />
+        app:headerLayout="@layout/nav_header_layout"
+        app:itemBackground="@drawable/nav_item_background_drawable" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

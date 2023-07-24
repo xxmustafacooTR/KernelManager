@@ -52,6 +52,8 @@ public class XYGraphView extends RecyclerViewItem {
         mText = view.findViewById(R.id.text);
         mGraph = view.findViewById(R.id.graph);
 
+        mGraph.setCornerRadius(view.getResources().getDimension(R.dimen.xygraph_radius));
+
         super.onCreateView(view);
     }
 

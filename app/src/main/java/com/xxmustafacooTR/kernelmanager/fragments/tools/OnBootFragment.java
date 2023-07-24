@@ -19,6 +19,7 @@
  */
 package com.xxmustafacooTR.kernelmanager.fragments.tools;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.database.Settings;
 import com.xxmustafacooTR.kernelmanager.database.tools.customcontrols.Controls;
@@ -45,7 +46,7 @@ public class OnBootFragment extends RecyclerViewFragment {
     private Controls mControls;
     private Profiles mProfiles;
 
-    private Dialog mDeleteDialog;
+    private MaterialAlertDialogBuilder mDeleteDialog;
 
     @Override
     protected void init() {

@@ -19,12 +19,14 @@
  */
 package com.xxmustafacooTR.kernelmanager.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -47,6 +49,7 @@ public class XYGraph extends View {
     private Paint mPaintGraphStroke;
     private Path mPathGraph;
     private boolean mEdgeVisible;
+    private float cornerRadius = 0;
     private int state = 1;
     private ArrayList<Integer> mPercentages = new ArrayList<>();
 
@@ -110,65 +113,76 @@ public class XYGraph extends View {
         invalidate();
     }
 
+    public void setCornerRadius(float value) {
+        cornerRadius = value;
+    }
+
     public void clear() {
         mPercentages.clear();
         state = 1;
         invalidate();
     }
 
+    @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int width = getMeasuredWidth();
-        int height = getMeasuredHeight();
+        float cornerPadding = cornerRadius / 8;
+        float width = getMeasuredWidth();
+        float height = getMeasuredHeight();
         boolean isRTL = Utils.isRTL(this);
 
+        Path roundedRectPath = new Path();
+        RectF roundedRectBounds = new RectF(cornerPadding, cornerPadding, width - cornerPadding, height - cornerPadding);
+        roundedRectPath.addRoundRect(roundedRectBounds, cornerRadius, cornerRadius, Path.Direction.CW);
+
+        canvas.clipPath(roundedRectPath);
+
         for (int i = 1; i < 10; i++) {
-            float y = ((float) height / 10) * i;
-            canvas.drawLine(0, y, width, y, mPaintLine);
+            float y = (height / 10) * i;
+            canvas.drawLine(cornerPadding, y, width - cornerPadding, y, mPaintLine);
         }
 
         for (int i = 0; i < 7; i++) {
-            float x = ((float) width / 6) * i;
-            float offset = (float) width / 6 / 4 * state;
+            float x = (width / 6) * i;
+            float offset = width / 6 / 4 * state;
             if (isRTL) {
                 x += offset;
             } else {
                 x -= offset;
             }
-            canvas.drawLine(x, 0, x, height, mPaintLine);
+            canvas.drawLine(x, cornerPadding, x, height - cornerPadding, mPaintLine);
         }
 
         mPathGraph.reset();
-        float graphX;
-        if (isRTL) {
-            graphX = ((float) width / 24) * (mPercentages.size() - 1);
-        } else {
-            graphX = width - ((float) width / 24) * (mPercentages.size() - 1);
-        }
+        float graphX = (width / 24) * (mPercentages.size() - 1);
+        if (!isRTL)
+            graphX = width - graphX;
+
         mPathGraph.moveTo(graphX, height);
         float x = 0;
         float y;
         for (int i = 0; i < mPercentages.size(); i++) {
             if (isRTL) {
-                x = graphX - ((float) width / 24) * i;
+                x = graphX - (width / 24) * i;
             } else {
-                x = graphX + ((float) width / 24) * i;
+                x = graphX + (width / 24) * i;
             }
-            y = ((float) (100 - mPercentages.get(i)) / 100) * height;
+            y = ((float) (100 - mPercentages.get(i)) / 100) * (height - 2 * cornerPadding) + cornerPadding;
             mPathGraph.lineTo(x, y);
         }
-        mPathGraph.lineTo(x, height);
+        mPathGraph.lineTo(x, height - cornerPadding);
         mPathGraph.close();
 
         canvas.drawPath(mPathGraph, mPaintGraph);
         canvas.drawPath(mPathGraph, mPaintGraphStroke);
 
         if (mEdgeVisible) {
-            canvas.drawRect(0, 0, width, height, mPaintEdge);
+            canvas.drawRoundRect(roundedRectBounds, cornerRadius, cornerRadius, mPaintEdge);
         }
     }
+
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {

@@ -31,12 +31,9 @@ public class ButtonView2 extends RecyclerViewItem {
         mSummary = view.findViewById(R.id.summary);
         mButton = view.findViewById(R.id.button);
 
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getOnItemClickListener() != null) {
-                    getOnItemClickListener().onClick(ButtonView2.this);
-                }
+        mButton.setOnClickListener(v -> {
+            if (getOnItemClickListener() != null) {
+                getOnItemClickListener().onClick(ButtonView2.this);
             }
         });
 

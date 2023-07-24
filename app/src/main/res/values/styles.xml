@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.Material3.DynamicColors.DayNight">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
@@ -13,9 +13,12 @@
         <item name="android:textDirection">locale</item>
         <item name="dim_dialog_background">@color/dim_foreground_disabled_material_dark</item>
         <item name="rcBackgroundColor">@color/rcBackground_light</item>
+        <item name="colorControlHighlight">?attr/colorAccent</item>
+        <item name="dialogTheme">@style/AppTheme.dialogTheme</item>
+        <item name="alertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
     </style>
 
-    <style name="AppThemeDark" parent="Base.Theme.AppCompat">
+    <style name="AppThemeDark" parent="Theme.Material3.DynamicColors.Dark">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
@@ -28,16 +31,19 @@
         <item name="android:textDirection">locale</item>
         <item name="dim_dialog_background">@color/dim_foreground_disabled_material_light</item>
         <item name="rcBackgroundColor">@color/rcBackground_dark</item>
+        <item name="colorControlHighlight">?attr/colorAccent</item>
         <item name="android:navigationBarColor">@color/black</item>
+        <item name="dialogTheme">@style/AppTheme.dialogTheme</item>
+        <item name="alertDialogTheme">@style/AppTheme.AlertDialogTheme</item>
     </style>
 
     <style name="AppThemeParent" parent="AppTheme" />
 
     <style name="AppThemeParentDark" parent="AppThemeDark" />
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.Material3.Dark" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.Material3.Light" />
 
     <style name="Divider">
         <item name="android:layout_width">match_parent</item>
@@ -47,6 +53,16 @@
 
     <style name="ItemTextAppearance">
         <item name="android:ellipsize">middle</item>
+    </style>
+
+    <style name="AppTheme.dialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="dialogCornerRadius">24dp</item>
+        <item name="android:padding">1dp</item>
+    </style>
+
+    <style name="AppTheme.AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="dialogCornerRadius">24dp</item>
+        <item name="android:padding">1dp</item>
     </style>
 
     <style name="Base.Widget.AppCompat.CompoundButton.CheckBox.Custom">
@@ -60,4 +76,25 @@
         <item name="swirl_ridgeColor">?android:attr/textColorSecondary</item>
     </style>
 
+    <style name="Theme.Material3.Preference" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="preferenceTheme">@style/MaterialPreferenceThemeOverlay</item>
+    </style>
+
+    <style name="MaterialPreferenceThemeOverlay" parent="PreferenceThemeOverlay">
+        <item name="switchPreferenceCompatStyle">@style/Preference.SwitchPreferenceCompat</item>
+    </style>
+
+    <style name="Preference.SwitchPreferenceCompat" parent="Preference.SwitchPreferenceCompat.Material">
+        <item name="android:widgetLayout">@layout/preference_widget_material_switch</item>
+    </style>
+
+    <style name="SwitchCompatMaterial" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="android:thumbTint">@drawable/switch_thumb</item>
+        <item name="android:trackTint">@drawable/switch_track</item>
+    </style>
+
+    <style name="SwitchCompatMaterialStatic" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="thumbTint">?attr/colorPrimary</item>
+        <item name="trackTint">?attr/colorAccent</item>
+    </style>
 </resources>

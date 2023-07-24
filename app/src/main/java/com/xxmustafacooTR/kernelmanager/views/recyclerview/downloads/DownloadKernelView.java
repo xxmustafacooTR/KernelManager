@@ -22,6 +22,8 @@ package com.xxmustafacooTR.kernelmanager.views.recyclerview.downloads;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -240,7 +242,7 @@ public class DownloadKernelView extends RecyclerViewItem {
                 } else {
                     mRecoverySelection = 0;
                     String[] items = view.getResources().getStringArray(R.array.downloads_recovery);
-                    new Dialog(view.getContext()).setSingleChoiceItems(items, 0,
+                    new MaterialAlertDialogBuilder(view.getContext()).setSingleChoiceItems(items, 0,
                             (dialogInterface, i) -> mRecoverySelection = i).setPositiveButton(view.getContext().getString(R.string.ok),
                             (dialogInterface, i) -> {
                                 if (mRecoverySelection == 2) {

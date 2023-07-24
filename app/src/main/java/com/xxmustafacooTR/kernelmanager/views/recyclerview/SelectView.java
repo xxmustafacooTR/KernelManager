@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.views.dialog.Dialog;
 
@@ -40,7 +41,7 @@ public class SelectView extends ValueView {
 
     private View mView;
     private OnItemSelected mOnItemSelected;
-    private Dialog mDialog;
+    private MaterialAlertDialogBuilder mDialog;
     private List<String> mItems = new ArrayList<>();
     private boolean mEnabled = true;
 
@@ -88,7 +89,7 @@ public class SelectView extends ValueView {
     private void showDialog(Context context) {
         String[] items = mItems.toArray(new String[mItems.size()]);
 
-        mDialog = new Dialog(context).setItems(items,
+        mDialog = new MaterialAlertDialogBuilder(context).setItems(items,
                 (dialog, which) -> {
                     setItem(which);
                     if (mOnItemSelected != null) {

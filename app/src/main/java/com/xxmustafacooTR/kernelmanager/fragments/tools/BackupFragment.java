@@ -29,6 +29,7 @@ import android.os.Environment;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.activities.FilePickerActivity;
 import com.xxmustafacooTR.kernelmanager.fragments.DescriptionFragment;
@@ -54,12 +55,12 @@ public class BackupFragment extends RecyclerViewFragment {
 
     private boolean mPermissionDenied;
 
-    private Dialog mOptionsDialog;
-    private Dialog mBackupFlashingDialog;
+    private MaterialAlertDialogBuilder mOptionsDialog;
+    private MaterialAlertDialogBuilder mBackupFlashingDialog;
     private Backup.PARTITION mBackupPartition;
-    private Dialog mItemOptionsDialog;
-    private Dialog mDeleteDialog;
-    private Dialog mRestoreDialog;
+    private MaterialAlertDialogBuilder mItemOptionsDialog;
+    private MaterialAlertDialogBuilder mDeleteDialog;
+    private MaterialAlertDialogBuilder mRestoreDialog;
 
     @Override
     protected boolean showTopFab() {
@@ -179,7 +180,7 @@ public class BackupFragment extends RecyclerViewFragment {
                     descriptionView.setTitle(image.getName().replace(".img", ""));
                     descriptionView.setSummary((image.length() / 1024L / 1024L) + getString(R.string.mb));
                     descriptionView.setOnItemClickListener(item -> {
-                        mItemOptionsDialog = new Dialog(getActivity())
+                        mItemOptionsDialog = new MaterialAlertDialogBuilder(getActivity())
                                 .setItems(getResources().getStringArray(R.array.backup_item_options),
                                         (dialogInterface, i) -> {
                                             switch (i) {
@@ -209,7 +210,7 @@ public class BackupFragment extends RecyclerViewFragment {
             return;
         }
 
-        mOptionsDialog = new Dialog(getActivity()).setItems(getResources().getStringArray(
+        mOptionsDialog = new MaterialAlertDialogBuilder(getActivity()).setItems(getResources().getStringArray(
                 R.array.backup_options),
                 (dialogInterface, i) -> {
                     switch (i) {
@@ -231,7 +232,7 @@ public class BackupFragment extends RecyclerViewFragment {
 
     private void showBackupFlashingDialog(final File file) {
         final LinkedHashMap<String, Backup.PARTITION> menu = getPartitionMenu();
-        mBackupFlashingDialog = new Dialog(getActivity()).setItems(menu.keySet().toArray(
+        mBackupFlashingDialog = new MaterialAlertDialogBuilder(getActivity()).setItems(menu.keySet().toArray(
                 new String[menu.size()]),
                 (dialogInterface, i) -> {
                     Backup.PARTITION partition = menu.values().toArray(new Backup.PARTITION[menu.size()])[i];

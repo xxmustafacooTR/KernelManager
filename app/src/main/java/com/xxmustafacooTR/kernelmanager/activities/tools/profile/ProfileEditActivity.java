@@ -24,6 +24,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.activities.BaseActivity;
 import com.xxmustafacooTR.kernelmanager.database.tools.profiles.Profiles;
@@ -93,7 +94,7 @@ public class ProfileEditActivity extends BaseActivity {
         private Profiles mProfiles;
         private Profiles.ProfileItem mItem;
 
-        private Dialog mDeleteDialog;
+        private MaterialAlertDialogBuilder mDeleteDialog;
 
         @Override
         protected boolean showViewPager() {

@@ -30,6 +30,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -91,13 +93,13 @@ public class ProfileFragment extends RecyclerViewFragment {
     private Profiles mProfiles;
 
     private LinkedHashMap<String, String> mCommands;
-    private Dialog mDeleteDialog;
-    private Dialog mApplyDialog;
+    private MaterialAlertDialogBuilder mDeleteDialog;
+    private MaterialAlertDialogBuilder mApplyDialog;
     private Profiles.ProfileItem mExportProfile;
-    private Dialog mOptionsDialog;
-    private Dialog mDonateDialog;
+    private MaterialAlertDialogBuilder mOptionsDialog;
+    private MaterialAlertDialogBuilder mDonateDialog;
     private ImportProfile mImportProfile;
-    private Dialog mSelectDialog;
+    private MaterialAlertDialogBuilder mSelectDialog;
 
     private DetailsFragment mDetailsFragment;
 
@@ -336,7 +338,7 @@ public class ProfileFragment extends RecyclerViewFragment {
     protected void onTopFabClick() {
         super.onTopFabClick();
 
-        mOptionsDialog = new Dialog(getActivity()).setItems(
+        mOptionsDialog = new MaterialAlertDialogBuilder(getActivity()).setItems(
                 getResources().getStringArray(R.array.profile_options),
                 (dialogInterface, i) -> {
                     switch (i) {

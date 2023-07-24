@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,7 +98,8 @@
             android:layout_height="17dp"
             android:layout_width="match_parent"
             app:rcProgressColor="@color/blue_greyAccent"
-            app:rcBackgroundColor="?rcBackgroundColor" />
+            app:rcBackgroundColor="?rcBackgroundColor"
+            app:rcRadius="24dp"/>
 
     </RelativeLayout>
 
