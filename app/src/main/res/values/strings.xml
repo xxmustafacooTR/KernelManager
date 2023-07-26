@@ -1474,7 +1474,7 @@
     <string name="busMfc">MFC</string>
     <string name="busNpu">NPU</string>
     <string name="checking_devicesupport">Checking Device Support</string>
-    <string name="no_device_support">This Device Not Supported\nYou Can Use Real App\nClick to Button</string>
+    <string name="no_device_support">This Device Not Supported\n</string>
     <string name="speaker_analog_gain">Speaker Analog</string>
     <string name="speaker_digital_gain">Speaker Digital</string>
     <string name="earpiece_analog_gain">Earpiece Analog</string>
