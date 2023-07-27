@@ -80,10 +80,10 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     //private static final String KEY_UPDATE_NOTIFICATION = "app_update_notif";
     //private static final String KEY_CHECK_UPDATE = "check_update";
     private static final String KEY_FORCE_ENGLISH = "forceenglish";
-    //private static final String KEY_USER_INTERFACE = "user_interface";
+    private static final String KEY_USER_INTERFACE = "user_interface";
     private static final String KEY_DARK_THEME = "darktheme";
     private static final String KEY_AUTO_THEME = "autotheme";
-    //private static final String KEY_MATERIAL_ICON = "materialicon";
+    private static final String KEY_MATERIAL_ICON = "materialicon";
     private static final String KEY_BANNER_RESIZER = "banner_resizer";
     private static final String KEY_HIDE_BANNER = "hide_banner";
     private static final String KEY_PRIMARY_COLOR = "primary_color";
@@ -142,14 +142,14 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         } else {
             forceEnglish.setOnPreferenceChangeListener(this);
         }
-/*
+
         if (Utils.hideStartActivity()) {
             ((PreferenceCategory) findPreference(KEY_USER_INTERFACE))
                     .removePreference(findPreference(KEY_MATERIAL_ICON));
         } else {
             findPreference(KEY_MATERIAL_ICON).setOnPreferenceChangeListener(this);
         }
-*/
+
         findPreference(KEY_RESET_DATA).setOnPreferenceClickListener(this);
         //findPreference(KEY_UPDATE_NOTIFICATION).setOnPreferenceChangeListener(this);
         //findPreference(KEY_CHECK_UPDATE).setOnPreferenceClickListener(this);
@@ -220,11 +220,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                         SettingsFragment.class.getCanonicalName());
                 startActivity(intent);
                 return true;
-/*
+
             case KEY_MATERIAL_ICON:
                 Utils.setStartActivity(checked, getActivity());
                 return true;
-*/
+
             case KEY_HIDE_BANNER:
                 return true;
             case KEY_SECTIONS_ICON:

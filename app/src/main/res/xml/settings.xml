@@ -41,11 +41,11 @@
         <SwitchPreferenceCompat
             android:key="forceenglish"
             android:summary="@string/force_english" />
-<!--
+
         <SwitchPreferenceCompat
             android:key="materialicon"
-            android:summary="@string/material_icon" />
--->
+            android:summary="@string/alternative_icon" />
+
         <Preference
             android:key="banner_resizer"
             android:summary="@string/banner_resizer" />

@@ -1557,4 +1557,6 @@
     <string name="pressure_level">Pressure Level</string>
     <string name="glove_mode_enable">Enable Glove Mode</string>
     <string name="glove_mode_disable">Disable Glove Mode</string>
+    <string name="alternative_icon">Alternative Icon</string>
+    <string name="app_name_alt">Noble Kernel Manager</string>
 </resources>
