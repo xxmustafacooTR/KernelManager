@@ -1551,4 +1551,10 @@
     <string name="gameControl_batteryidle_desc">Do not charge BATTERY while playing game</string>
     <string name="green_screen_fix">Green Screen Fix</string>
     <string name="green_screen_fix_desc">Fix Green Screen Tint that some devices have</string>
+    <string name="vibration_intensity">Vibration Intensity</string>
+    <string name="pressure_button">Pressure Button</string>
+    <string name="home_3d_button">3D Home Button</string>
+    <string name="pressure_level">Pressure Level</string>
+    <string name="glove_mode_enable">Enable Glove Mode</string>
+    <string name="glove_mode_disable">Disable Glove Mode</string>
 </resources>

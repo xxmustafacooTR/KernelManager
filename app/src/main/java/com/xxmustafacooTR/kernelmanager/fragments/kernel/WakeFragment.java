@@ -30,6 +30,8 @@ import com.xxmustafacooTR.kernelmanager.utils.kernel.wake.Misc;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.wake.S2s;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.wake.S2w;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.wake.T2w;
+import com.xxmustafacooTR.kernelmanager.utils.kernel.wake.TspCmd;
+import com.xxmustafacooTR.kernelmanager.views.recyclerview.ButtonView2;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.CardView;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.RecyclerViewItem;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.SeekBarView;
@@ -39,7 +41,6 @@ import com.xxmustafacooTR.kernelmanager.views.recyclerview.SwitchView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by willi on 23.06.16.
@@ -68,6 +69,9 @@ public class WakeFragment extends RecyclerViewFragment {
 
     @Override
     protected void addItems(List<RecyclerViewItem> items) {
+        if (TspCmd.hasGlove()) {
+            gloveInit(items);
+        }
         if (mDt2w.supported()) {
             dt2wInit(items);
         }
@@ -113,6 +117,9 @@ public class WakeFragment extends RecyclerViewFragment {
         }
         areaInit(items);
         vibrationInit(items);
+        if (TspCmd.supported()) {
+            cmdInit(items);
+        }
     }
 
     private void dt2wInit(List<RecyclerViewItem> items) {
@@ -283,6 +290,31 @@ public class WakeFragment extends RecyclerViewFragment {
         items.add(pocket);
     }
 
+    private void gloveInit(List<RecyclerViewItem> items) {
+        CardView gloveCard = new CardView(getActivity());
+        gloveCard.setTitle(getString(R.string.glove_mode));
+
+        ButtonView2 gloveon = new ButtonView2();
+        gloveon.setTitle(getString(R.string.glove_mode_enable));
+        gloveon.setSummary(getString(R.string.glove_mode_summary));
+        gloveon.setButtonText(getString(R.string.ok));
+        gloveon.setOnItemClickListener(view -> {
+            TspCmd.setGlove(1, getActivity());
+        });
+        gloveCard.addItem(gloveon);
+
+        ButtonView2 gloveoff = new ButtonView2();
+        gloveoff.setTitle(getString(R.string.glove_mode_disable));
+        gloveoff.setSummary(getString(R.string.glove_mode_summary));
+        gloveoff.setButtonText(getString(R.string.cancel));
+        gloveoff.setOnItemClickListener(view -> {
+            TspCmd.setGlove(0, getActivity());
+        });
+        gloveCard.addItem(gloveoff);
+
+        items.add(gloveCard);
+    }
+
     private void timeoutInit(List<RecyclerViewItem> items) {
         List<String> list = new ArrayList<>();
         list.add(getString(R.string.disabled));
@@ -450,6 +482,63 @@ public class WakeFragment extends RecyclerViewFragment {
 
             items.add(vibVibration);
         }
+    }
+
+    private void cmdInit(List<RecyclerViewItem> items) {
+        CardView pressureCard = new CardView(getActivity());
+        pressureCard.setTitle(getString(R.string.home_3d_button));
+
+        if (TspCmd.hasControl()) {
+            SwitchView pressureControl = new SwitchView();
+            pressureControl.setSummary(getString(R.string.pressure_button));
+            pressureControl.setChecked(TspCmd.getControl());
+            pressureControl.addOnSwitchListener((switchView, isChecked)
+                    -> TspCmd.setControl(isChecked, getActivity()));
+
+            pressureCard.addItem(pressureControl);
+        }
+
+        if (TspCmd.hasLevel()) {
+            SeekBarView pressureLevel = new SeekBarView();
+            pressureLevel.setTitle(getString(R.string.pressure_level));
+            pressureLevel.setMax(5);
+			pressureLevel.setMin(1);
+            pressureLevel.setProgress(TspCmd.getLevel() - 1);
+            pressureLevel.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    TspCmd.setLevel(position + 1, getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            pressureCard.addItem(pressureLevel);
+        }
+
+        if (TspCmd.hasIntensity()) {
+            SeekBarView pressureIntensity = new SeekBarView();
+            pressureIntensity.setTitle(getString(R.string.vibration_intensity));
+            pressureIntensity.setMax(10000);
+			pressureIntensity.setMin(0);
+            pressureIntensity.setProgress(TspCmd.getIntensity());
+            pressureIntensity.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
+                @Override
+                public void onStop(SeekBarView seekBarView, int position, String value) {
+                    TspCmd.setIntensity(position, getActivity());
+                }
+
+                @Override
+                public void onMove(SeekBarView seekBarView, int position, String value) {
+                }
+            });
+
+            pressureCard.addItem(pressureIntensity);
+        }
+
+        items.add(pressureCard);
     }
 
 }
