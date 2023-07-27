@@ -391,7 +391,7 @@ public class Battery {
     /* Init Battery */
 
     public boolean hasHvInput() {
-        return Utils.existFile(HV_INPUT);
+        return Utils.existFile(HV_INPUT) && Utils.strToInt(Utils.readFile(HV_INPUT)) >= 0;
     }
 
     public void setHvInput(int value, Context context) {
@@ -403,7 +403,7 @@ public class Battery {
     }
 
     public boolean hasHvCharge() {
-        return Utils.existFile(HV_CHARGE);
+        return Utils.existFile(HV_CHARGE) && Utils.strToInt(Utils.readFile(HV_CHARGE)) >= 0;
     }
 
     public void setHvCharge(int value, Context context) {

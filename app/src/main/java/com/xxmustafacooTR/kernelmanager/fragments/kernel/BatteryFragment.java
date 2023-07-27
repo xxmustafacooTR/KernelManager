@@ -340,8 +340,8 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView hv_charge = new SeekBarView();
             hv_charge.setTitle(getString(R.string.hv_charge));
             hv_charge.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_hv_charge", "", getActivity()) + getString(R.string.ma));
-            hv_charge.setMax(3150);
-            hv_charge.setMin(1000);
+            hv_charge.setMax(5000);
+            hv_charge.setMin(900);
             hv_charge.setUnit(getString(R.string.ma));
             hv_charge.setOffset(25);
             hv_charge.setProgress(Utils.strToInt(mBattery.getHvCharge()) / 25 - 40);
@@ -383,8 +383,8 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView ac_input = new SeekBarView();
             ac_input.setTitle(getString(R.string.ac_input));
             ac_input.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_ac_input", "", getActivity()) + getString(R.string.ma));
-            ac_input.setMax(3150);
-            ac_input.setMin(400);
+            ac_input.setMax(5000);
+            ac_input.setMin(0);
             ac_input.setUnit(getString(R.string.ma));
             ac_input.setOffset(25);
             ac_input.setProgress(Utils.strToInt(mBattery.getAcInput()) / 25 - 16);
@@ -406,8 +406,8 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView ac_charge = new SeekBarView();
             ac_charge.setTitle(getString(R.string.ac_charge));
             ac_charge.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_ac_charge", "", getActivity()) + getString(R.string.ma));
-            ac_charge.setMax(3150);
-            ac_charge.setMin(400);
+            ac_charge.setMax(5000);
+            ac_charge.setMin(0);
             ac_charge.setUnit(getString(R.string.ma));
             ac_charge.setOffset(25);
             ac_charge.setProgress(Utils.strToInt(mBattery.getAcCharge()) / 25 - 16);
@@ -429,8 +429,8 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView ac_input_screen = new SeekBarView();
             ac_input_screen.setTitle(getString(R.string.ac_input_screen));
             ac_input_screen.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_ac_input_screen", "", getActivity()) + getString(R.string.ma));
-            ac_input_screen.setMax(3150);
-            ac_input_screen.setMin(400);
+            ac_input_screen.setMax(5000);
+            ac_input_screen.setMin(0);
             ac_input_screen.setUnit(getString(R.string.ma));
             ac_input_screen.setOffset(25);
             ac_input_screen.setProgress(Utils.strToInt(mBattery.getAcInputScreen()) / 25 - 16);
@@ -452,11 +452,11 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView ac_charge_screen = new SeekBarView();
             ac_charge_screen.setTitle(getString(R.string.ac_charge_screen));
             ac_charge_screen.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_ac_charge_screen", "", getActivity()) + getString(R.string.ma));
-            ac_charge_screen.setMax(3150);
-            ac_charge_screen.setMin(400);
+            ac_charge_screen.setMax(5000);
+            ac_charge_screen.setMin(0);
             ac_charge_screen.setUnit(getString(R.string.ma));
             ac_charge_screen.setOffset(25);
-            ac_charge_screen.setProgress(Utils.strToInt(mBattery.getAcChargeScreen()) / 25 - 16);
+            ac_charge_screen.setProgress(Utils.strToInt(mBattery.getAcChargeScreen()) == 0 ? 0 : Utils.strToInt(mBattery.getAcChargeScreen()) / 25 - 16);
             ac_charge_screen.setOnSeekBarListener(new SeekBarView.OnSeekBarListener() {
                 @Override
                 public void onStop(SeekBarView seekBarView, int position, String value) {
@@ -484,7 +484,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView usb_input = new SeekBarView();
             usb_input.setTitle(getString(R.string.usb_input));
             usb_input.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_usb_input", "", getActivity()) + getString(R.string.ma));
-            usb_input.setMax(1200);
+            usb_input.setMax(3000);
             usb_input.setMin(100);
             usb_input.setUnit(getString(R.string.ma));
             usb_input.setOffset(25);
@@ -507,7 +507,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView usb_charge = new SeekBarView();
             usb_charge.setTitle(getString(R.string.usb_charge));
             usb_charge.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_usb_charge", "", getActivity()) + getString(R.string.ma));
-            usb_charge.setMax(1200);
+            usb_charge.setMax(3000);
             usb_charge.setMin(100);
             usb_charge.setUnit(getString(R.string.ma));
             usb_charge.setOffset(25);
@@ -530,7 +530,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView usb_input2 = new SeekBarView();
             usb_input2.setTitle(getString(R.string.usb_input));
             usb_input2.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_usb_input2", "", getActivity()) + getString(R.string.ma));
-            usb_input2.setMax(2000);
+            usb_input2.setMax(5000);
             usb_input2.setMin(100);
             usb_input2.setUnit(getString(R.string.ma));
             usb_input2.setOffset(25);
@@ -553,7 +553,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView usb_charge2 = new SeekBarView();
             usb_charge2.setTitle(getString(R.string.usb_charge));
             usb_charge2.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_usb_charge2", "", getActivity()) + getString(R.string.ma));
-            usb_charge2.setMax(2500);
+            usb_charge2.setMax(5000);
             usb_charge2.setMin(100);
             usb_charge2.setUnit(getString(R.string.ma));
             usb_charge2.setOffset(25);
@@ -585,7 +585,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView car_input = new SeekBarView();
             car_input.setTitle(getString(R.string.car_input));
             car_input.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_car_input", "", getActivity()) + getString(R.string.ma));
-            car_input.setMax(2300);
+            car_input.setMax(3500);
             car_input.setMin(800);
             car_input.setUnit(getString(R.string.ma));
             car_input.setOffset(25);
@@ -608,7 +608,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView car_charge = new SeekBarView();
             car_charge.setTitle(getString(R.string.car_charge));
             car_charge.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_car_charge", "", getActivity()) + getString(R.string.ma));
-            car_charge.setMax(2300);
+            car_charge.setMax(3150);
             car_charge.setMin(800);
             car_charge.setUnit(getString(R.string.ma));
             car_charge.setOffset(25);
@@ -640,7 +640,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView wc_input = new SeekBarView();
             wc_input.setTitle(getString(R.string.wc_input));
             wc_input.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_wc_input", "", getActivity()) + getString(R.string.ma));
-            wc_input.setMax(2000);
+            wc_input.setMax(3500);
             wc_input.setMin(800);
             wc_input.setUnit(getString(R.string.ma));
             wc_input.setOffset(25);
@@ -663,7 +663,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView wc_charge = new SeekBarView();
             wc_charge.setTitle(getString(R.string.wc_charge));
             wc_charge.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_wc_charge", "", getActivity()) + getString(R.string.ma));
-            wc_charge.setMax(2500);
+            wc_charge.setMax(3500);
             wc_charge.setMin(800);
             wc_charge.setUnit(getString(R.string.ma));
             wc_charge.setOffset(25);
@@ -695,7 +695,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView ps_input = new SeekBarView();
             ps_input.setTitle(getString(R.string.ps_input));
             ps_input.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_ps_input", "", getActivity()) + getString(R.string.ma));
-            ps_input.setMax(2000);
+            ps_input.setMax(3000);
             ps_input.setMin(800);
             ps_input.setUnit(getString(R.string.ma));
             ps_input.setOffset(25);
@@ -718,7 +718,7 @@ public class BatteryFragment extends RecyclerViewFragment {
             SeekBarView ps_charge = new SeekBarView();
             ps_charge.setTitle(getString(R.string.ps_charge));
             ps_charge.setSummary(getString(R.string.def) + ": " + AppSettings.getString("bat_ps_charge", "", getActivity()) + getString(R.string.ma));
-            ps_charge.setMax(2300);
+            ps_charge.setMax(3150);
             ps_charge.setMin(800);
             ps_charge.setUnit(getString(R.string.ma));
             ps_charge.setOffset(25);
