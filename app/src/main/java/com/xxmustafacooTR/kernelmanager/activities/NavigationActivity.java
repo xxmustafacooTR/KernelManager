@@ -136,6 +136,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.PriorityQueue;
 
 public class NavigationActivity extends BaseActivity
@@ -321,7 +322,7 @@ public class NavigationActivity extends BaseActivity
             mFragments.add(new NavigationActivity.NavigationFragment(R.string.entropy, EntropyFragment.class, R.drawable.ic_numbers));
         }
         mFragments.add(new NavigationActivity.NavigationFragment(R.string.misc, MiscFragment.class, R.drawable.ic_clear));
-        mFragments.add(new NavigationActivity.NavigationFragment(R.string.voltage_control));
+        //mFragments.add(new NavigationActivity.NavigationFragment(R.string.voltage_control));
         if (VoltageCl1.supported()) {
             mFragments.add(new NavigationActivity.NavigationFragment(R.string.cpucl1_voltage, CPUVoltageCl1Fragment.class, R.drawable.ic_bolt));
         }
@@ -570,7 +571,7 @@ public class NavigationActivity extends BaseActivity
         Fragment fragment = fragmentManager.findFragmentByTag(res + "_key");
         if (fragment == null && mActualFragments.containsKey(res)) {
             fragment = Fragment.instantiate(this,
-                    mActualFragments.get(res).getCanonicalName());
+                    Objects.requireNonNull(Objects.requireNonNull(mActualFragments.get(res)).getCanonicalName()));
         }
         return fragment;
     }
