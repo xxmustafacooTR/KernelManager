@@ -22,4 +22,8 @@
 
     <color name="rcBackground_light">#dcdcdc</color>
     <color name="rcBackground_dark">#616161</color>
+
+	<color name="dynamic_main">#03a9f4</color>
+    <color name="dynamic_secondary">#292529</color>
+    <color name="dynamic_main_dark">#116097</color>
 </resources>
