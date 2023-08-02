@@ -47,6 +47,7 @@ public class Misc {
     private static final String CPU_MC_POWER_SAVING = "/sys/devices/system/cpu/sched_mc_power_savings";
     private static final String CPU_WQ_POWER_SAVING = "/sys/module/workqueue/parameters/power_efficient";
     private static final String CPU_DVFS_DISABLE = "/sys/power/disable_dvfs";
+    private static final String CPU_UNLOCK = "/sys/power/unlock_freqs";
 	private static final String CPU_FINGERPRINT_BOOST = "/sys/kernel/fp_boost/enabled";
     private static final String CPU_AVAILABLE_CFS_SCHEDULERS = "/sys/devices/system/cpu/sched_balance_policy/available_sched_balance_policy";
     private static final String CPU_CURRENT_CFS_SCHEDULER = "/sys/devices/system/cpu/sched_balance_policy/current_sched_balance_policy";
@@ -81,6 +82,18 @@ public class Misc {
 
     public static boolean hasCpuDvfsDisabler() {
         return Utils.existFile(CPU_DVFS_DISABLE);
+    }
+
+    public static void enableCpuUnlock(boolean enabled, Context context) {
+        run(Control.write(enabled ? "1" : "0", CPU_UNLOCK), CPU_UNLOCK, context);
+    }
+
+    public static boolean isCpuUnlockEnabled() {
+        return Utils.readFile(CPU_UNLOCK).equals("1");
+    }
+
+    public static boolean hasCpuUnlock() {
+        return Utils.existFile(CPU_UNLOCK);
     }
 
     private static List<String> getAllSupportedKernel() {

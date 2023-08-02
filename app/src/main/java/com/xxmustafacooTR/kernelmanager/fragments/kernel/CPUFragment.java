@@ -159,6 +159,9 @@ public class CPUFragment extends RecyclerViewFragment {
         if (Misc.hasCpuDvfsDisabler()) {
             disableDvfsInit(items);
         }
+        if (Misc.hasCpuUnlock()) {
+            unlockInit(items);
+        }
         if (mCPUBoost.hasThrottle()) {
             throttleInit(items);
         }
@@ -1102,6 +1105,21 @@ public class CPUFragment extends RecyclerViewFragment {
 
         disableDvfsCard.addItem(disableDvfs);
         items.add(disableDvfsCard);
+    }
+
+    private void unlockInit(List<RecyclerViewItem> items) {
+        CardView unlockCard = new CardView(getActivity());
+        unlockCard.setTitle(getString(R.string.cpu_unlock));
+
+        SwitchView cpuUnlock = new SwitchView();
+        cpuUnlock.setSummaryOn(getString(R.string.enabled));
+        cpuUnlock.setSummaryOff(getString(R.string.disabled));
+        cpuUnlock.setChecked(Misc.isCpuUnlockEnabled());
+        cpuUnlock.addOnSwitchListener((switchView, isChecked)
+                -> Misc.enableCpuUnlock(isChecked, getActivity()));
+
+        unlockCard.addItem(cpuUnlock);
+        items.add(unlockCard);
     }
 
 

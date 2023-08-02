@@ -1561,4 +1561,5 @@
     <string name="app_name_alt">Noble Kernel Manager</string>
     <string name="gpu_unlock">Unlock Frequencies</string>
     <string name="gpu_unlock_summary">Remove system/driver limitations. Force minimum frequency to minimum possible and maximum frequency to maximum possible.</string>
+    <string name="cpu_unlock">Cpu Frequency Unlock</string>
 </resources>
