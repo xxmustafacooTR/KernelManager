@@ -2,21 +2,20 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion '33.0.0'
+    compileSdk 33
     defaultConfig {
         applicationId 'com.xxmustafacooTR.kernelmanager'
         minSdkVersion 27
         //noinspection ExpiredTargetSdkVersion,OldTargetApi
         targetSdkVersion 29
-        versionCode 4603
-        versionName "46.0-Beta3"
+        versionCode 4604
+        versionName "46.0-Beta4"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             ndk {
                 //noinspection ChromeOsAbiSupport
@@ -25,6 +24,7 @@ android {
         }
         debug {
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             ndk {
                 //noinspection ChromeOsAbiSupport
                 abiFilters "arm64-v8a"
@@ -42,8 +42,8 @@ android {
         abortOnError false
     }
     namespace 'com.xxmustafacooTR.kernelmanager'
-    android.applicationVariants.all { final variant ->
-        variant.outputs.all {
+    android.applicationVariants.configureEach { final variant ->
+        variant.outputs.configureEach {
             outputFileName = "xxTR_Manager_v${variant.versionName}.apk"
         }
     }
