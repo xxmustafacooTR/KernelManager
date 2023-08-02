@@ -430,9 +430,16 @@ public class GPUFragment extends RecyclerViewFragment {
         CardView dvfsCard = new CardView(getActivity());
         dvfsCard.setTitle(getString(R.string.gpu_dvfs));
 
-        DescriptionView dvfsdesc = new DescriptionView();
-        dvfsdesc.setSummary(getString(R.string.gpu_dvfs_summary));
-        dvfsCard.addItem(dvfsdesc);
+        if(mGPUFreqExynos.hasUnlock()) {
+            SwitchView unlock_gpu = new SwitchView();
+            unlock_gpu.setTitle(getString(R.string.gpu_unlock));
+            unlock_gpu.setSummary(getString(R.string.gpu_unlock_summary));
+            unlock_gpu.setChecked(mGPUFreqExynos.isUnlockEnabled());
+            unlock_gpu.addOnSwitchListener((switchView, isChecked)
+                    -> mGPUFreqExynos.enableUnlock(isChecked, getActivity()));
+
+            dvfsCard.addItem(unlock_gpu);
+        }
 
         if(mGPUFreqExynos.hasDvfs()) {
             SwitchView dvfs_gpu = new SwitchView();

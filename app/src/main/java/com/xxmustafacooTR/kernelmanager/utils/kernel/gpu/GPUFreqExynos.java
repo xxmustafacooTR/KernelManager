@@ -88,6 +88,7 @@ public class GPUFreqExynos {
     private static final String CUR_S7_FREQ = "/sys/devices/14ac0000.mali/clock";
     private static final String CUR_S7_VOLT = "/sys/devices/14ac0000.mali/vol";
     private static final String TUNABLE_DVFS_S7_FREQ = "/sys/devices/14ac0000.mali/dvfs";
+    private static final String TUNABLE_UNLOCK_S7_FREQ = "/sys/devices/14ac0000.mali/unlock_freqs";
     private static final String AVAILABLE_S7_FREQS = "/sys/devices/14ac0000.mali/volt_table";
     private static final String AVAILABLE_S7_GOVERNORS = "/sys/devices/14ac0000.mali/dvfs_governor";
     private static final String TUNABLE_HIGHSPEED_S7_CLOCK = "/sys/devices/14ac0000.mali/highspeed_clock";
@@ -102,6 +103,7 @@ public class GPUFreqExynos {
     private static final String CUR_S8_FREQ = "/sys/devices/platform/13900000.mali/clock";
     private static final String CUR_S8_VOLT = "/sys/devices/platform/13900000.mali/vol";
     private static final String TUNABLE_DVFS_S8_FREQ = "/sys/devices/platform/13900000.mali/dvfs";
+    private static final String TUNABLE_UNLOCK_S8_FREQ = "/sys/devices/platform/13900000.mali/unlock_freqs";
     private static final String AVAILABLE_S8_FREQS = "/sys/devices/platform/13900000.mali/volt_table";
     private static final String AVAILABLE_S8_GOVERNORS = "/sys/devices/platform/13900000.mali/dvfs_governor";
     private static final String TUNABLE_HIGHSPEED_S8_CLOCK = "/sys/devices/platform/13900000.mali/highspeed_clock";
@@ -116,6 +118,7 @@ public class GPUFreqExynos {
     private static final String CUR_S9_FREQ = "/sys/devices/platform/17500000.mali/clock";
     private static final String CUR_S9_VOLT = "/sys/devices/platform/17500000.mali/vol";
     private static final String TUNABLE_DVFS_S9_FREQ = "/sys/devices/platform/17500000.mali/dvfs";
+    private static final String TUNABLE_UNLOCK_S9_FREQ = "/sys/devices/platform/17500000.mali/unlock_freqs";
     private static final String AVAILABLE_S9_FREQS = "/sys/devices/platform/17500000.mali/volt_table";
     private static final String AVAILABLE_S9_GOVERNORS = "/sys/devices/platform/17500000.mali/dvfs_governor";
     private static final String TUNABLE_HIGHSPEED_S9_CLOCK = "/sys/devices/platform/17500000.mali/highspeed_clock";
@@ -130,6 +133,7 @@ public class GPUFreqExynos {
     private static final String CUR_S10_FREQ = "/sys/devices/platform/18500000.mali/clock";
     private static final String CUR_S10_VOLT = "/sys/devices/platform/18500000.mali/vol";
     private static final String TUNABLE_DVFS_S10_FREQ = "/sys/devices/platform/18500000.mali/dvfs";
+    private static final String TUNABLE_UNLOCK_S10_FREQ = "/sys/devices/platform/18500000.mali/unlock_freqs";
     private static final String AVAILABLE_S10_FREQS = "/sys/devices/platform/18500000.mali/volt_table";
     private static final String AVAILABLE_S10_GOVERNORS = "/sys/devices/platform/18500000.mali/dvfs_governor";
     private static final String TUNABLE_HIGHSPEED_S10_CLOCK = "/sys/devices/platform/18500000.mali/highspeed_clock";
@@ -147,6 +151,7 @@ public class GPUFreqExynos {
     private final List<String> mAvailableFreqs = new ArrayList<>();
     private final List<String> mScalingGovernors = new ArrayList<>();
     private final List<String> mDvfs = new ArrayList<>();
+    private final List<String> mUnlock = new ArrayList<>();
     private final List<String> mTimeStates = new ArrayList<>();
     private final HashMap<String, Integer> mTunableHighspeedClocks = new HashMap<>();
     private final HashMap<String, Integer> mTunableHighspeedLoads = new HashMap<>();
@@ -210,6 +215,11 @@ public class GPUFreqExynos {
         mDvfs.add(TUNABLE_DVFS_S9_FREQ);
         mDvfs.add(TUNABLE_DVFS_S10_FREQ);
 
+        mUnlock.add(TUNABLE_UNLOCK_S7_FREQ);
+        mUnlock.add(TUNABLE_UNLOCK_S8_FREQ);
+        mUnlock.add(TUNABLE_UNLOCK_S9_FREQ);
+        mUnlock.add(TUNABLE_UNLOCK_S10_FREQ);
+
         mTimeStates.add(TIMESTATES_S7);
         mTimeStates.add(TIMESTATES_S8);
         mTimeStates.add(TIMESTATES_S9);
@@ -271,6 +281,7 @@ public class GPUFreqExynos {
     private String MIN_FREQ;
     private String GOVERNOR;
     private String TUNABLE_DVFS;	
+    private String TUNABLE_UNLOCK;
     private String TIMESTATES;
     private String TUNABLE_HIGHSPEED_CLOCK;
     private String TUNABLE_HIGHSPEED_LOAD;
@@ -365,6 +376,13 @@ public class GPUFreqExynos {
         for (String file : mDvfs) {
             if (Utils.existFile(file)) {
                 TUNABLE_DVFS = file;
+                break;
+            }
+        }
+
+        for (String file : mUnlock) {
+            if (Utils.existFile(file)) {
+                TUNABLE_UNLOCK = file;
                 break;
             }
         }
@@ -674,6 +692,18 @@ public class GPUFreqExynos {
 
     public boolean hasDvfs() {
         return TUNABLE_DVFS != null;
+    }
+
+    public void enableUnlock(boolean enable, Context context) {
+        run(Control.write(enable ? "1" : "0", TUNABLE_UNLOCK), TUNABLE_UNLOCK, context);
+    }
+
+    public boolean isUnlockEnabled() {
+        return Utils.readFile(TUNABLE_UNLOCK).equals("1");
+    }
+
+    public boolean hasUnlock() {
+        return TUNABLE_UNLOCK != null;
     }
 
     public int getUsage() {
