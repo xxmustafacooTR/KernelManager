@@ -14,6 +14,33 @@
         android:padding="10dp">
 
         <LinearLayout
+            android:id="@+id/big_cpu_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/big_cpu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/big_cpu"
+                android:textAllCaps="true"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/cpu_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +62,7 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="@string/cpu"
+                android:text="@string/little_cpu"
                 android:textAllCaps="true"
                 android:textSize="12sp" />
         </LinearLayout>

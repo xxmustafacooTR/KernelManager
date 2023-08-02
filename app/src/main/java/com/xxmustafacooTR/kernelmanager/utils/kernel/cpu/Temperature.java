@@ -58,16 +58,20 @@ public class Temperature {
     private TempJson TEMP_JSON;
 
     private String CPU_NODE;
+    private String CPU_BIG_NODE;
     private int CPU_OFFSET;
+    private int CPU_BIG_OFFSET;
 
     private String GPU_NODE;
     private int GPU_OFFSET;
 
     private static String EXYNOS_CPU_NODE;
+    private static String EXYNOS_CPU_BIG_NODE;
     private static String SD_CPU_NODE;
     private static String EXYNOS_GPU_NODE;
     private static String SD_GPU_NODE;
     private static int EXYNOS_CPU_OFFSET;
+    private static int EXYNOS_CPU_BIG_OFFSET;
     private static int SD_CPU_OFFSET;
     private static int EXYNOS_GPU_OFFSET;
     private static int SD_GPU_OFFSET;
@@ -112,6 +116,9 @@ public class Temperature {
                         } else if (Utils.readFile(node + i + type).contains("cpufreq-0")) {
                             EXYNOS_CPU_NODE = node + i + "/temp";
                             EXYNOS_CPU_OFFSET = (int) Math.pow(10, (double) (Utils.readFile(EXYNOS_CPU_NODE).length() - (Utils.readFile(EXYNOS_CPU_NODE).length() - 3)));
+                        } else if (Utils.readFile(node + i + type).contains("cpufreq-1")) {
+                            EXYNOS_CPU_BIG_NODE = node + i + "/temp";
+                            EXYNOS_CPU_BIG_OFFSET = (int) Math.pow(10, (double) (Utils.readFile(EXYNOS_CPU_BIG_NODE).length() - (Utils.readFile(EXYNOS_CPU_BIG_NODE).length() - 3)));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -214,8 +221,29 @@ public class Temperature {
         return CPU_NODE != null;
     }
 
+    public String get2CPU(Context context) {
+        double temp = get2CPUTemp();
+        boolean useFahrenheit = Utils.useFahrenheit(context);
+        if (useFahrenheit) temp = Utils.celsiusToFahrenheit(temp);
+        return Utils.roundTo2Decimals(temp) + context.getString(useFahrenheit ? R.string.fahrenheit
+                : R.string.celsius);
+    }
+
+    private double get2CPUTemp() {
+        return (double) Utils.strToInt(Utils.readFile(CPU_BIG_NODE)) / CPU_BIG_OFFSET;
+    }
+
+    public boolean has2CPU() {
+        if ((isExynos) && EXYNOS_CPU_BIG_NODE != null) {
+            CPU_BIG_NODE = EXYNOS_CPU_BIG_NODE;
+            CPU_BIG_OFFSET = EXYNOS_CPU_BIG_OFFSET;
+            return true;
+        }
+        return CPU_BIG_NODE != null;
+    }
+
     public boolean supported() {
-        return hasCPU() || hasGPU();
+        return hasCPU() || has2CPU() || hasGPU();
     }
 
     private static class TempJson {

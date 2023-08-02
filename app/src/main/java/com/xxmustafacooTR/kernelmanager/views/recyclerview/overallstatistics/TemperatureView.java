@@ -32,10 +32,12 @@ import com.xxmustafacooTR.kernelmanager.views.recyclerview.RecyclerViewItem;
  */
 public class TemperatureView extends RecyclerViewItem {
 
+    private View mCPUBigParent;
     private View mCPUParent;
     private View mGPUParent;
 
     private TextView mCPU;
+    private TextView mCPUBig;
     private TextView mGPU;
     private TextView mBattery;
 
@@ -48,9 +50,11 @@ public class TemperatureView extends RecyclerViewItem {
 
     @Override
     public void onCreateView(View view) {
+        mCPUBigParent = view.findViewById(R.id.big_cpu_parent);
         mCPUParent = view.findViewById(R.id.cpu_parent);
         mGPUParent = view.findViewById(R.id.gpu_parent);
 
+        mCPUBig = view.findViewById(R.id.big_cpu);
         mCPU = view.findViewById(R.id.cpu);
         mGPU = view.findViewById(R.id.gpu);
         mBattery = view.findViewById(R.id.battery);
@@ -67,6 +71,12 @@ public class TemperatureView extends RecyclerViewItem {
     protected void refresh() {
         if (mCPUParent != null) {
             Temperature temperature = Temperature.getInstance(mCPUParent.getContext());
+            if (temperature.has2CPU()) {
+                mCPUBigParent.setVisibility(View.VISIBLE);
+                mCPUBig.setText(temperature.get2CPU(mCPU.getContext()));
+            } else {
+                mCPUParent.setVisibility(View.GONE);
+            }
             if (temperature.hasCPU()) {
                 mCPUParent.setVisibility(View.VISIBLE);
                 mCPU.setText(temperature.getCPU(mCPU.getContext()));
