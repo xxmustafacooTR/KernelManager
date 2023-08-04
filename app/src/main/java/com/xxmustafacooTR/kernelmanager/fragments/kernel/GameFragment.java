@@ -356,6 +356,7 @@ public class GameFragment extends RecyclerViewFragment {
     private void CardGamePackagesInit(final CardView card) {
         card.clearItems();
         mPACKAGES.clear();
+        List<String> enabledAppList = new ArrayList<>(Arrays.asList(GameControl.getGamePackages().split("\n")));
 
         mPackageInfoMode = AppSettings.getInt("game_control_show_packages_filter", 1, getActivity());
 
@@ -399,13 +400,32 @@ public class GameFragment extends RecyclerViewFragment {
         });
         card.addItem(reset);
 
-        for (int i=0; i<mPackageInfo.getAdjustedAppPackages(mPackageInfoMode).size(); i++) {
-            String packageName = mPackageInfo.getAdjustedAppPackages(mPackageInfoMode).get(i);
+        for (int i=0; i<enabledAppList.size(); i++) {
+            String packageName = enabledAppList.get(i);
             SwitchView gamePackages = new SwitchView();
+            String appName = mPackageInfo.getAppNameFromPackage(packageName);
+            if (appName == null)
+                continue;
+            gamePackages.setSummary(packageName);
+            gamePackages.setTitle(appName);
+            gamePackages.setIcon(mPackageInfo.getIconFromPackage(packageName, getActivity()));
+            gamePackages.setChecked(GameControl.checkGamePackage(packageName));
+            gamePackages.addOnSwitchListener((switchView, isChecked) ->
+                    mGameControl.editGamePackage(isChecked, String.valueOf(switchView.getSummary()), getActivity())
+            );
+            card.addItem(gamePackages);
+            mPACKAGES.add(gamePackages);
+        }
+        List<String> adjustedAppPackages = mPackageInfo.getAdjustedAppPackages(mPackageInfoMode);
+        for (int i=0; i<adjustedAppPackages.size(); i++) {
+            String packageName = adjustedAppPackages.get(i);
+            SwitchView gamePackages = new SwitchView();
+            if (enabledAppList.contains(packageName))
+                continue;
             gamePackages.setSummary(packageName);
             gamePackages.setTitle(mPackageInfo.getAppNameFromPackage(packageName));
             gamePackages.setIcon(mPackageInfo.getIconFromPackage(packageName, getActivity()));
-            gamePackages.setChecked(mGameControl.checkGamePackage(mPackageInfo.getAdjustedAppPackages(mPackageInfoMode).get(i)));
+            gamePackages.setChecked(GameControl.checkGamePackage(packageName));
             gamePackages.addOnSwitchListener((switchView, isChecked) ->
                     mGameControl.editGamePackage(isChecked, String.valueOf(switchView.getSummary()), getActivity())
             );
