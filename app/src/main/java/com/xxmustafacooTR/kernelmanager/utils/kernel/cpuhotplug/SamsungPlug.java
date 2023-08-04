@@ -3,8 +3,13 @@ package com.xxmustafacooTR.kernelmanager.utils.kernel.cpuhotplug;
 import android.content.Context;
 
 import com.xxmustafacooTR.kernelmanager.fragments.ApplyOnBootFragment;
+import com.xxmustafacooTR.kernelmanager.utils.Log;
 import com.xxmustafacooTR.kernelmanager.utils.Utils;
+import com.xxmustafacooTR.kernelmanager.utils.kernel.cpu.CPUFreq;
 import com.xxmustafacooTR.kernelmanager.utils.root.Control;
+import com.xxmustafacooTR.kernelmanager.utils.root.RootUtils;
+
+import java.util.List;
 
 /**
  * Created by Morogoku on 25/04/2017.
@@ -40,6 +45,7 @@ public class SamsungPlug {
 	private static final String HOTPLUG_SAMSUNG_TO_QUAD_RATIO = "/sys/power/cpuhotplug/governor/to_quad_ratio";
 	private static final String HOTPLUG_SAMSUNG_BIG_MODE_DUAL = "/sys/power/cpuhotplug/governor/big_mode_dual";
 	private static final String HOTPLUG_SAMSUNG_BIG_MODE_NORMAL = "/sys/power/cpuhotplug/governor/big_mode_normal";
+    private static final String CPU_MAX_FREQ = "/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq";
 
     public static void enableSamsungPlug(boolean enable, Context context) {
         run(Control.write(enable ? "1" : "0", HOTPLUG_SAMSUNG_ENABLE), HOTPLUG_SAMSUNG_ENABLE, context);
@@ -292,8 +298,14 @@ public class SamsungPlug {
     }
 
     public static void setQuadFreq(int value, Context context) {
-        run(Control.write(String.valueOf(value), HOTPLUG_SAMSUNG_QUAD_FREQ),
-                HOTPLUG_SAMSUNG_QUAD_FREQ, context);
+        List<Integer> cpuFreqs= CPUFreq.getInstance(context).getFreqs();
+        int maxFreq = cpuFreqs.get(cpuFreqs.size() - 1);
+        String command = "chmod 0644 " + CPU_MAX_FREQ + " && echo ";
+        if (getQuadFreq() > value)
+            command += value + " > " + CPU_MAX_FREQ + " && echo ";
+        command += value + " > " + HOTPLUG_SAMSUNG_QUAD_FREQ + " && echo " + maxFreq + " > " + CPU_MAX_FREQ;
+        Log.e(command);
+        run(command, HOTPLUG_SAMSUNG_QUAD_FREQ, context);;
     }
 
     public static int getQuadFreq() {

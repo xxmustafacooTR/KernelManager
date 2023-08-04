@@ -584,7 +584,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
             mSamsungPlugDual.setItem((SamsungPlug.getDualFreq() / 1000) + getString(R.string.mhz));
         }
 
-        if (SamsungPlug.hasTripleFreq()) {
+        if (SamsungPlug.hasTripleChangeMs() && SamsungPlug.hasTripleFreq()) {
             mSamsungPlugTriple = new SelectView();
             mSamsungPlugTriple.setTitle(getString(R.string.samsungPlug_TripleFreq));
             mSamsungPlugTriple.setItems(mCPUFreq.getAdjustedFreq(getActivity()));
@@ -600,8 +600,14 @@ public class CPUHotplugFragment extends RecyclerViewFragment {
             mSamsungPlugQuad = new SelectView();
             mSamsungPlugQuad.setTitle(getString(R.string.samsungPlug_QuadFreq));
             mSamsungPlugQuad.setItems(mCPUFreq.getAdjustedFreq(getActivity()));
-            mSamsungPlugQuad.setOnItemSelected((selectView, position, item)
+            if (SamsungPlug.hasTripleChangeMs())
+                mSamsungPlugQuad.setOnItemSelected((selectView, position, item)
                     -> SamsungPlug.setQuadFreq(mCPUFreq.getFreqs().get(position), getActivity()));
+            else
+                mSamsungPlugQuad.setOnItemSelected((selectView, position, item) -> {
+                    SamsungPlug.setTripleFreq(mCPUFreq.getFreqs().get(position), getActivity());
+                    SamsungPlug.setQuadFreq(mCPUFreq.getFreqs().get(position), getActivity());
+                });
 
             samsungPlug.addItem(mSamsungPlugQuad);
 
