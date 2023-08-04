@@ -10,7 +10,7 @@
     <string name="open">Open %s</string>
     <string name="disable">Disable</string>
     <string name="changelog">xxTR Manager v%s</string>
-    <string name="changelog_message">\n* App Theme Rebase to Material and Dynamic\n* Overall Fixes\n* 3D/Pressure Button Controllers</string>
+    <string name="changelog_message">\n* Overall Fixes\n* Unlock Freqs Switches\n* Big Cpu Temp Show\n* A workaround fix for hotplug quad change\n* Game Control Menu Updates</string>
     <string name="close">Close</string>
 
     <!-- Security -->
@@ -1539,12 +1539,12 @@
     <string name="gameControl_packages_mode">App Show Filter for Categories</string>
     <string name="gameControl_reset_message">Do you want to reset selected packages?</string>
 	<string name="gameControl_INT_min">Minimum INT freq while playing game</string>
-    <string name="gameControl_custom_little_freq">Forced freq for Little Cpu</string>
-    <string name="gameControl_custom_Big_freq">Forced freq for Big Cpu (In Testing)</string>
-    <string name="gameControl_custom_Gpu_freq">Forced freq for Gpu</string>
-    <string name="gameControl_custom_little_volt">Custom volt for Little Cpu</string>
-    <string name="gameControl_custom_Big_volt">Custom volt for Big Cpu</string>
-    <string name="gameControl_custom_Gpu_volt">Custom volt for Gpu</string>
+    <string name="gameControl_custom_little_freq">Forced freq for Little Cpu (example 2106000)</string>
+    <string name="gameControl_custom_Big_freq">Forced freq for Big Cpu (example 3016000 - Dangerous)</string>
+    <string name="gameControl_custom_Gpu_freq">Forced freq for Gpu (example 611000)</string>
+    <string name="gameControl_custom_little_volt">Custom volt for Little Cpu (example 1100000)</string>
+    <string name="gameControl_custom_Big_volt">Custom volt for Big Cpu (example 1250000)</string>
+    <string name="gameControl_custom_Gpu_volt">Custom volt for Gpu (example 800000)</string>
     <string name="reset_message">Do you want to reset all controls to default value?</string>
     <string name="reset_summary">Reset to default values</string>
     <string name="limitCapacity">Limit Battery Capacity While Charging</string>
