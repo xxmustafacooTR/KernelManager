@@ -19,6 +19,7 @@ public class GameControl {
 
     private static final String GAMING_CONTROL = "/sys/kernel/gaming_control";
     private static final String VERSION = GAMING_CONTROL + "/version";
+    private static final String STATUS = GAMING_CONTROL + "/status";
     private static final String GAME_PACKAGES = GAMING_CONTROL + "/game_packages";
     private static final String ALWAYS_ON = GAMING_CONTROL + "/always_on";
     private static final String THERMAL_BYPASS = GAMING_CONTROL + "/thermal_bypass";
@@ -50,6 +51,14 @@ public class GameControl {
 
     public static String getVersion() {
         return Utils.readFile(VERSION);
+    }
+
+    public static boolean hasStatus(){
+        return Utils.existFile(STATUS);
+    }
+
+    public static String getStatus() {
+        return Utils.readFile(STATUS);
     }
 
     public static boolean hasAlwaysOn(){

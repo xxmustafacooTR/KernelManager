@@ -851,6 +851,7 @@
     <string name="char_type">Charge Type</string>
     <string name="char_source">Charge Source</string>
     <string name="temp">Temp</string>
+    <string name="info">Info</string>
     <string name="status">Status</string>
     <string name="health">Health</string>
     <string name="capacity">Capacity</string>
@@ -1567,4 +1568,6 @@
     <string name="gameControl_throttle_control">Game Throttle Control</string>
     <string name="gameControl_thermal_bypass">Thermal Bypass</string>
     <string name="gameControl_thermal_bypass_desc">Bypass thermal fully, this could cause very high temps or shutdowns while gaming. To prevent this problem you can lower your freqs.</string>
+    <string name="running_games">games are running</string>
+    <string name="force_enabled">Force Enabled</string>
 </resources>

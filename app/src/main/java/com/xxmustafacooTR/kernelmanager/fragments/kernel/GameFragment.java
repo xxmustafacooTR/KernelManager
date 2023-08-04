@@ -7,19 +7,24 @@ import com.xxmustafacooTR.kernelmanager.fragments.ApplyOnBootFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.DescriptionFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.recyclerview.RecyclerViewFragment;
 import com.xxmustafacooTR.kernelmanager.utils.AppSettings;
+import com.xxmustafacooTR.kernelmanager.utils.Log;
 import com.xxmustafacooTR.kernelmanager.utils.PackageInfo;
+import com.xxmustafacooTR.kernelmanager.utils.Utils;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.cpu.CPUFreq;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.game.GameControl;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.gpu.GPUFreqExynos;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.ButtonView2;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.CardView;
+import com.xxmustafacooTR.kernelmanager.views.recyclerview.DescriptionView;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.GenericSelectView;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.RecyclerViewItem;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.SeekBarView;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.SelectView;
+import com.xxmustafacooTR.kernelmanager.views.recyclerview.StatsView;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.SwitchView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameFragment extends RecyclerViewFragment {
@@ -27,6 +32,7 @@ public class GameFragment extends RecyclerViewFragment {
     private GPUFreqExynos mGPUFreqExynos;
     private CPUFreq mCPUFreq;
     private PackageInfo mPackageInfo;
+    private StatsView status;
 
     private List<SwitchView> mPACKAGES = new ArrayList<>();
     private int mPackageInfoMode = 1;
@@ -49,6 +55,7 @@ public class GameFragment extends RecyclerViewFragment {
     @Override
     protected void addItems(List<RecyclerViewItem> items) {
         if (GameControl.supported()) {
+            gameControlInfo(items);
             gameControlInit(items);
             if (mGameControl.hasThermalInit()) {
                 throttleControlInit(items);
@@ -59,10 +66,42 @@ public class GameFragment extends RecyclerViewFragment {
         }
     }
 
+    private void setStatusSummary() {
+        if (mGameControl.hasStatus()) {
+            String[] lines = mGameControl.getStatus().split("\n");
+            String summary = lines[0].trim() + " " + getString(R.string.running_games);
+            if (GameControl.isEnabledAlwaysOn())
+                summary += " (" + getString(R.string.force_enabled) + "]";
+            for (String str : lines) {
+                if (str.length() > 2) {
+                    summary += "\n" + Utils.readFile("/proc/" + str.trim() + "/cmdline").trim();
+                } else {
+                    summary += "\n";
+                }
+            }
+            status.setStat(summary);
+        } else if (mGameControl.hasAlwaysOn()) {
+            if (GameControl.isEnabledAlwaysOn())
+                status.setStat(getString(R.string.force_enabled));
+            else
+                status.setStat(getString(R.string.unknown));
+        }
+    }
+
+    private void gameControlInfo(List<RecyclerViewItem> items) {
+        if (mGameControl.hasStatus() || mGameControl.hasAlwaysOn()) {
+            status = new StatsView();
+            status.setTitle(getString(R.string.gameControl) + " " + getString(R.string.status));
+            status.setFullSpan(true);
+            setStatusSummary();
+            items.add(status);
+        }
+    }
+
     private void gameControlInit(List<RecyclerViewItem> items) {
         CardView gameControlCard = new CardView(getActivity());
-        if(mGameControl.hasVersion())
-            gameControlCard.setTitle(getString(R.string.gameControl) + " v" + mGameControl.getVersion());
+		if(mGameControl.hasVersion())
+            gameControlCard.setTitle(getString(R.string.gameControl) + " - v" + mGameControl.getVersion());
         else
             gameControlCard.setTitle(getString(R.string.gameControl));
 
@@ -373,5 +412,13 @@ public class GameFragment extends RecyclerViewFragment {
             card.addItem(gamePackages);
             mPACKAGES.add(gamePackages);
         }
+    }
+
+    @Override
+    protected void refresh() {
+        super.refresh();
+
+        if (status != null)
+            setStatusSummary();
     }
 }
