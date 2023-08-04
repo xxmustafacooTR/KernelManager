@@ -21,6 +21,7 @@ public class GameControl {
     private static final String VERSION = GAMING_CONTROL + "/version";
     private static final String GAME_PACKAGES = GAMING_CONTROL + "/game_packages";
     private static final String ALWAYS_ON = GAMING_CONTROL + "/always_on";
+    private static final String THERMAL_BYPASS = GAMING_CONTROL + "/thermal_bypass";
     private static final String BATTERY_IDLE = GAMING_CONTROL + "/battery_idle";
     private static final String INT_MIN = GAMING_CONTROL + "/min_int_freq";
     private static final String MIF_MIN = GAMING_CONTROL + "/min_mif_freq";
@@ -61,6 +62,22 @@ public class GameControl {
 
     public static void enableAlwaysOn(Boolean enable, Context context){
         run(Control.write(enable ? "1" : "0", ALWAYS_ON), ALWAYS_ON, context);
+    }
+
+    public static boolean hasThermalBypass(){
+        return Utils.existFile(THERMAL_BYPASS);
+    }
+
+    public static Boolean isEnabledThermalBypass(){
+        return Utils.readFile(THERMAL_BYPASS).equals("1");
+    }
+
+    public static void enableThermalBypass(Boolean enable, Context context){
+        run(Control.write(enable ? "1" : "0", THERMAL_BYPASS), THERMAL_BYPASS, context);
+    }
+
+    public static boolean hasThermalInit() {
+        return hasThermalBypass();
     }
 
     public static boolean hasBatteryIdle(){

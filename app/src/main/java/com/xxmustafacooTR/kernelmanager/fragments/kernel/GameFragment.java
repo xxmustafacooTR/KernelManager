@@ -50,6 +50,9 @@ public class GameFragment extends RecyclerViewFragment {
     protected void addItems(List<RecyclerViewItem> items) {
         if (GameControl.supported()) {
             gameControlInit(items);
+            if (mGameControl.hasThermalInit()) {
+                throttleControlInit(items);
+            }
             if(mGameControl.hasGamePackages()) {
                 gamePackagesInit(items);
             }
@@ -280,6 +283,24 @@ public class GameFragment extends RecyclerViewFragment {
         }
 
         items.add(gameControlCard);
+    }
+
+    private void throttleControlInit(List<RecyclerViewItem> items) {
+        CardView throttleCard = new CardView(getActivity());
+        throttleCard.setTitle(getString(R.string.gameControl_throttle_control));
+
+        if(mGameControl.hasThermalBypass()){
+            SwitchView thermalBypass = new SwitchView();
+            thermalBypass.setTitle(getString(R.string.gameControl_thermal_bypass));
+            thermalBypass.setSummary(getString(R.string.gameControl_thermal_bypass_desc));
+            thermalBypass.setChecked(mGameControl.isEnabledThermalBypass());
+            thermalBypass.addOnSwitchListener((switchView, isChecked) ->
+                    mGameControl.enableThermalBypass(isChecked, getActivity())
+            );
+            throttleCard.addItem(thermalBypass);
+        }
+
+        items.add(throttleCard);
     }
 
     private void gamePackagesInit (List<RecyclerViewItem> items){
