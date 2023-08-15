@@ -59,6 +59,7 @@ import com.xxmustafacooTR.kernelmanager.utils.kernel.bus.VoltageDisp;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.bus.VoltageNpu;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.bus.VoltageScore;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.cpu.CPUFreq;
+import com.xxmustafacooTR.kernelmanager.utils.kernel.gpu.GPUFreq;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.gpu.GPUFreqExynos;
 import com.xxmustafacooTR.kernelmanager.views.XYGraph;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.CardView;
@@ -80,8 +81,6 @@ public class OverallFragment extends RecyclerViewFragment {
 
     private CPUFreq mCPUFreq;
     private GPUFreqExynos mGPUFreq;
-
-    private StatsView mGPUFreqStatsView;
     private TemperatureView mTemperature;
 
     private CardView mFreqBig;
@@ -146,14 +145,8 @@ public class OverallFragment extends RecyclerViewFragment {
 
     private void statsInit(List<RecyclerViewItem> items) {
 
-        if (mGPUFreq.hasCurFreq()) {
-            mGPUFreqStatsView = new StatsView();
-            mGPUFreqStatsView.setTitle(getString(R.string.gpu_freq));
-
-            items.add(mGPUFreqStatsView);
-        }
         mTemperature = new TemperatureView();
-        mTemperature.setFullSpan(mGPUFreqStatsView == null);
+        mTemperature.setFullSpan(true);
 
         items.add(mTemperature);
     }
@@ -949,22 +942,10 @@ public class OverallFragment extends RecyclerViewFragment {
         frequencyCard.addItem(frequencyState);
     }
 
-    private Integer mGPUCurFreq;
-
-    @Override
-    protected void refreshThread() {
-        super.refreshThread();
-
-        mGPUCurFreq = mGPUFreq.getCurFreq();
-    }
-
     @Override
     protected void refresh() {
         super.refresh();
 
-        if (mGPUFreqStatsView != null && mGPUCurFreq != null) {
-            mGPUFreqStatsView.setStat(mGPUCurFreq / mGPUFreq.getCurFreqOffset() + getString(R.string.mhz));
-        }
         if (mTemperature != null) {
             mTemperature.setBattery(mBatteryRaw);
         }
@@ -1039,6 +1020,20 @@ public class OverallFragment extends RecyclerViewFragment {
                 mUsages.add(view);
                 subView.addView(view);
             }
+            if (GPUFreqExynos.getInstance().hasCurFreq()) {
+                subView = new LinearLayout(getActivity());
+                subView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT, 1));
+                rootView.addView(subView);
+
+                View view = inflater.inflate(R.layout.fragment_usage_view, subView, false);
+                view.setLayoutParams(new LinearLayout
+                        .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT, 1));
+                ((TextView) view.findViewById(R.id.usage_core_text)).setText(getString(R.string.gpu));
+                mUsages.add(view);
+                subView.addView(view);
+            }
             return rootView;
         }
 
@@ -1067,19 +1062,25 @@ public class OverallFragment extends RecyclerViewFragment {
         };
 
         public void refresh() {
+            CPUFreq cpuFreq = CPUFreq.getInstance(getActivity());
+            GPUFreqExynos exynosGpuFreq = GPUFreqExynos.getInstance();
+
             if (mThread == null) {
                 mThread = new Thread(() -> {
                     while (true) {
                         if (mThread == null) break;
                         try {
-                            CPUFreq cpuFreq = CPUFreq.getInstance(getActivity());
+                            int count = cpuFreq.getCpuCount() + (exynosGpuFreq.hasCurFreq() ? 1 : 0);
                             mCPUUsages = cpuFreq.getCpuUsage();
                             if (mFreqs == null) {
-                                mFreqs = new int[cpuFreq.getCpuCount()];
+                                mFreqs = new int[count];
                             }
                             for (int i = 0; i < mFreqs.length; i++) {
                                 if (getActivity() == null) break;
-                                mFreqs[i] = cpuFreq.getCurFreq(i);
+                                if (exynosGpuFreq.hasCurFreq() && i == mFreqs.length - 1)
+                                    mFreqs[i] = exynosGpuFreq.getCurFreq();
+                                else
+                                    mFreqs[i] = cpuFreq.getCurFreq(i);
                             }
 
                             if (getActivity() == null) {
@@ -1106,12 +1107,23 @@ public class OverallFragment extends RecyclerViewFragment {
                     usageFreqText.setVisibility(View.GONE);
                     usageGraph.addPercentage(0);
                 } else {
+                    int load, divide;
                     usageOfflineText.setVisibility(View.GONE);
                     usageLoadText.setVisibility(View.VISIBLE);
                     usageFreqText.setVisibility(View.VISIBLE);
-                    usageFreqText.setText(Utils.strFormat("%d" + getString(R.string.mhz), mFreqs[i] / 1000));
-                    usageLoadText.setText(Utils.strFormat("%d%%", Math.round(mCPUUsages[i + 1])));
-                    usageGraph.addPercentage(Math.round(mCPUUsages[i + 1]));
+                    if (exynosGpuFreq.hasCurFreq() && i == mUsages.size() - 1) {
+                        divide = 1;
+                        if (exynosGpuFreq.hasUsage())
+                            load = exynosGpuFreq.getUsage();
+                        else
+                            load = 0;
+                    } else {
+                        divide = 1000;
+                        load = Math.round(mCPUUsages[i + 1]);
+                    }
+                    usageFreqText.setText(Utils.strFormat("%d" + getString(R.string.mhz), mFreqs[i] / divide));
+                    usageLoadText.setText(Utils.strFormat("%d%%", load));
+                    usageGraph.addPercentage(load);
                 }
             }
         }
