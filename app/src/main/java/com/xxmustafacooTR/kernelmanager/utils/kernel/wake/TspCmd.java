@@ -31,7 +31,7 @@ public class TspCmd {
             return isEnabled;
     }
 
-    public static boolean setGloveMode(int mode, Context context) {
+    public static boolean setGloveMode(int mode) {
             String command = "echo 'glove_mode," + mode + "' > " + CMD;
             RootUtils.SU su = new RootUtils.SU(true, false);
 

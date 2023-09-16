@@ -302,4 +302,12 @@ public class AppSettings {
     public static void resetPreviewPicture(Context context) {
         Prefs.remove(PREVIEW_PICTURE, context);
     }
+
+    public static boolean getGloveModeEnabled(Context context) {
+        return Prefs.getBoolean("auto_adjust_touch", false, context);
+    }
+
+    public static void setGloveModeEnabled(boolean isEnabled, Context context) {
+        Prefs.saveBoolean("auto_adjust_touch", isEnabled, context);
+    }
 }

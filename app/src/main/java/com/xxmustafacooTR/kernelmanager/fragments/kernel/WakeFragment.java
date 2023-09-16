@@ -38,7 +38,7 @@ import com.xxmustafacooTR.kernelmanager.views.recyclerview.SeekBarView;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.SelectView;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.SelectViewCheckbox;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.SwitchView;
-
+import com.xxmustafacooTR.kernelmanager.utils.AppSettings;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -466,13 +466,24 @@ public class WakeFragment extends RecyclerViewFragment {
         SwitchView gloveSwitch = new SwitchView();
         gloveSwitch.setSummary(getString(R.string.glove_mode_summary));
 
+        // Check the saved glove mode state
+        boolean isPrevGloveEnabled = AppSettings.getGloveModeEnabled(getActivity());
+        if (isPrevGloveEnabled) {
+            TspCmd.setGloveMode(1);
+        }
+
         // Update switch
-        boolean isGloveEnabled = TspCmd.isGloveEnabled();
-        gloveSwitch.setChecked(isGloveEnabled);
+        gloveSwitch.setChecked(isPrevGloveEnabled);
 
         gloveSwitch.addOnSwitchListener((switchView, isChecked) -> {
             int newMode = isChecked ? 1 : 0;
-            boolean success = TspCmd.setGloveMode(newMode, getActivity());
+            TspCmd.setGloveMode(newMode);
+            boolean success = TspCmd.isGloveEnabled();
+            if (success) {
+                AppSettings.setGloveModeEnabled(isChecked, getActivity());
+            } else {
+                AppSettings.setGloveModeEnabled(isChecked, getActivity());
+            }
         });
 
         gloveCard.addItem(gloveSwitch);
