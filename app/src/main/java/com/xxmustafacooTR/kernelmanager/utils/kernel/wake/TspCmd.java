@@ -8,7 +8,6 @@ import com.xxmustafacooTR.kernelmanager.utils.Utils;
 import com.xxmustafacooTR.kernelmanager.utils.root.Control;
 import com.xxmustafacooTR.kernelmanager.utils.root.RootUtils;
 
-
 public class TspCmd {
 
     private static final String CMD = "/sys/class/sec/tsp/cmd";
@@ -17,6 +16,32 @@ public class TspCmd {
     private static final String PRESSUREENABLE = "/sys/class/sec/tsp/pressure_enable";
     private static final String FORCEINTENSITY = "/sys/class/timed_output/vibrator/force_touch_intensity";
 
+
+    public static boolean isGloveEnabled() {
+            RootUtils.SU su = new RootUtils.SU(true, false);
+            String resultCommand = "cat " + RESULT;
+
+            // Read CMD_RESULT
+            String result = su.runCommand(resultCommand);
+            su.close();
+
+            // Check
+            boolean isEnabled = result.contains("glove_mode,1:OK");
+
+            return isEnabled;
+    }
+
+    public static boolean setGloveMode(int mode, Context context) {
+            String command = "echo 'glove_mode," + mode + "' > " + CMD;
+            RootUtils.SU su = new RootUtils.SU(true, false);
+
+            // Set glove mode 0 or 1
+            su.runCommand(command);
+            su.close();
+
+            return true;
+    }
+    
     public static int getIntensity() {
         return Utils.strToInt(Utils.readFile(FORCEINTENSITY).replaceAll("[^0-9]", ""));
     }
@@ -52,10 +77,6 @@ public class TspCmd {
 
     public static boolean hasLevel() {
         return Utils.readFile(LIST).contains("set_pressure_user_level");
-    }
-
-    public static void setGlove(int value, Context context) {
-        run(Control.write("glove_mode," + String.valueOf(value), CMD), CMD, context);
     }
 
     public static boolean hasGlove() {

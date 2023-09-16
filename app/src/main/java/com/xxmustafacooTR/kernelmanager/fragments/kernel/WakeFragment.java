@@ -290,31 +290,6 @@ public class WakeFragment extends RecyclerViewFragment {
         items.add(pocket);
     }
 
-    private void gloveInit(List<RecyclerViewItem> items) {
-        CardView gloveCard = new CardView(getActivity());
-        gloveCard.setTitle(getString(R.string.glove_mode));
-
-        ButtonView2 gloveon = new ButtonView2();
-        gloveon.setTitle(getString(R.string.glove_mode_enable));
-        gloveon.setSummary(getString(R.string.glove_mode_summary));
-        gloveon.setButtonText(getString(R.string.ok));
-        gloveon.setOnItemClickListener(view -> {
-            TspCmd.setGlove(1, getActivity());
-        });
-        gloveCard.addItem(gloveon);
-
-        ButtonView2 gloveoff = new ButtonView2();
-        gloveoff.setTitle(getString(R.string.glove_mode_disable));
-        gloveoff.setSummary(getString(R.string.glove_mode_summary));
-        gloveoff.setButtonText(getString(R.string.cancel));
-        gloveoff.setOnItemClickListener(view -> {
-            TspCmd.setGlove(0, getActivity());
-        });
-        gloveCard.addItem(gloveoff);
-
-        items.add(gloveCard);
-    }
-
     private void timeoutInit(List<RecyclerViewItem> items) {
         List<String> list = new ArrayList<>();
         list.add(getString(R.string.disabled));
@@ -484,6 +459,26 @@ public class WakeFragment extends RecyclerViewFragment {
         }
     }
 
+    private void gloveInit(List<RecyclerViewItem> items) {
+        CardView gloveCard = new CardView(getActivity());
+        gloveCard.setTitle(getString(R.string.glove_mode));
+
+        SwitchView gloveSwitch = new SwitchView();
+        gloveSwitch.setSummary(getString(R.string.glove_mode_summary));
+
+        // Update switch
+        boolean isGloveEnabled = TspCmd.isGloveEnabled();
+        gloveSwitch.setChecked(isGloveEnabled);
+
+        gloveSwitch.addOnSwitchListener((switchView, isChecked) -> {
+            int newMode = isChecked ? 1 : 0;
+            boolean success = TspCmd.setGloveMode(newMode, getActivity());
+        });
+
+        gloveCard.addItem(gloveSwitch);
+        items.add(gloveCard);
+    }
+
     private void cmdInit(List<RecyclerViewItem> items) {
         CardView pressureCard = new CardView(getActivity());
         pressureCard.setTitle(getString(R.string.home_3d_button));
@@ -540,5 +535,4 @@ public class WakeFragment extends RecyclerViewFragment {
 
         items.add(pressureCard);
     }
-
 }
