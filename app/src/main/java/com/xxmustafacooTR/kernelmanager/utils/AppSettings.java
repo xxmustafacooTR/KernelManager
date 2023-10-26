@@ -24,6 +24,7 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 
 import com.xxmustafacooTR.kernelmanager.R;
+import com.xxmustafacooTR.kernelmanager.utils.root.RootUtils;
 
 /**
  * Created by willi on 11.03.18.
@@ -304,7 +305,15 @@ public class AppSettings {
     }
 
     public static boolean getGloveModeEnabled(Context context) {
-        return Prefs.getBoolean("auto_adjust_touch", false, context);
+        RootUtils.SU su = new RootUtils.SU(true, false);
+        String result = String.valueOf(su.runCommand("settings list system | grep auto_adjust_touch"));
+
+        if (result.contains("1"))
+            return true;
+        else if (result.contains("0"))
+            return false;
+        else
+            return Prefs.getBoolean("auto_adjust_touch", false, context);
     }
 
     public static void setGloveModeEnabled(boolean isEnabled, Context context) {

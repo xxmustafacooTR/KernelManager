@@ -1570,4 +1570,5 @@
     <string name="gameControl_thermal_bypass_desc">Bypass thermal fully, this could cause very high temps or shutdowns while gaming. To prevent this problem you can lower your freqs.</string>
     <string name="running_games">games are running</string>
     <string name="force_enabled">Force Enabled</string>
+    <string name="error">An error occurred while setting up</string>
 </resources>

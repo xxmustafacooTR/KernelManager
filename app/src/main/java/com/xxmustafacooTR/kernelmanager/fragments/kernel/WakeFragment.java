@@ -19,6 +19,8 @@
  */
 package com.xxmustafacooTR.kernelmanager.fragments.kernel;
 
+import android.widget.Toast;
+
 import com.xxmustafacooTR.kernelmanager.R;
 import com.xxmustafacooTR.kernelmanager.fragments.ApplyOnBootFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.recyclerview.RecyclerViewFragment;
@@ -31,7 +33,6 @@ import com.xxmustafacooTR.kernelmanager.utils.kernel.wake.S2s;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.wake.S2w;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.wake.T2w;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.wake.TspCmd;
-import com.xxmustafacooTR.kernelmanager.views.recyclerview.ButtonView2;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.CardView;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.RecyclerViewItem;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.SeekBarView;
@@ -41,6 +42,7 @@ import com.xxmustafacooTR.kernelmanager.views.recyclerview.SwitchView;
 import com.xxmustafacooTR.kernelmanager.utils.AppSettings;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by willi on 23.06.16.
@@ -461,28 +463,22 @@ public class WakeFragment extends RecyclerViewFragment {
 
     private void gloveInit(List<RecyclerViewItem> items) {
         CardView gloveCard = new CardView(getActivity());
+        AtomicBoolean isPrevGloveEnabled = new AtomicBoolean(AppSettings.getGloveModeEnabled(getActivity()));
         gloveCard.setTitle(getString(R.string.glove_mode));
 
         SwitchView gloveSwitch = new SwitchView();
         gloveSwitch.setSummary(getString(R.string.glove_mode_summary));
 
-        // Check the saved glove mode state
-        boolean isPrevGloveEnabled = AppSettings.getGloveModeEnabled(getActivity());
-        if (isPrevGloveEnabled) {
-            TspCmd.setGloveMode(1);
-        }
-
         // Update switch
-        gloveSwitch.setChecked(isPrevGloveEnabled);
+        gloveSwitch.setChecked(isPrevGloveEnabled.get());
 
         gloveSwitch.addOnSwitchListener((switchView, isChecked) -> {
-            int newMode = isChecked ? 1 : 0;
-            TspCmd.setGloveMode(newMode);
-            boolean success = TspCmd.isGloveEnabled();
-            if (success) {
+            if (TspCmd.setGloveMode(isChecked ? 1 : 0, getActivity())) {
+                isPrevGloveEnabled.set(isChecked);
                 AppSettings.setGloveModeEnabled(isChecked, getActivity());
             } else {
-                AppSettings.setGloveModeEnabled(isChecked, getActivity());
+                gloveSwitch.setChecked(isPrevGloveEnabled.get());
+                Toast.makeText(getActivity(), getString(R.string.error), Toast.LENGTH_LONG).show();
             }
         });
 

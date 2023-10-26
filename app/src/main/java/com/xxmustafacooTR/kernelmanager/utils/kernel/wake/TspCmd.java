@@ -16,30 +16,13 @@ public class TspCmd {
     private static final String PRESSUREENABLE = "/sys/class/sec/tsp/pressure_enable";
     private static final String FORCEINTENSITY = "/sys/class/timed_output/vibrator/force_touch_intensity";
 
-
-    public static boolean isGloveEnabled() {
+    public static boolean setGloveMode(int mode, Context context) {
             RootUtils.SU su = new RootUtils.SU(true, false);
-            String resultCommand = "cat " + RESULT;
-
-            // Read CMD_RESULT
-            String result = su.runCommand(resultCommand);
+            boolean ret;
+            run(Control.write("glove_mode," + mode, CMD) + " && settings put system auto_adjust_touch " + mode, CMD, context);
+            ret = String.valueOf(su.runCommand("echo 'glove_mode," + mode + "' > " + CMD + " && cat " + RESULT)).contains("glove_mode," + mode + ":OK");
             su.close();
-
-            // Check
-            boolean isEnabled = result.contains("glove_mode,1:OK");
-
-            return isEnabled;
-    }
-
-    public static boolean setGloveMode(int mode) {
-            String command = "echo 'glove_mode," + mode + "' > " + CMD;
-            RootUtils.SU su = new RootUtils.SU(true, false);
-
-            // Set glove mode 0 or 1
-            su.runCommand(command);
-            su.close();
-
-            return true;
+            return ret;
     }
     
     public static int getIntensity() {
