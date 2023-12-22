@@ -19,6 +19,8 @@
  */
 package com.xxmustafacooTR.kernelmanager.services.profile;
 
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
+
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -72,7 +74,7 @@ public class Widget extends AppWidgetProvider {
     private PendingIntent getPendingIntent(Context context, String action) {
         Intent intent = new Intent(context, getClass());
         intent.setAction(action);
-        return PendingIntent.getBroadcast(context, 0, intent, 0);
+        return PendingIntent.getBroadcast(context, 0, intent, FLAG_IMMUTABLE);
     }
 
     @Override
