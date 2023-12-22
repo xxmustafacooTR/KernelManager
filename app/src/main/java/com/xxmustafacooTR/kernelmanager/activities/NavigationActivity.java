@@ -65,6 +65,7 @@ import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUVoltageCl1Fragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUHotplugFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUVoltageCl0Fragment;
+import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUVoltageCl2Fragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.EntropyFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.GPUFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.DvfsFragment;
@@ -110,6 +111,7 @@ import com.xxmustafacooTR.kernelmanager.utils.kernel.bus.VoltageMif;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.cpuhotplug.Hotplug;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.cpuvoltage.VoltageCl0;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.cpuvoltage.VoltageCl1;
+import com.xxmustafacooTR.kernelmanager.utils.kernel.cpuvoltage.VoltageCl2;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.entropy.Entropy;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.game.GameControl;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.gpu.GPU;
@@ -323,8 +325,15 @@ public class NavigationActivity extends BaseActivity
         }
         mFragments.add(new NavigationActivity.NavigationFragment(R.string.misc, MiscFragment.class, R.drawable.ic_clear));
         //mFragments.add(new NavigationActivity.NavigationFragment(R.string.voltage_control));
-        if (VoltageCl1.supported()) {
-            mFragments.add(new NavigationActivity.NavigationFragment(R.string.cpucl1_voltage, CPUVoltageCl1Fragment.class, R.drawable.ic_bolt));
+        if (VoltageCl2.supported()) {
+            mFragments.add(new NavigationActivity.NavigationFragment(R.string.cpucl2_voltage, CPUVoltageCl2Fragment.class, R.drawable.ic_bolt));
+            if (VoltageCl1.supported()) {
+                mFragments.add(new NavigationActivity.NavigationFragment(R.string.cpucl1_voltage, CPUVoltageCl1Fragment.class, R.drawable.ic_bolt));
+            }
+        } else {
+            if (VoltageCl1.supported()) {
+                mFragments.add(new NavigationActivity.NavigationFragment(R.string.cpucl2_voltage, CPUVoltageCl1Fragment.class, R.drawable.ic_bolt));
+            }
         }
         if (VoltageCl0.supported()) {
             mFragments.add(new NavigationActivity.NavigationFragment(R.string.cpucl0_voltage, CPUVoltageCl0Fragment.class, R.drawable.ic_bolt));

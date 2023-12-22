@@ -38,6 +38,7 @@ import com.xxmustafacooTR.kernelmanager.fragments.kernel.BusIntFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.BusMifFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUVoltageCl0Fragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUVoltageCl1Fragment;
+import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUVoltageCl2Fragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.GPUFragment;
 import com.xxmustafacooTR.kernelmanager.services.profile.Tile;
 import com.xxmustafacooTR.kernelmanager.utils.AppSettings;
@@ -57,6 +58,7 @@ import com.xxmustafacooTR.kernelmanager.utils.kernel.cpuhotplug.Hotplug;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.cpuhotplug.QcomBcl;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.cpuvoltage.VoltageCl0;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.cpuvoltage.VoltageCl1;
+import com.xxmustafacooTR.kernelmanager.utils.kernel.cpuvoltage.VoltageCl2;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.gpu.GPU;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.gpu.GPUFreqExynos;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.io.IO;
@@ -172,6 +174,9 @@ public class MainActivity extends BaseActivity {
             boolean mIsBooted = AppSettings.getBoolean("is_booted", true, mRefActivity.get());
             if (mIsBooted) {
                 // reset the Global voltages seekbar
+                if (!AppSettings.getBoolean("cpucl2voltage_onboot", false, mRefActivity.get())) {
+                    AppSettings.saveInt("CpuCl2_seekbarPref_value", CPUVoltageCl2Fragment.mDefZeroPosition, mRefActivity.get());
+                }
                 if (!AppSettings.getBoolean("cpucl1voltage_onboot", false, mRefActivity.get())) {
                     AppSettings.saveInt("CpuCl1_seekbarPref_value", CPUVoltageCl1Fragment.mDefZeroPosition, mRefActivity.get());
                 }
@@ -219,6 +224,7 @@ public class MainActivity extends BaseActivity {
                     // Reset voltage_saved to recopy voltage stock files
                     AppSettings.saveBoolean("cl0_voltage_saved", false, mRefActivity.get());
                     AppSettings.saveBoolean("cl1_voltage_saved", false, mRefActivity.get());
+                    AppSettings.saveBoolean("cl2_voltage_saved", false, mRefActivity.get());
                     AppSettings.saveBoolean("busMif_voltage_saved", false, mRefActivity.get());
                     AppSettings.saveBoolean("busInt_voltage_saved", false, mRefActivity.get());
                     AppSettings.saveBoolean("busDisp_voltage_saved", false, mRefActivity.get());
@@ -259,6 +265,14 @@ public class MainActivity extends BaseActivity {
                 if (VoltageCl1.supported()){
                     RootUtils.runCommand("cp " + VoltageCl1.CL1_VOLTAGE + " " + VoltageCl1.BACKUP);
                     AppSettings.saveBoolean("cl1_voltage_saved", true, mRefActivity.get());
+                }
+            }
+
+            // Save backup of Cluster2 stock voltages
+            if (!Utils.existFile(VoltageCl2.BACKUP) || !AppSettings.getBoolean("cl2_voltage_saved", false, mRefActivity.get())){
+                if (VoltageCl2.supported()){
+                    RootUtils.runCommand("cp " + VoltageCl2.CL2_VOLTAGE + " " + VoltageCl2.BACKUP);
+                    AppSettings.saveBoolean("cl2_voltage_saved", true, mRefActivity.get());
                 }
             }
 
@@ -389,6 +403,7 @@ public class MainActivity extends BaseActivity {
             Vibration.getInstance();
             VoltageCl0.supported();
             VoltageCl1.supported();
+            VoltageCl2.supported();
             Wake.supported();
 
         }

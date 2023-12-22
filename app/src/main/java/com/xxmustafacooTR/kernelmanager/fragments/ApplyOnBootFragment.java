@@ -40,6 +40,7 @@ import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUHotplugFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUVoltageCl0Fragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUVoltageCl1Fragment;
+import com.xxmustafacooTR.kernelmanager.fragments.kernel.CPUVoltageCl2Fragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.EntropyFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.kernel.GPUFragment;
 // import com.xxmustafacooTR.kernelmanager.fragments.kernel.SpectrumFragment;
@@ -74,6 +75,7 @@ public class ApplyOnBootFragment extends BaseFragment {
     public static final String CPU = "cpu_onboot";
     public static final String CPU_CL0_VOLTAGE = "cpucl0voltage_onboot";
     public static final String CPU_CL1_VOLTAGE = "cpucl1voltage_onboot";
+    public static final String CPU_CL2_VOLTAGE = "cpucl2voltage_onboot";
     public static final String CPU_HOTPLUG = "cpuhotplug_onboot";
     public static final String BUS_MIF = "busMif_onboot";
     public static final String BUS_INT = "busInt_onboot";
@@ -106,6 +108,7 @@ public class ApplyOnBootFragment extends BaseFragment {
         sAssignments.put(CPUFragment.class, CPU);
         sAssignments.put(CPUVoltageCl0Fragment.class, CPU_CL0_VOLTAGE);
         sAssignments.put(CPUVoltageCl1Fragment.class, CPU_CL1_VOLTAGE);
+        sAssignments.put(CPUVoltageCl2Fragment.class, CPU_CL2_VOLTAGE);
         sAssignments.put(CPUHotplugFragment.class, CPU_HOTPLUG);
         sAssignments.put(BusMifFragment.class, BUS_MIF);
         sAssignments.put(BusIntFragment.class, BUS_INT);

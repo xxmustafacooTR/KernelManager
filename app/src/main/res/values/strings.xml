@@ -113,7 +113,8 @@
     <string name="virtual_memory">Virtual Memory</string>
     <string name="entropy">Entropy</string>
     <string name="misc">Misc</string>
-    <string name="cpucl1_voltage">CPU big Voltage</string>
+    <string name="cpucl2_voltage">CPU Big Voltage</string>
+    <string name="cpucl1_voltage">CPU Middle Voltage</string>
     <string name="cpucl0_voltage">CPU LITTLE Voltage</string>
     <string name="busMif_voltage">Bus MIF Voltages</string>
     <string name="busInt_voltage">Bus INT Voltages</string>
@@ -269,9 +270,11 @@
     <string name="override_vmin_summary">Disable to remove manufacturer limits on undervolting</string>
     <string name="cpu_volt_profile">Voltage Profile</string>
     <string name="cpu_volt_profile_summary">Modify the global voltage</string>
-    <string name="cpuCl1_volt_control">CPU big Voltage Control</string>
+    <string name="cpuCl2_volt_control">CPU Big Voltage Control</string>
+    <string name="cpuCl1_volt_control">CPU Middle Voltage Control</string>
     <string name="cpuCl0_volt_control">CPU LITTLE Voltage Control</string>
-    <string name="cpuCl1_volt">CPU big Voltages</string>
+    <string name="cpuCl2_volt">CPU Big Voltages</string>
+    <string name="cpuCl1_volt">CPU Middle Voltages</string>
     <string name="cpuCl0_volt">CPU LITTLE Voltages</string>
     <string name="cpu_manual_volt">Individual or Global voltage</string>
     <string name="cpu_manual_volt_summaryOn">When you activate Individual Control, the Global Control bar will return to its initial position and you can freely vary the individual bars\n\nGlobal Control Enabled</string>

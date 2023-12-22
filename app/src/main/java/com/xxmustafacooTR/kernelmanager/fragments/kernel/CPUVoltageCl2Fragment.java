@@ -24,7 +24,6 @@ import com.xxmustafacooTR.kernelmanager.fragments.ApplyOnBootFragment;
 import com.xxmustafacooTR.kernelmanager.fragments.recyclerview.RecyclerViewFragment;
 import com.xxmustafacooTR.kernelmanager.utils.AppSettings;
 import com.xxmustafacooTR.kernelmanager.utils.Utils;
-import com.xxmustafacooTR.kernelmanager.utils.kernel.cpuvoltage.VoltageCl1;
 import com.xxmustafacooTR.kernelmanager.utils.kernel.cpuvoltage.VoltageCl2;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.CardView;
 import com.xxmustafacooTR.kernelmanager.views.recyclerview.RecyclerViewItem;
@@ -39,7 +38,7 @@ import java.util.Objects;
 /**
  * Created by willi on 07.05.16.
  */
-public class CPUVoltageCl1Fragment extends RecyclerViewFragment {
+public class CPUVoltageCl2Fragment extends RecyclerViewFragment {
 
     private List<SeekBarView> mVoltages = new ArrayList<>();
     private SeekBarView mSeekbarProf = new SeekBarView();
@@ -60,20 +59,18 @@ public class CPUVoltageCl1Fragment extends RecyclerViewFragment {
     protected void addItems(List<RecyclerViewItem> items) {
         mVoltages.clear();
 
-        final List<String> freqs = VoltageCl1.getFreqs();
-        final List<String> voltages = VoltageCl1.getVoltages();
-        final List<String> voltagesStock = VoltageCl1.getStockVoltages();
+        final List<String> freqs = VoltageCl2.getFreqs();
+        final List<String> voltages = VoltageCl2.getVoltages();
+        final List<String> voltagesStock = VoltageCl2.getStockVoltages();
 
         if (freqs != null && voltages != null && voltagesStock != null && freqs.size() == voltages.size()) {
 
             CardView freqCard = new CardView(getActivity());
-            if (VoltageCl2.supported())
-                freqCard.setTitle(getString(R.string.cpuCl1_volt_control));
-            else
-                freqCard.setTitle(getString(R.string.cpuCl2_volt_control));
+            freqCard.setTitle(getString(R.string.cpuCl2_volt_control));
+
             List<String> progress = new ArrayList<>();
             for (float i = mVoltMinValue; i < (mVoltMaxValue + mVoltStep); i += mVoltStep) {
-                String global = String.valueOf(i / VoltageCl1.getOffset());
+                String global = String.valueOf(i / VoltageCl2.getOffset());
                 progress.add(global);
             }
 
@@ -81,7 +78,7 @@ public class CPUVoltageCl1Fragment extends RecyclerViewFragment {
 
             freqCard.addItem(mSeekbarProf);
 
-            Boolean enableGlobal = AppSettings.getBoolean("CpuCl1_global_volts", true, getActivity());
+            Boolean enableGlobal = AppSettings.getBoolean("CpuCl2_global_volts", true, getActivity());
 
             SwitchView voltControl = new SwitchView();
             voltControl.setTitle(getString(R.string.cpu_manual_volt));
@@ -90,13 +87,13 @@ public class CPUVoltageCl1Fragment extends RecyclerViewFragment {
             voltControl.setChecked(enableGlobal);
             voltControl.addOnSwitchListener((switchView, isChecked) -> {
                 if(isChecked) {
-                    AppSettings.saveBoolean("CpuCl1_global_volts", true, getActivity());
-                    AppSettings.saveBoolean("CpuCl1_individual_volts", false, getActivity());
+                    AppSettings.saveBoolean("CpuCl2_global_volts", true, getActivity());
+                    AppSettings.saveBoolean("CpuCl2_individual_volts", false, getActivity());
                     reload();
                 }else{
-                    AppSettings.saveBoolean("CpuCl1_global_volts", false, getActivity());
-                    AppSettings.saveBoolean("CpuCl1_individual_volts", true, getActivity());
-                    AppSettings.saveInt("CpuCl1_SeekbarPref_value", mDefZeroPosition, getActivity());
+                    AppSettings.saveBoolean("CpuCl2_global_volts", false, getActivity());
+                    AppSettings.saveBoolean("CpuCl2_individual_volts", true, getActivity());
+                    AppSettings.saveInt("CpuCl2_SeekbarPref_value", mDefZeroPosition, getActivity());
                     reload();
                 }
             });
@@ -108,10 +105,7 @@ public class CPUVoltageCl1Fragment extends RecyclerViewFragment {
             }
 
             TitleView tunables = new TitleView();
-            if (VoltageCl2.supported())
-                tunables.setText(getString(R.string.cpuCl1_volt));
-            else
-                tunables.setText(getString(R.string.cpuCl2_volt));
+            tunables.setText(getString(R.string.cpuCl2_volt));
             items.add(tunables);
 
             for (int i = 0; i < freqs.size(); i++) {
@@ -126,8 +120,8 @@ public class CPUVoltageCl1Fragment extends RecyclerViewFragment {
     private void seekbarProfInit(SeekBarView seekbar, final List<String> freqs, final List<String> voltages,
                                  final List<String> voltagesStock, List<String> progress) {
 
-        Boolean enableSeekbar = AppSettings.getBoolean("CpuCl1_global_volts", true, getActivity());
-        int global = AppSettings.getInt("CpuCl1_SeekbarPref_value", mDefZeroPosition, getActivity());
+        Boolean enableSeekbar = AppSettings.getBoolean("CpuCl2_global_volts", true, getActivity());
+        int global = AppSettings.getInt("CpuCl2_SeekbarPref_value", mDefZeroPosition, getActivity());
 
         int value = 0;
         for (int i = 0; i < progress.size(); i++) {
@@ -151,8 +145,8 @@ public class CPUVoltageCl1Fragment extends RecyclerViewFragment {
                 for (int i = 0; i < voltages.size(); i++) {
                     String volt = String.valueOf(Utils.strToFloat(voltagesStock.get(i)) + Utils.strToFloat(value));
                     String freq = freqs.get(i);
-                    VoltageCl1.setVoltage(freq, volt, getActivity());
-                    AppSettings.saveInt("CpuCl1_SeekbarPref_value", position, getActivity());
+                    VoltageCl2.setVoltage(freq, volt, getActivity());
+                    AppSettings.saveInt("CpuCl2_SeekbarPref_value", position, getActivity());
                 }
                 getHandler().postDelayed(() -> reload(), 100); // was 200
             }
@@ -165,7 +159,7 @@ public class CPUVoltageCl1Fragment extends RecyclerViewFragment {
     private void seekbarInit(SeekBarView seekbar, final String freq, String voltage,
                              String voltageStock) {
 
-        int mOffset = VoltageCl1.getOffset();
+        int mOffset = VoltageCl2.getOffset();
         float mMin = (Utils.strToFloat(voltageStock) - (- mVoltMinValue / 1000)) * mOffset;
         float mMax = ((Utils.strToFloat(voltageStock) + (mVoltMaxValue / 1000)) * mOffset) + mVoltStep;
 
@@ -183,7 +177,7 @@ public class CPUVoltageCl1Fragment extends RecyclerViewFragment {
             }
         }
 
-        Boolean enableSeekbar = AppSettings.getBoolean("CpuCl1_individual_volts", false, getActivity());
+        Boolean enableSeekbar = AppSettings.getBoolean("CpuCl2_individual_volts", false, getActivity());
 
         seekbar.setTitle(freq + " " + getString(R.string.mhz));
         seekbar.setSummary(getString(R.string.def) + ": " + voltageStock + " " + getString(R.string.mv));
@@ -197,7 +191,7 @@ public class CPUVoltageCl1Fragment extends RecyclerViewFragment {
 
             @Override
             public void onStop(SeekBarView seekBarView, int position, String value) {
-                VoltageCl1.setVoltage(freq, value, getActivity());
+                VoltageCl2.setVoltage(freq, value, getActivity());
                 getHandler().postDelayed(() -> reload(), 100); // was 200
             }
 
@@ -208,9 +202,9 @@ public class CPUVoltageCl1Fragment extends RecyclerViewFragment {
     }
 
     private void reload() {
-        List<String> freqs = VoltageCl1.getFreqs();
-        List<String> voltages = VoltageCl1.getVoltages();
-        List<String> voltagesStock = VoltageCl1.getStockVoltages();
+        List<String> freqs = VoltageCl2.getFreqs();
+        List<String> voltages = VoltageCl2.getVoltages();
+        List<String> voltagesStock = VoltageCl2.getStockVoltages();
 
         if (freqs != null && voltages != null && voltagesStock != null) {
             for (int i = 0; i < mVoltages.size(); i++) {
@@ -218,7 +212,7 @@ public class CPUVoltageCl1Fragment extends RecyclerViewFragment {
             }
             List<String> progress = new ArrayList<>();
             for (float i = mVoltMinValue; i < (mVoltMaxValue + mVoltStep); i += mVoltStep) {
-                String global = String.valueOf(i / VoltageCl1.getOffset());
+                String global = String.valueOf(i / VoltageCl2.getOffset());
                 progress.add(global);
             }
             seekbarProfInit(mSeekbarProf, freqs, voltages, voltagesStock, progress);
