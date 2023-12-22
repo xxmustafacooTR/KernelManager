@@ -22,6 +22,7 @@ package com.xxmustafacooTR.kernelmanager.activities;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -320,6 +321,13 @@ public class MainActivity extends BaseActivity {
             // Save GPU libs version
             AppSettings.saveString("gpu_lib_version",
                         RootUtils.runCommand("dumpsys SurfaceFlinger | grep GLES | head -n 1 | cut -f 3,4,5 -d ','"), mRefActivity.get());
+
+            // Workaround fix for OneUI 6 Dynamic Hz
+            if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU && !Device.getModel().contains("SM-S9")) {
+                String ret = RootUtils.runCommand("settings list system | grep min_refresh_rate");
+                if (!(Utils.strToInt(ret.trim()) > 4))
+                    RootUtils.runCommand("settings put system min_refresh_rate 60");
+            }
         }
 
         @Override
