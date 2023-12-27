@@ -28,7 +28,7 @@ public class Wake {
         return Dt2w.getInstance().supported() || S2w.getInstance().supported()
                 || T2w.getInstance().supported() || Dt2s.getInstance().supported()
                 || S2s.getInstance().supported() || Misc.getInstance().supported()
-                || Gestures.supported();
+                || Gestures.supported() || TspCmd.supported();
     }
 
 }
